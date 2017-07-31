@@ -6,4 +6,5 @@ target 'ReciteWords' do
   pod 'AFNetworking'
   pod 'SJDBMap'
   pod 'Masonry'  
+  pod 'SVProgressHUD'
 end

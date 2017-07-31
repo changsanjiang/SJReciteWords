@@ -16,17 +16,20 @@ PODS:
     - AFNetworking/NSURLSession
   - Masonry (1.0.2)
   - SJDBMap (1.0.9)
+  - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
   - AFNetworking
   - Masonry
   - SJDBMap
+  - SVProgressHUD
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   SJDBMap: 361310a4e9c9a933f4c84ea44ab5633ea1416bf8
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: 5d795c016b3dd6b2f15556b4d474cefc80e0399b
+PODFILE CHECKSUM: 0bb531ed3f9f8ae7ce11f8418c0d739336d6904b
 
 COCOAPODS: 1.2.0

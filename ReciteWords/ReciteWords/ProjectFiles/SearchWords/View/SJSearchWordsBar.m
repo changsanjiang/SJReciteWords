@@ -36,6 +36,9 @@
 
 - (void)clickedBtn:(UIButton *)btn {
     NSLog(@"clicked search btn.");
+    if ( 0 == _inputView.text.length ) return;
+    if ( ![self.delegate respondsToSelector:@selector(finishedInputWithSearchWordsBar:content:)] ) return;
+    [self.delegate finishedInputWithSearchWordsBar:self content:_inputView.text];
 }
 
 
@@ -101,8 +104,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-//    if ( ![self.delegate respondsToSelector:@selector(clickedSendBtnOnInputBar:userInput:)] ) return YES;
-//    [self.delegate clickedSendBtnOnInputBar:self userInput:textField.text];
+    if ( 0 == _inputView.text.length ) return YES;
+    if ( ![self.delegate respondsToSelector:@selector(finishedInputWithSearchWordsBar:content:)] ) return YES;
+    [self.delegate finishedInputWithSearchWordsBar:self content:textField.text];
     return YES;
 }
 

@@ -18,4 +18,8 @@
 
 @property (nonatomic, strong) NSString *us_audio;
 
+@property (nonatomic, strong) NSString *uk_audio;
+
++ (instancetype)wordInfoWithDictionary:(NSDictionary *)dict;
+
 @end

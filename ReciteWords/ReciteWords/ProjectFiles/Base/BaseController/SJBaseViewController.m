@@ -15,11 +15,17 @@
 
 @implementation SJBaseViewController
 
+// MARK: 生命周期
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     [self setupUI];
     
+}
+
+- (void)dealloc {
+    [SVProgressHUD dismiss];
 }
 
 // MARK: Actions

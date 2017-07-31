@@ -14,4 +14,14 @@
     
 }
 
++ (instancetype)wordInfoWithDictionary:(NSDictionary *)dict {
+    SJWordInfo *info = [SJWordInfo new];
+    [info setValuesForKeysWithDictionary:dict];
+    return info;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@" {\n\t definition:%@,\n\t content:%@,\n\t pronunciation:%@,\n\t us_audio:%@,\n\t}", self.definition, self.content, self.pronunciation, self.us_audio];
+}
+
 @end

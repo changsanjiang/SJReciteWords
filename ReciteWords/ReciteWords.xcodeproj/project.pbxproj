@@ -16,7 +16,6 @@
 		778137311F2F571200F3CAA8 /* SJBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137301F2F571200F3CAA8 /* SJBaseNavigationController.m */; };
 		778137341F2F578700F3CAA8 /* SJReciteWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137331F2F578700F3CAA8 /* SJReciteWordsViewController.m */; };
 		778137381F2F581000F3CAA8 /* SJTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137371F2F581000F3CAA8 /* SJTabBarController.m */; };
-		7781373C1F2F59AC00F3CAA8 /* SJSearchWordsBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781373B1F2F59AC00F3CAA8 /* SJSearchWordsBar.m */; };
 		778137421F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137411F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m */; };
 		778137471F2F5EA600F3CAA8 /* SJWordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137461F2F5EA600F3CAA8 /* SJWordInfo.m */; };
 		7781374C1F2F5FBB00F3CAA8 /* DBNetworkingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781374B1F2F5FBB00F3CAA8 /* DBNetworkingServer.m */; };
@@ -24,6 +23,11 @@
 		778137551F2F651B00F3CAA8 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137541F2F651B00F3CAA8 /* UIView+Extension.m */; };
 		778137581F2F676A00F3CAA8 /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137571F2F676A00F3CAA8 /* NSObject+Extension.m */; };
 		7781375B1F2F68FE00F3CAA8 /* SJDataServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781375A1F2F68FE00F3CAA8 /* SJDataServer.m */; };
+		7781375E1F2F6DF500F3CAA8 /* SJSearchWordsBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781375D1F2F6DF500F3CAA8 /* SJSearchWordsBar.m */; };
+		778137641F2F711A00F3CAA8 /* SJWordInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137631F2F711A00F3CAA8 /* SJWordInfoView.m */; };
+		778137681F2F831300F3CAA8 /* DBAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137671F2F831300F3CAA8 /* DBAudioPlayer.m */; };
+		7781376B1F2F833D00F3CAA8 /* YYTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781376A1F2F833D00F3CAA8 /* YYTimer.m */; };
+		7781376E1F2F838900F3CAA8 /* SJAudioPlayerServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781376D1F2F838900F3CAA8 /* SJAudioPlayerServer.m */; };
 		FCF1E8DF579BEC560FA480AB /* libPods-ReciteWords.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 703C99FE84BDA0DBF58CB7CB /* libPods-ReciteWords.a */; };
 /* End PBXBuildFile section */
 
@@ -46,8 +50,6 @@
 		778137331F2F578700F3CAA8 /* SJReciteWordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJReciteWordsViewController.m; sourceTree = "<group>"; };
 		778137361F2F581000F3CAA8 /* SJTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJTabBarController.h; sourceTree = "<group>"; };
 		778137371F2F581000F3CAA8 /* SJTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJTabBarController.m; sourceTree = "<group>"; };
-		7781373A1F2F59AC00F3CAA8 /* SJSearchWordsBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSearchWordsBar.h; sourceTree = "<group>"; };
-		7781373B1F2F59AC00F3CAA8 /* SJSearchWordsBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSearchWordsBar.m; sourceTree = "<group>"; };
 		778137401F2F5ADA00F3CAA8 /* SJSearchWordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSearchWordsViewController.h; sourceTree = "<group>"; };
 		778137411F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSearchWordsViewController.m; sourceTree = "<group>"; };
 		778137451F2F5EA600F3CAA8 /* SJWordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWordInfo.h; sourceTree = "<group>"; };
@@ -63,6 +65,16 @@
 		778137571F2F676A00F3CAA8 /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
 		778137591F2F68FE00F3CAA8 /* SJDataServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJDataServer.h; sourceTree = "<group>"; };
 		7781375A1F2F68FE00F3CAA8 /* SJDataServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJDataServer.m; sourceTree = "<group>"; };
+		7781375C1F2F6DF500F3CAA8 /* SJSearchWordsBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSearchWordsBar.h; sourceTree = "<group>"; };
+		7781375D1F2F6DF500F3CAA8 /* SJSearchWordsBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSearchWordsBar.m; sourceTree = "<group>"; };
+		778137621F2F711A00F3CAA8 /* SJWordInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWordInfoView.h; sourceTree = "<group>"; };
+		778137631F2F711A00F3CAA8 /* SJWordInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordInfoView.m; sourceTree = "<group>"; };
+		778137661F2F831300F3CAA8 /* DBAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAudioPlayer.h; sourceTree = "<group>"; };
+		778137671F2F831300F3CAA8 /* DBAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAudioPlayer.m; sourceTree = "<group>"; };
+		778137691F2F833D00F3CAA8 /* YYTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTimer.h; sourceTree = "<group>"; };
+		7781376A1F2F833D00F3CAA8 /* YYTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTimer.m; sourceTree = "<group>"; };
+		7781376C1F2F838900F3CAA8 /* SJAudioPlayerServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAudioPlayerServer.h; sourceTree = "<group>"; };
+		7781376D1F2F838900F3CAA8 /* SJAudioPlayerServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAudioPlayerServer.m; sourceTree = "<group>"; };
 		A8901B06E98165B83D4DF7C8 /* Pods-ReciteWords.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReciteWords.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReciteWords/Pods-ReciteWords.release.xcconfig"; sourceTree = "<group>"; };
 		FA68CC42C134EA75944ACE4C /* Pods-ReciteWords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReciteWords.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ReciteWords/Pods-ReciteWords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,8 +230,6 @@
 		778137391F2F598200F3CAA8 /* SmallView */ = {
 			isa = PBXGroup;
 			children = (
-				7781373A1F2F59AC00F3CAA8 /* SJSearchWordsBar.h */,
-				7781373B1F2F59AC00F3CAA8 /* SJSearchWordsBar.m */,
 			);
 			path = SmallView;
 			sourceTree = "<group>";
@@ -246,6 +256,8 @@
 		7781373F1F2F5ABE00F3CAA8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7781375C1F2F6DF500F3CAA8 /* SJSearchWordsBar.h */,
+				7781375D1F2F6DF500F3CAA8 /* SJSearchWordsBar.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -272,6 +284,7 @@
 		778137481F2F5F7900F3CAA8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				778137651F2F801700F3CAA8 /* UsAudioPlay */,
 				778137491F2F5F8E00F3CAA8 /* Networking */,
 			);
 			path = Services;
@@ -304,8 +317,24 @@
 			children = (
 				7781374F1F2F631400F3CAA8 /* SJBorderlineView.h */,
 				778137501F2F631400F3CAA8 /* SJBorderlineView.m */,
+				778137621F2F711A00F3CAA8 /* SJWordInfoView.h */,
+				778137631F2F711A00F3CAA8 /* SJWordInfoView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		778137651F2F801700F3CAA8 /* UsAudioPlay */ = {
+			isa = PBXGroup;
+			children = (
+				7781376C1F2F838900F3CAA8 /* SJAudioPlayerServer.h */,
+				7781376D1F2F838900F3CAA8 /* SJAudioPlayerServer.m */,
+				778137661F2F831300F3CAA8 /* DBAudioPlayer.h */,
+				778137671F2F831300F3CAA8 /* DBAudioPlayer.m */,
+				778137691F2F833D00F3CAA8 /* YYTimer.h */,
+				7781376A1F2F833D00F3CAA8 /* YYTimer.m */,
+			);
+			name = UsAudioPlay;
+			path = UsAudio;
 			sourceTree = "<group>";
 		};
 		CF5E551914C6072B36A2F600 /* Frameworks */ = {
@@ -443,14 +472,18 @@
 				778137041F2F558200F3CAA8 /* main.m in Sources */,
 				778137551F2F651B00F3CAA8 /* UIView+Extension.m in Sources */,
 				778137261F2F565C00F3CAA8 /* SJBaseView.m in Sources */,
+				7781375E1F2F6DF500F3CAA8 /* SJSearchWordsBar.m in Sources */,
+				7781376B1F2F833D00F3CAA8 /* YYTimer.m in Sources */,
 				778137341F2F578700F3CAA8 /* SJReciteWordsViewController.m in Sources */,
 				778137581F2F676A00F3CAA8 /* NSObject+Extension.m in Sources */,
-				7781373C1F2F59AC00F3CAA8 /* SJSearchWordsBar.m in Sources */,
+				778137681F2F831300F3CAA8 /* DBAudioPlayer.m in Sources */,
 				7781375B1F2F68FE00F3CAA8 /* SJDataServer.m in Sources */,
 				778137421F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m in Sources */,
 				778137381F2F581000F3CAA8 /* SJTabBarController.m in Sources */,
 				778137231F2F565100F3CAA8 /* SJBaseViewController.m in Sources */,
+				778137641F2F711A00F3CAA8 /* SJWordInfoView.m in Sources */,
 				7781374C1F2F5FBB00F3CAA8 /* DBNetworkingServer.m in Sources */,
+				7781376E1F2F838900F3CAA8 /* SJAudioPlayerServer.m in Sources */,
 				778137471F2F5EA600F3CAA8 /* SJWordInfo.m in Sources */,
 				778137311F2F571200F3CAA8 /* SJBaseNavigationController.m in Sources */,
 				778137511F2F631400F3CAA8 /* SJBorderlineView.m in Sources */,

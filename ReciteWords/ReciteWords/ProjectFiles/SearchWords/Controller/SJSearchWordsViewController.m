@@ -9,6 +9,8 @@
 #import "SJSearchWordsViewController.h"
 #import "SJSearchWordsBar.h"
 #import <objc/message.h>
+#import "SJWordInfo.h"
+#import "SJWordInfoView.h"
 
 // MARK: 通知处理
 
@@ -20,16 +22,21 @@
 
 @end
 
+@interface SJSearchWordsViewController (SJWordInfoViewDelegateMethods)<SJWordInfoViewDelegate> @end
+
+@interface SJSearchWordsViewController (SJSearchWordsBarDelegateMethods)<SJSearchWordsBarDelegate> @end
 
 @interface SJSearchWordsViewController ()
 
 @property (nonatomic, strong, readonly) SJSearchWordsBar *searchBar;
+@property (nonatomic, strong, readonly) SJWordInfoView *wordInfoView;
 
 @end
 
 @implementation SJSearchWordsViewController
 
 @synthesize searchBar = _searchBar;
+@synthesize wordInfoView = _wordInfoView;
 
 // MARK: 生命周期
 
@@ -58,10 +65,19 @@
     self.title = @"单词搜索";
     
     [self.view addSubview:self.searchBar];
+    [self.view addSubview:self.wordInfoView];
+    
+    _searchBar.delegate = self;
     
     [_searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.bottom.trailing.offset(0);
         make.height.offset(44);
+    }];
+    
+    [_wordInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.offset(64);
+        make.leading.trailing.offset(0);
+        make.height.equalTo(self.view.mas_height).multipliedBy(0.6);
     }];
 }
 
@@ -71,6 +87,12 @@
     return _searchBar;
 }
 
+- (SJWordInfoView *)wordInfoView {
+    if ( _wordInfoView ) return _wordInfoView;
+    _wordInfoView = [SJWordInfoView new];
+    _wordInfoView.delegate = self;
+    return _wordInfoView;
+}
 @end
 
 
@@ -130,3 +152,32 @@
 
 @end
 
+
+
+@implementation SJSearchWordsViewController (SJSearchWordsBarDelegateMethods)
+
+- (void)finishedInputWithSearchWordsBar:(SJSearchWordsBar *)bar content:(NSString *)content {
+    [SVProgressHUD showWithStatus:@"请求中..."];
+    __weak typeof(self) _self = self;
+    [DataServices searchWordWithContent:content callBlock:^(SJWordInfo *wordInfo) {
+        [SVProgressHUD dismiss];
+        __strong typeof(_self) self = _self;
+        if ( !self ) return;
+        self.wordInfoView.wordInfo = wordInfo;
+        [Player playWithURLStr:wordInfo.us_audio];
+    }];
+}
+
+@end
+
+
+@implementation SJSearchWordsViewController (SJWordInfoViewDelegateMethods)
+
+- (void)clickedUSPlayBtnOnWordInfoView:(SJWordInfoView *)view {
+    [Player playWithURLStr:view.wordInfo.us_audio];
+}
+
+- (void)clickedUKPlayBtnOnWordInfoView:(SJWordInfoView *)view {
+    [Player playWithURLStr:view.wordInfo.uk_audio];
+}
+@end
