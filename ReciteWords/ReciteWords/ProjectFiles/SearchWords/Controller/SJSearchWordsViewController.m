@@ -64,6 +64,8 @@
     self.navigationItem.rightBarButtonItem = nil;
     self.title = @"单词搜索";
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     [self.view addSubview:self.searchBar];
     [self.view addSubview:self.wordInfoView];
     
@@ -75,7 +77,7 @@
     }];
     
     [_wordInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(64);
+        make.top.offset(20);
         make.leading.trailing.offset(0);
         make.height.equalTo(self.view.mas_height).multipliedBy(0.6);
     }];
