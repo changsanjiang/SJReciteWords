@@ -301,6 +301,7 @@ extern double usedMemory() {
 
 
 BOOL sjSaveImage(UIImage *image, NSString *savePath) {
+    if ( !image ) return NO;
     // 缩放保存
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
     // 将图片写入文件

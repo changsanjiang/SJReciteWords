@@ -16,6 +16,8 @@
 #import <SVProgressHUD.h>
 #import "SJAudioPlayerServer.h"
 
+typedef NSString * CellID;
+
 // 设备屏幕尺寸
 #define SJ_W  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
 #define SJ_H  MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)

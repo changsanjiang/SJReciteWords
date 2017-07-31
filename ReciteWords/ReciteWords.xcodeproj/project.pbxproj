@@ -28,6 +28,8 @@
 		778137681F2F831300F3CAA8 /* DBAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137671F2F831300F3CAA8 /* DBAudioPlayer.m */; };
 		7781376B1F2F833D00F3CAA8 /* YYTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781376A1F2F833D00F3CAA8 /* YYTimer.m */; };
 		7781376E1F2F838900F3CAA8 /* SJAudioPlayerServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781376D1F2F838900F3CAA8 /* SJAudioPlayerServer.m */; };
+		778137711F2F921B00F3CAA8 /* SJReciteWordsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137701F2F921B00F3CAA8 /* SJReciteWordsCollectionViewCell.m */; };
+		778137751F2F948C00F3CAA8 /* SJLocalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137741F2F948C00F3CAA8 /* SJLocalDataManager.m */; };
 		FCF1E8DF579BEC560FA480AB /* libPods-ReciteWords.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 703C99FE84BDA0DBF58CB7CB /* libPods-ReciteWords.a */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +77,10 @@
 		7781376A1F2F833D00F3CAA8 /* YYTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTimer.m; sourceTree = "<group>"; };
 		7781376C1F2F838900F3CAA8 /* SJAudioPlayerServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJAudioPlayerServer.h; sourceTree = "<group>"; };
 		7781376D1F2F838900F3CAA8 /* SJAudioPlayerServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJAudioPlayerServer.m; sourceTree = "<group>"; };
+		7781376F1F2F921B00F3CAA8 /* SJReciteWordsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJReciteWordsCollectionViewCell.h; sourceTree = "<group>"; };
+		778137701F2F921B00F3CAA8 /* SJReciteWordsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJReciteWordsCollectionViewCell.m; sourceTree = "<group>"; };
+		778137731F2F948C00F3CAA8 /* SJLocalDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLocalDataManager.h; sourceTree = "<group>"; };
+		778137741F2F948C00F3CAA8 /* SJLocalDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLocalDataManager.m; sourceTree = "<group>"; };
 		A8901B06E98165B83D4DF7C8 /* Pods-ReciteWords.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReciteWords.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReciteWords/Pods-ReciteWords.release.xcconfig"; sourceTree = "<group>"; };
 		FA68CC42C134EA75944ACE4C /* Pods-ReciteWords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReciteWords.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ReciteWords/Pods-ReciteWords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,7 +152,7 @@
 			children = (
 				778137481F2F5F7900F3CAA8 /* Services */,
 				7781371A1F2F55E100F3CAA8 /* Base */,
-				778137431F2F5E8B00F3CAA8 /* Common */,
+				778137431F2F5E8B00F3CAA8 /* 常用 */,
 				778137391F2F598200F3CAA8 /* SmallView */,
 				778137351F2F581000F3CAA8 /* TabBarController */,
 				778137271F2F56C900F3CAA8 /* 背单词 */,
@@ -214,6 +220,8 @@
 		7781372A1F2F56C900F3CAA8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7781376F1F2F921B00F3CAA8 /* SJReciteWordsCollectionViewCell.h */,
+				778137701F2F921B00F3CAA8 /* SJReciteWordsCollectionViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -262,13 +270,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		778137431F2F5E8B00F3CAA8 /* Common */ = {
+		778137431F2F5E8B00F3CAA8 /* 常用 */ = {
 			isa = PBXGroup;
 			children = (
 				7781374D1F2F62FA00F3CAA8 /* Category */,
 				7781374E1F2F62FA00F3CAA8 /* View */,
 				778137441F2F5E8B00F3CAA8 /* Model */,
 			);
+			name = "常用";
 			path = Common;
 			sourceTree = "<group>";
 		};
@@ -284,13 +293,14 @@
 		778137481F2F5F7900F3CAA8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				778137651F2F801700F3CAA8 /* UsAudioPlay */,
-				778137491F2F5F8E00F3CAA8 /* Networking */,
+				778137651F2F801700F3CAA8 /* 发音 */,
+				778137491F2F5F8E00F3CAA8 /* 网络请求 */,
+				778137721F2F946700F3CAA8 /* 本地数据库 */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		778137491F2F5F8E00F3CAA8 /* Networking */ = {
+		778137491F2F5F8E00F3CAA8 /* 网络请求 */ = {
 			isa = PBXGroup;
 			children = (
 				778137591F2F68FE00F3CAA8 /* SJDataServer.h */,
@@ -298,6 +308,7 @@
 				7781374A1F2F5FBB00F3CAA8 /* DBNetworkingServer.h */,
 				7781374B1F2F5FBB00F3CAA8 /* DBNetworkingServer.m */,
 			);
+			name = "网络请求";
 			path = Networking;
 			sourceTree = "<group>";
 		};
@@ -323,7 +334,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		778137651F2F801700F3CAA8 /* UsAudioPlay */ = {
+		778137651F2F801700F3CAA8 /* 发音 */ = {
 			isa = PBXGroup;
 			children = (
 				7781376C1F2F838900F3CAA8 /* SJAudioPlayerServer.h */,
@@ -333,8 +344,18 @@
 				778137691F2F833D00F3CAA8 /* YYTimer.h */,
 				7781376A1F2F833D00F3CAA8 /* YYTimer.m */,
 			);
-			name = UsAudioPlay;
+			name = "发音";
 			path = UsAudio;
+			sourceTree = "<group>";
+		};
+		778137721F2F946700F3CAA8 /* 本地数据库 */ = {
+			isa = PBXGroup;
+			children = (
+				778137731F2F948C00F3CAA8 /* SJLocalDataManager.h */,
+				778137741F2F948C00F3CAA8 /* SJLocalDataManager.m */,
+			);
+			name = "本地数据库";
+			path = LocalData;
 			sourceTree = "<group>";
 		};
 		CF5E551914C6072B36A2F600 /* Frameworks */ = {
@@ -469,6 +490,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				778137071F2F558200F3CAA8 /* AppDelegate.m in Sources */,
+				778137711F2F921B00F3CAA8 /* SJReciteWordsCollectionViewCell.m in Sources */,
+				778137751F2F948C00F3CAA8 /* SJLocalDataManager.m in Sources */,
 				778137041F2F558200F3CAA8 /* main.m in Sources */,
 				778137551F2F651B00F3CAA8 /* UIView+Extension.m in Sources */,
 				778137261F2F565C00F3CAA8 /* SJBaseView.m in Sources */,
