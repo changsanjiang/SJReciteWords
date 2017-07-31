@@ -18,9 +18,17 @@
 		778137381F2F581000F3CAA8 /* SJTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137371F2F581000F3CAA8 /* SJTabBarController.m */; };
 		7781373C1F2F59AC00F3CAA8 /* SJSearchWordsBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781373B1F2F59AC00F3CAA8 /* SJSearchWordsBar.m */; };
 		778137421F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137411F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m */; };
+		778137471F2F5EA600F3CAA8 /* SJWordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137461F2F5EA600F3CAA8 /* SJWordInfo.m */; };
+		7781374C1F2F5FBB00F3CAA8 /* DBNetworkingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781374B1F2F5FBB00F3CAA8 /* DBNetworkingServer.m */; };
+		778137511F2F631400F3CAA8 /* SJBorderlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137501F2F631400F3CAA8 /* SJBorderlineView.m */; };
+		778137551F2F651B00F3CAA8 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137541F2F651B00F3CAA8 /* UIView+Extension.m */; };
+		778137581F2F676A00F3CAA8 /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137571F2F676A00F3CAA8 /* NSObject+Extension.m */; };
+		7781375B1F2F68FE00F3CAA8 /* SJDataServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781375A1F2F68FE00F3CAA8 /* SJDataServer.m */; };
+		FCF1E8DF579BEC560FA480AB /* libPods-ReciteWords.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 703C99FE84BDA0DBF58CB7CB /* libPods-ReciteWords.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		703C99FE84BDA0DBF58CB7CB /* libPods-ReciteWords.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReciteWords.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		778136FF1F2F558200F3CAA8 /* ReciteWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReciteWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		778137031F2F558200F3CAA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		778137051F2F558200F3CAA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -42,6 +50,21 @@
 		7781373B1F2F59AC00F3CAA8 /* SJSearchWordsBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSearchWordsBar.m; sourceTree = "<group>"; };
 		778137401F2F5ADA00F3CAA8 /* SJSearchWordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSearchWordsViewController.h; sourceTree = "<group>"; };
 		778137411F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSearchWordsViewController.m; sourceTree = "<group>"; };
+		778137451F2F5EA600F3CAA8 /* SJWordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWordInfo.h; sourceTree = "<group>"; };
+		778137461F2F5EA600F3CAA8 /* SJWordInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordInfo.m; sourceTree = "<group>"; };
+		7781374A1F2F5FBB00F3CAA8 /* DBNetworkingServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBNetworkingServer.h; sourceTree = "<group>"; };
+		7781374B1F2F5FBB00F3CAA8 /* DBNetworkingServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBNetworkingServer.m; sourceTree = "<group>"; };
+		7781374F1F2F631400F3CAA8 /* SJBorderlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJBorderlineView.h; sourceTree = "<group>"; };
+		778137501F2F631400F3CAA8 /* SJBorderlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJBorderlineView.m; sourceTree = "<group>"; };
+		778137521F2F63A800F3CAA8 /* reciteWords.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = reciteWords.pch; sourceTree = "<group>"; };
+		778137531F2F651B00F3CAA8 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		778137541F2F651B00F3CAA8 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		778137561F2F676A00F3CAA8 /* NSObject+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extension.h"; sourceTree = "<group>"; };
+		778137571F2F676A00F3CAA8 /* NSObject+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extension.m"; sourceTree = "<group>"; };
+		778137591F2F68FE00F3CAA8 /* SJDataServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJDataServer.h; sourceTree = "<group>"; };
+		7781375A1F2F68FE00F3CAA8 /* SJDataServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJDataServer.m; sourceTree = "<group>"; };
+		A8901B06E98165B83D4DF7C8 /* Pods-ReciteWords.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReciteWords.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReciteWords/Pods-ReciteWords.release.xcconfig"; sourceTree = "<group>"; };
+		FA68CC42C134EA75944ACE4C /* Pods-ReciteWords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReciteWords.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ReciteWords/Pods-ReciteWords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,17 +72,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCF1E8DF579BEC560FA480AB /* libPods-ReciteWords.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7747E370BAFB3EB93FE634E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FA68CC42C134EA75944ACE4C /* Pods-ReciteWords.debug.xcconfig */,
+				A8901B06E98165B83D4DF7C8 /* Pods-ReciteWords.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		778136F61F2F558200F3CAA8 = {
 			isa = PBXGroup;
 			children = (
 				778137011F2F558200F3CAA8 /* ReciteWords */,
 				778137001F2F558200F3CAA8 /* Products */,
+				7747E370BAFB3EB93FE634E8 /* Pods */,
+				CF5E551914C6072B36A2F600 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +111,7 @@
 			children = (
 				778137051F2F558200F3CAA8 /* AppDelegate.h */,
 				778137061F2F558200F3CAA8 /* AppDelegate.m */,
+				778137521F2F63A800F3CAA8 /* reciteWords.pch */,
 				778137191F2F55B900F3CAA8 /* ProjectFiles */,
 				778137021F2F558200F3CAA8 /* Supporting Files */,
 			);
@@ -96,7 +132,9 @@
 		778137191F2F55B900F3CAA8 /* ProjectFiles */ = {
 			isa = PBXGroup;
 			children = (
+				778137481F2F5F7900F3CAA8 /* Services */,
 				7781371A1F2F55E100F3CAA8 /* Base */,
+				778137431F2F5E8B00F3CAA8 /* Common */,
 				778137391F2F598200F3CAA8 /* SmallView */,
 				778137351F2F581000F3CAA8 /* TabBarController */,
 				778137271F2F56C900F3CAA8 /* 背单词 */,
@@ -212,6 +250,72 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		778137431F2F5E8B00F3CAA8 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				7781374D1F2F62FA00F3CAA8 /* Category */,
+				7781374E1F2F62FA00F3CAA8 /* View */,
+				778137441F2F5E8B00F3CAA8 /* Model */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		778137441F2F5E8B00F3CAA8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				778137451F2F5EA600F3CAA8 /* SJWordInfo.h */,
+				778137461F2F5EA600F3CAA8 /* SJWordInfo.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		778137481F2F5F7900F3CAA8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				778137491F2F5F8E00F3CAA8 /* Networking */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		778137491F2F5F8E00F3CAA8 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				778137591F2F68FE00F3CAA8 /* SJDataServer.h */,
+				7781375A1F2F68FE00F3CAA8 /* SJDataServer.m */,
+				7781374A1F2F5FBB00F3CAA8 /* DBNetworkingServer.h */,
+				7781374B1F2F5FBB00F3CAA8 /* DBNetworkingServer.m */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		7781374D1F2F62FA00F3CAA8 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				778137531F2F651B00F3CAA8 /* UIView+Extension.h */,
+				778137541F2F651B00F3CAA8 /* UIView+Extension.m */,
+				778137561F2F676A00F3CAA8 /* NSObject+Extension.h */,
+				778137571F2F676A00F3CAA8 /* NSObject+Extension.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		7781374E1F2F62FA00F3CAA8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7781374F1F2F631400F3CAA8 /* SJBorderlineView.h */,
+				778137501F2F631400F3CAA8 /* SJBorderlineView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CF5E551914C6072B36A2F600 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				703C99FE84BDA0DBF58CB7CB /* libPods-ReciteWords.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -219,9 +323,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 778137161F2F558200F3CAA8 /* Build configuration list for PBXNativeTarget "ReciteWords" */;
 			buildPhases = (
+				5A2556DFB83445F169079E58 /* [CP] Check Pods Manifest.lock */,
 				778136FB1F2F558200F3CAA8 /* Sources */,
 				778136FC1F2F558200F3CAA8 /* Frameworks */,
 				778136FD1F2F558200F3CAA8 /* Resources */,
+				D9699315A42A28FD87E97BFA /* [CP] Embed Pods Frameworks */,
+				89CC5229124FD59CB7B49516 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -279,6 +386,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5A2556DFB83445F169079E58 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		89CC5229124FD59CB7B49516 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ReciteWords/Pods-ReciteWords-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9699315A42A28FD87E97BFA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ReciteWords/Pods-ReciteWords-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		778136FB1F2F558200F3CAA8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -286,13 +441,19 @@
 			files = (
 				778137071F2F558200F3CAA8 /* AppDelegate.m in Sources */,
 				778137041F2F558200F3CAA8 /* main.m in Sources */,
+				778137551F2F651B00F3CAA8 /* UIView+Extension.m in Sources */,
 				778137261F2F565C00F3CAA8 /* SJBaseView.m in Sources */,
 				778137341F2F578700F3CAA8 /* SJReciteWordsViewController.m in Sources */,
+				778137581F2F676A00F3CAA8 /* NSObject+Extension.m in Sources */,
 				7781373C1F2F59AC00F3CAA8 /* SJSearchWordsBar.m in Sources */,
+				7781375B1F2F68FE00F3CAA8 /* SJDataServer.m in Sources */,
 				778137421F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m in Sources */,
 				778137381F2F581000F3CAA8 /* SJTabBarController.m in Sources */,
 				778137231F2F565100F3CAA8 /* SJBaseViewController.m in Sources */,
+				7781374C1F2F5FBB00F3CAA8 /* DBNetworkingServer.m in Sources */,
+				778137471F2F5EA600F3CAA8 /* SJWordInfo.m in Sources */,
 				778137311F2F571200F3CAA8 /* SJBaseNavigationController.m in Sources */,
+				778137511F2F631400F3CAA8 /* SJBorderlineView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,10 +565,13 @@
 		};
 		778137171F2F558200F3CAA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA68CC42C134EA75944ACE4C /* Pods-ReciteWords.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = DB5B5F2RH5;
+				GCC_PREFIX_HEADER = "$(PROJECT)/reciteWords.pch";
 				INFOPLIST_FILE = ReciteWords/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.ReciteWords;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -418,10 +582,13 @@
 		};
 		778137181F2F558200F3CAA8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8901B06E98165B83D4DF7C8 /* Pods-ReciteWords.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = DB5B5F2RH5;
+				GCC_PREFIX_HEADER = "$(PROJECT)/reciteWords.pch";
 				INFOPLIST_FILE = ReciteWords/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.ReciteWords;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -449,6 +616,7 @@
 				778137181F2F558200F3CAA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

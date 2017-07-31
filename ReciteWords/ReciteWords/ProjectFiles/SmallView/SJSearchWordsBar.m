@@ -7,14 +7,103 @@
 //
 
 #import "SJSearchWordsBar.h"
+#import "SJBorderlineView.h"
+
+@interface SJSearchWordsBar (UITextFieldDelegateMethods)<UITextFieldDelegate> @end
 
 @interface SJSearchWordsBar ()
 
-@property (nonatomic, strong) UITextView *search;
+@property (nonatomic, strong, readonly) UITextField *inputView;
+@property (nonatomic, strong, readonly) SJBorderlineView *borderView;
+@property (nonatomic, strong, readonly) UIButton *searchBtn;
 
 @end
 
 @implementation SJSearchWordsBar
 
+@synthesize inputView = _inputView;
+@synthesize borderView = _borderView;
+@synthesize searchBtn = _searchBtn;
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if ( !self ) return nil;
+    [self _SJSearchWordsBarSetupUI];
+    return self;
+}
+
+// MARK: Actions
+
+- (void)clickedBtn:(UIButton *)btn {
+    NSLog(@"clicked search btn.");
+}
+
+
+// MARK: UI
+
+- (void)_SJSearchWordsBarSetupUI {
+    [self addSubview:self.borderView];
+    [_borderView addSubview:self.inputView];
+    [_borderView addSubview:self.searchBtn];
+    
+    [_borderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.offset(0);
+    }];
+    
+    [_inputView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.offset(6);
+        make.bottom.offset(-6);
+        make.leading.offset(8);
+        make.trailing.equalTo(_searchBtn.mas_leading).offset(-8);
+    }];
+    
+    [_searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.trailing.bottom.offset(0);
+        make.width.equalTo(_searchBtn.superview).multipliedBy(0.2);
+    }];
+}
+
+- (UITextField *)inputView {
+    if ( _inputView ) return _inputView;
+    _inputView = [[UITextField alloc] init];
+    _inputView.backgroundColor = [UIColor whiteColor];
+    _inputView.layer.cornerRadius = 4;
+    _inputView.clipsToBounds = YES;
+    _inputView.delegate = self;
+    _inputView.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+    _inputView.leftViewMode = UITextFieldViewModeAlways;
+    _inputView.clearButtonMode = UITextFieldViewModeAlways;
+    _inputView.returnKeyType = UIReturnKeyDone;
+    return _inputView;
+}
+
+- (SJBorderlineView *)borderView {
+    if ( _borderView ) return _borderView;
+    _borderView = [SJBorderlineView borderlineViewWithSide:SJBorderlineSideTop startMargin:0 endMargin:0 lineColor:[UIColor lightGrayColor] backgroundColor:[UIColor colorWithWhite:0.95 alpha:1]];
+    return _borderView;
+}
+
+- (UIButton *)searchBtn {
+    if ( _searchBtn ) return _searchBtn;
+    _searchBtn = [UIButton buttonWithTitle:@"搜索"
+                                titleColor:[UIColor blackColor]
+                           backgroundColor:[UIColor clearColor]
+                                       tag:0
+                                    target:self
+                                       sel:@selector(clickedBtn:)
+                                  fontSize:14];
+    return _searchBtn;
+}
+@end
+
+
+@implementation SJSearchWordsBar (UITextFieldDelegateMethods)
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+//    if ( ![self.delegate respondsToSelector:@selector(clickedSendBtnOnInputBar:userInput:)] ) return YES;
+//    [self.delegate clickedSendBtnOnInputBar:self userInput:textField.text];
+    return YES;
+}
 
 @end

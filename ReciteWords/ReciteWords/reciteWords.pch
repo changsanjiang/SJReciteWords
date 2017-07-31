@@ -1,0 +1,21 @@
+//
+//  reciteWords.pch
+//  ReciteWords
+//
+//  Created by BlueDancer on 2017/7/31.
+//  Copyright © 2017年 SanJiang. All rights reserved.
+//
+
+#ifndef reciteWords_pch
+#define reciteWords_pch
+
+#import "UIView+Extension.h"
+#import <Masonry.h>
+#import "NSObject+Extension.h"
+#import "SJDataServer.h"
+
+//设备屏幕尺寸
+#define SJ_W  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
+#define SJ_H  MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
+
+#endif /* reciteWords_pch */
