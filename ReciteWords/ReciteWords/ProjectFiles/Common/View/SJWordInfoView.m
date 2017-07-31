@@ -96,8 +96,7 @@
     
     [_definitionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_pronunciationLabel.mas_bottom).offset(20);
-        make.leading.offset(12);
-        make.trailing.offset(12);
+        make.leading.trailing.offset(0);
     }];
     
     [_us_audioBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -126,20 +125,20 @@
 
 - (UILabel *)definitionLabel {
     if ( _definitionLabel ) return _definitionLabel;
-    _definitionLabel = [UILabel labelWithFontSize:14 textColor:[UIColor blackColor]];
+    _definitionLabel = [UILabel labelWithFontSize:14 textColor:[UIColor blackColor] alignment:NSTextAlignmentCenter];
     _definitionLabel.numberOfLines = 0;
     return _definitionLabel;
 }
 
 - (UIButton *)us_audioBtn {
     if ( _us_audioBtn ) return _us_audioBtn;
-    _us_audioBtn = [UIButton buttonWithImageName:@"sj_word_audio" title:@"美音" titleColor:[UIColor blackColor] backgroundColor:[UIColor clearColor] tag:0 target:self sel:@selector(clickedBtn:)];
+    _us_audioBtn = [UIButton buttonWithImageName:@"sj_word_audio" title:@" 美音" titleColor:[UIColor blackColor] backgroundColor:[UIColor clearColor] tag:0 target:self sel:@selector(clickedBtn:)];
     return _us_audioBtn;
 }
 
 - (UIButton *)uk_audioBtn {
     if ( _uk_audioBtn ) return _uk_audioBtn;
-    _uk_audioBtn = [UIButton buttonWithImageName:@"sj_word_audio" title:@"英音" titleColor:[UIColor blackColor] backgroundColor:[UIColor clearColor] tag:1 target:self sel:@selector(clickedBtn:)];
+    _uk_audioBtn = [UIButton buttonWithImageName:@"sj_word_audio" title:@" 英音" titleColor:[UIColor blackColor] backgroundColor:[UIColor clearColor] tag:1 target:self sel:@selector(clickedBtn:)];
     return _uk_audioBtn;
 }
 @end

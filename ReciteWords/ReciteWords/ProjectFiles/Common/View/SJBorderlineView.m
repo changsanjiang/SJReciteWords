@@ -43,7 +43,7 @@
     CGPoint movePoint = CGPointZero;
     CGPoint addLineToPoint = CGPointZero;
     
-    if ( 0 == self.type ) return;
+    if ( SJBorderlineSideNone == self.type ) return;
     if ( SJBorderlineSideAll == ( self.type & SJBorderlineSideAll ) ) {
         movePoint = CGPointMake(self.startMargin, 0);
         addLineToPoint = CGPointMake(rect.size.width - self.endMargin, 0);
