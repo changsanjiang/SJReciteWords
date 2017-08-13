@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SJRecitrWordCollectionViewCell : UICollectionViewCell
+@interface SJReciteWordCollectionViewCell : UICollectionViewCell
 
 @end

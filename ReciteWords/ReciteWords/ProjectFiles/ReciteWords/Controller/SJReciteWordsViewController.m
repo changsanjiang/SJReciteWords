@@ -8,8 +8,8 @@
 
 #import "SJReciteWordsViewController.h"
 #import "SJWordInfo.h"
-#import "SJRecitrWordCollectionViewCell.h"
-static CellID const SJRecitrWordCollectionViewCellID = @"SJRecitrWordCollectionViewCell";
+#import "SJReciteWordCollectionViewCell.h"
+static CellID const SJReciteWordCollectionViewCellID = @"SJReciteWordCollectionViewCell";
 
 
 @interface SJReciteWordsViewController (UICollectionViewDelegateMethods)<UICollectionViewDelegate>
@@ -55,7 +55,7 @@ static CellID const SJRecitrWordCollectionViewCellID = @"SJRecitrWordCollectionV
     _collectionView.delegate = self;
     _collectionView.bounces = NO;
     _collectionView.pagingEnabled = YES;
-    [_collectionView registerClass:[SJRecitrWordCollectionViewCell class] forCellWithReuseIdentifier:SJRecitrWordCollectionViewCellID];
+    [_collectionView registerClass:[SJReciteWordCollectionViewCell class] forCellWithReuseIdentifier:SJReciteWordCollectionViewCellID];
     return _collectionView;
 }
 @end
@@ -82,7 +82,7 @@ static CellID const SJRecitrWordCollectionViewCellID = @"SJRecitrWordCollectionV
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SJRecitrWordCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:SJRecitrWordCollectionViewCellID forIndexPath:indexPath];
+    SJReciteWordCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:SJReciteWordCollectionViewCellID forIndexPath:indexPath];
     cell.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
                                            green:1.0 * (arc4random() % 256 / 255.0)
                                             blue:1.0 * (arc4random() % 256 / 255.0)

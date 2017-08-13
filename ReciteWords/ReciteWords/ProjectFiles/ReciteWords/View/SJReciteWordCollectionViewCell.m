@@ -6,8 +6,8 @@
 //  Copyright © 2017年 SanJiang. All rights reserved.
 //
 
-#import "SJRecitrWordCollectionViewCell.h"
-@interface SJRecitrWordCollectionViewCell ()
+#import "SJReciteWordCollectionViewCell.h"
+@interface SJReciteWordCollectionViewCell ()
 @property (nonatomic,strong)UIView*        baseView;
 @property (nonatomic,strong)UIView*        topView;
 @property (nonatomic,strong)UIView*        centerView;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation SJRecitrWordCollectionViewCell
+@implementation SJReciteWordCollectionViewCell
 
 - (instancetype)initWithFrame:(CGRect)frame {
     
