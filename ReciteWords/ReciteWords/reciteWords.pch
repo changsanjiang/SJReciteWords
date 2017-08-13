@@ -18,8 +18,15 @@
 
 typedef NSString * CellID;
 
+//屏幕适配
+#define AutoWith(width)  ((float)width/375.0f*SJ_W)
+#define AutoHeight(height)  ((float)height/667.0f*SJ_H)
+
 // 设备屏幕尺寸
 #define SJ_W  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
 #define SJ_H  MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
+
+#define SJ_Nav_H    (64)
+#define SJ_Tab_H    (49)
 
 #endif /* reciteWords_pch */

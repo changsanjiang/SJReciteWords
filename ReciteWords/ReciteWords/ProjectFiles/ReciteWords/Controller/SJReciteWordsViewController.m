@@ -8,8 +8,8 @@
 
 #import "SJReciteWordsViewController.h"
 #import "SJWordInfo.h"
-
-static CellID const SJReciteWordsCollectionViewCellID = @"SJReciteWordsCollectionViewCell";
+#import "SJRecitrWordCollectionViewCell.h"
+static CellID const SJRecitrWordCollectionViewCellID = @"SJRecitrWordCollectionViewCell";
 
 
 @interface SJReciteWordsViewController (UICollectionViewDelegateMethods)<UICollectionViewDelegate>
@@ -40,12 +40,22 @@ static CellID const SJReciteWordsCollectionViewCellID = @"SJReciteWordsCollectio
 
 - (void)setupUI {
     [super setupUI];
+    [self.view addSubview:self.collectionView];
+    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
 }
 
 - (UICollectionView *)collectionView {
     if ( _collectionView ) return _collectionView;
-    _collectionView = [UICollectionView collectionViewWithItemSize:CGSizeMake(SJ_W, SJ_H) backgroundColor:[UIColor whiteColor] scrollDirection:UICollectionViewScrollDirectionVertical];
-    [_collectionView registerClass:NSClassFromString(SJReciteWordsCollectionViewCellID) forCellWithReuseIdentifier:SJReciteWordsCollectionViewCellID];
+
+    _collectionView = [UICollectionView collectionViewWithItemSize:CGSizeMake(SJ_W, SJ_H - SJ_Nav_H - SJ_Tab_H) backgroundColor:[UIColor whiteColor] scrollDirection:UICollectionViewScrollDirectionHorizontal];
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    _collectionView.bounces = NO;
+    _collectionView.pagingEnabled = YES;
+    [_collectionView registerClass:[SJRecitrWordCollectionViewCell class] forCellWithReuseIdentifier:SJRecitrWordCollectionViewCellID];
     return _collectionView;
 }
 @end
@@ -68,13 +78,17 @@ static CellID const SJReciteWordsCollectionViewCellID = @"SJReciteWordsCollectio
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.words.count;
+    return 3;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SJReciteWordsCollectionViewCellID forIndexPath:indexPath];
-    [cell setValue:self.words[indexPath.row] forKey:@"wordInfo"];
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SJRecitrWordCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:SJRecitrWordCollectionViewCellID forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
+                                           green:1.0 * (arc4random() % 256 / 255.0)
+                                            blue:1.0 * (arc4random() % 256 / 255.0)
+                                           alpha:1];
     return cell;
+    
 }
 
 @end

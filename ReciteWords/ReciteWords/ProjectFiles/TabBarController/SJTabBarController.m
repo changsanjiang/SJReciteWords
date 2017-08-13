@@ -9,6 +9,8 @@
 #import "SJTabBarController.h"
 #import "SJReciteWordsViewController.h"
 #import "SJBaseNavigationController.h"
+#import "SJSearchWordsViewController.h"
+#import "UIImage+Extension.h"
 
 @interface SJTabBarController ()
 
@@ -21,9 +23,8 @@
     
     NSMutableArray<UIViewController *> *viewControllersM = [NSMutableArray new];
     viewControllersM[0] = [self controllerWithTitle:@"背单词"
-                                       imageNameStr:@""
+                                       imageNameStr:@"sj_item_recite_word_n"
                                           className:NSStringFromClass([SJReciteWordsViewController class])];
-
     self.viewControllers = viewControllersM.copy;
     // Do any additional setup after loading the view.
 }
@@ -33,7 +34,8 @@
     if ( nil == cls ) { NSLog(@"%s-%s-%@: 类名写错!", __FILE__, __func__, name); return nil; }
     UIViewController *vc = [cls new];
     vc.title = title;
-    vc.tabBarItem.image = [UIImage imageNamed:imageNameStr];
+    vc.tabBarItem.image = [UIImage csj_originImage:imageNameStr];
+    vc.tabBarItem.selectedImage = [UIImage csj_originImage:[NSString stringWithFormat:@"%@h", [imageNameStr substringToIndex:imageNameStr.length - 1]]];
     SJBaseNavigationController *nav = [[SJBaseNavigationController alloc] initWithRootViewController:vc];
     return nav;
 }
