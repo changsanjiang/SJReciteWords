@@ -40,7 +40,7 @@
 
 - (void)setupUI {
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = SJ_Theme_C;
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     

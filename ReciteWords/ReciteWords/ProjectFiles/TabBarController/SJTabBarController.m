@@ -11,6 +11,8 @@
 #import "SJBaseNavigationController.h"
 #import "SJSearchWordsViewController.h"
 #import "UIImage+Extension.h"
+#import "SJSettingViewController.h"
+#import "SJSearchHistoryViewController.h"
 
 @interface SJTabBarController ()
 
@@ -25,7 +27,16 @@
     viewControllersM[0] = [self controllerWithTitle:@"背单词"
                                        imageNameStr:@"sj_item_recite_word_n"
                                           className:NSStringFromClass([SJReciteWordsViewController class])];
+    viewControllersM[1] = [self controllerWithTitle:@"设置"
+                                       imageNameStr:@"sj_item_recite_setting_n"
+                                          className:NSStringFromClass([SJSettingViewController class])];
+    viewControllersM[2] = [self controllerWithTitle:@"搜索历史"
+                                       imageNameStr:@"sj_item_recite_history_n"
+                                          className:NSStringFromClass([SJSearchHistoryViewController class])];
     self.viewControllers = viewControllersM.copy;
+    
+    self.tabBar.tintColor = SJ_Font_C;
+    
     // Do any additional setup after loading the view.
 }
 
