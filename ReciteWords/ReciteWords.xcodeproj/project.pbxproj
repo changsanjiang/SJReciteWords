@@ -12,6 +12,8 @@
 		7755AD1D1F40A05D009073D2 /* SJWordsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD1C1F40A05D009073D2 /* SJWordsListViewController.m */; };
 		7755AD201F40A082009073D2 /* SJSearchHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD1F1F40A082009073D2 /* SJSearchHistoryViewController.m */; };
 		7755AD231F40A1CA009073D2 /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD221F40A1CA009073D2 /* UIColor+Extension.m */; };
+		7755AD261F40A5B4009073D2 /* SJSettingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD251F40A5B4009073D2 /* SJSettingCollectionViewCell.m */; };
+		7755AD2A1F40ABF9009073D2 /* SJSettingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD291F40ABF9009073D2 /* SJSettingOperation.m */; };
 		778137041F2F558200F3CAA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137031F2F558200F3CAA8 /* main.m */; };
 		778137071F2F558200F3CAA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137061F2F558200F3CAA8 /* AppDelegate.m */; };
 		7781370F1F2F558200F3CAA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7781370E1F2F558200F3CAA8 /* Assets.xcassets */; };
@@ -51,6 +53,10 @@
 		7755AD1F1F40A082009073D2 /* SJSearchHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSearchHistoryViewController.m; sourceTree = "<group>"; };
 		7755AD211F40A1CA009073D2 /* UIColor+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
 		7755AD221F40A1CA009073D2 /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
+		7755AD241F40A5B4009073D2 /* SJSettingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSettingCollectionViewCell.h; sourceTree = "<group>"; };
+		7755AD251F40A5B4009073D2 /* SJSettingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSettingCollectionViewCell.m; sourceTree = "<group>"; };
+		7755AD281F40ABF9009073D2 /* SJSettingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSettingOperation.h; sourceTree = "<group>"; };
+		7755AD291F40ABF9009073D2 /* SJSettingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSettingOperation.m; sourceTree = "<group>"; };
 		778136FF1F2F558200F3CAA8 /* ReciteWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReciteWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		778137031F2F558200F3CAA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		778137051F2F558200F3CAA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -137,7 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				7755AD071F409F9A009073D2 /* 设置 */,
-				7755AD0D1F409FE8009073D2 /* 列表管理 */,
+				7755AD0D1F409FE8009073D2 /* 词单管理 */,
 				7755AD0B1F409FE8009073D2 /* 单词列表 */,
 			);
 			name = "设置";
@@ -149,6 +155,7 @@
 			children = (
 				7755AD081F409F9A009073D2 /* Controller */,
 				7755AD091F409F9A009073D2 /* View */,
+				7755AD271F40ABDF009073D2 /* Model */,
 			);
 			name = "设置";
 			path = Setting;
@@ -166,6 +173,8 @@
 		7755AD091F409F9A009073D2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7755AD241F40A5B4009073D2 /* SJSettingCollectionViewCell.h */,
+				7755AD251F40A5B4009073D2 /* SJSettingCollectionViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -197,12 +206,12 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		7755AD0D1F409FE8009073D2 /* 列表管理 */ = {
+		7755AD0D1F409FE8009073D2 /* 词单管理 */ = {
 			isa = PBXGroup;
 			children = (
 				7755AD0E1F409FE8009073D2 /* Controller */,
 			);
-			name = "列表管理";
+			name = "词单管理";
 			path = WordsManager;
 			sourceTree = "<group>";
 		};
@@ -213,6 +222,15 @@
 				7755AD191F40A052009073D2 /* SJListManageViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		7755AD271F40ABDF009073D2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7755AD281F40ABF9009073D2 /* SJSettingOperation.h */,
+				7755AD291F40ABF9009073D2 /* SJSettingOperation.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		778136F61F2F558200F3CAA8 = {
@@ -609,6 +627,7 @@
 				778137751F2F948C00F3CAA8 /* SJLocalDataManager.m in Sources */,
 				778137041F2F558200F3CAA8 /* main.m in Sources */,
 				7755AD231F40A1CA009073D2 /* UIColor+Extension.m in Sources */,
+				7755AD2A1F40ABF9009073D2 /* SJSettingOperation.m in Sources */,
 				778137551F2F651B00F3CAA8 /* UIView+Extension.m in Sources */,
 				778137261F2F565C00F3CAA8 /* SJBaseView.m in Sources */,
 				7781375E1F2F6DF500F3CAA8 /* SJSearchWordsBar.m in Sources */,
@@ -618,6 +637,7 @@
 				778137681F2F831300F3CAA8 /* DBAudioPlayer.m in Sources */,
 				7781375B1F2F68FE00F3CAA8 /* SJDataServer.m in Sources */,
 				778137421F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m in Sources */,
+				7755AD261F40A5B4009073D2 /* SJSettingCollectionViewCell.m in Sources */,
 				7755AD1D1F40A05D009073D2 /* SJWordsListViewController.m in Sources */,
 				778137381F2F581000F3CAA8 /* SJTabBarController.m in Sources */,
 				7755AD111F40A012009073D2 /* SJSettingViewController.m in Sources */,
