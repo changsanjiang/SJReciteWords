@@ -75,8 +75,8 @@
          *  response
          *  设置返回数据类型为 json, 分别设置请求以及相应的序列化器
          */
-//        AFJSONResponseSerializer *_response = [AFJSONResponseSerializer serializer];
-        AFHTTPResponseSerializer *_response = [AFHTTPResponseSerializer serializer];
+        AFJSONResponseSerializer *_response = [AFJSONResponseSerializer serializer];
+//        AFHTTPResponseSerializer *_response = [AFHTTPResponseSerializer serializer];
         /**
          *  Types
          *  设置响应数据的基本类型
@@ -87,7 +87,7 @@
          *  Null
          *  这里是去掉了键值对里 空对象的键值
          */
-//        _response.removesKeysWithNullValues = YES;
+        _response.removesKeysWithNullValues = YES;
         self.responseSerializer = _response;
         
         /**
