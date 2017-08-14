@@ -54,6 +54,11 @@
 - (NSString *)sjGetBatchInsertOrUpdateSubffixSQL:(NSArray<id<SJDBMapUseProtocol>> *)models;
 
 /*!
+ *  获取一般的更新语句
+ */
+- (NSString *)sjGetCommonUpdateSQLWithFields:(NSArray<NSString *> *)fields model:(id<SJDBMapUseProtocol>)model;
+
+/*!
  *  生成删除Sql语句
  */
 - (NSString *)sjGetDeleteSQL:(Class)cls uM:(SJDBMapUnderstandingModel *)uM deletePrimary:(NSInteger)primaryValue;
@@ -69,9 +74,43 @@
 - (SJDBMapPrimaryKeyModel *)sjGetPrimaryKey:(Class)cls;
 
 /*!
+ *  获取主键字段
+ */
+- (NSString *)sjGetPrimaryFields:(Class)cls;
+
+/*!
+ *  获取主键值
+ */
+- (NSNumber *)sjGetPrimaryValue:(id<SJDBMapUseProtocol>)model;
+
+- (BOOL)sjHasPrimaryKey:(Class)cls;
+
+/*!
  *  获取自增主键
  */
 - (SJDBMapAutoincrementPrimaryKeyModel *)sjGetAutoincrementPrimaryKey:(Class)cls;
+
+/*!
+ *  获取自增主键字段
+ */
+- (NSString *)sjGetAutoPrimaryFields:(Class)cls;
+
+/*!
+ *  获取自增主键值
+ */
+- (NSNumber *)sjGetAutoPrimaryValue:(id<SJDBMapUseProtocol>)model;
+
+/*!
+ *  获取主键字段或自增主键字段
+ */
+- (NSString *)sjGetPrimaryOrAutoPrimaryFields:(Class)cls;
+
+/*!
+ *  获取主键值或者自增主键值
+ */
+- (NSNumber *)sjGetPrimaryOrAutoPrimaryValue:(id<SJDBMapUseProtocol>)model;
+
+- (BOOL)sjHasAutoPrimaryKey:(Class)cls;
 
 /*!
  *  获取数组相应键
@@ -79,9 +118,29 @@
 - (NSArray<SJDBMapArrayCorrespondingKeysModel *> *)sjGetArrayCorrespondingKeys:(Class)cls;
 
 /*!
+ *  dict keys
+ */
+- (NSArray<NSString *> *)sjGetArrCorrespondingOriginFields:(Class)cls;
+
+/*!
+ *  dict values
+ */
+- (NSArray<Class> *)sjGetArrCorrespondingFields:(Class)cls;
+
+/*!
  *  获取相应键
  */
 - (NSArray<SJDBMapCorrespondingKeyModel *>*)sjGetCorrespondingKeys:(Class)cls;
+
+/*!
+ *  dict keys
+ */
+- (NSArray<NSString *> *)sjGetCorrespondingOriginFields:(Class)cls;
+
+/*!
+ *  dict values
+ */
+- (NSArray<NSString *> *)sjGetCorrespondingFields:(Class)cls;
 
 /*!
  *  获取表名称
@@ -92,4 +151,11 @@
  *  根据ID排序, 获取最后一条数据的ID
  */
 - (NSNumber *)sjGetLastDataIDWithClass:(Class)cls autoincrementPrimaryKeyModel:(SJDBMapAutoincrementPrimaryKeyModel *)aPKM;
+
+/*!
+ *  {"PersonTag":[0,1,2]}
+ *  {"Goods":[13,14]}
+ */
+- (NSString *)sjGetArrModelPrimaryValues:(NSArray<id<SJDBMapUseProtocol>> *)models;
+
 @end

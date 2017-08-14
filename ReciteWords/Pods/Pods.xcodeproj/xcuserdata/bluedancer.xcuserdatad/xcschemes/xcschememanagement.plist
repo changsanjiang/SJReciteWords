@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SJBorderLineView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SJDBMap.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,12 +37,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>6C88434FD281FEDCBCBAA4F3F4081FAF</key>
+		<key>2C91E70B1A718C0C58757ED3CEB5507B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>829FB92129309D2F9D36EC547558A169</key>
+		<key>5E30822888267F355FD4C392B097AB73</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5F631104AD84963A8A8120C6E3AA0C5B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,7 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E178CE5810864146773050D570BBDEAE</key>
+		<key>F10A312004BE46E45D9F8BE82CFA1389</key>
 		<dict>
 			<key>primary</key>
 			<true/>

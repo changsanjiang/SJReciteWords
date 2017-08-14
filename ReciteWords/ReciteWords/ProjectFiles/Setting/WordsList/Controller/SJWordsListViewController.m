@@ -8,30 +8,75 @@
 
 #import "SJWordsListViewController.h"
 
+#import "SJBaseTableView.h"
+
+
+
+@interface SJWordsListViewController (UITableViewDelegateMethods)<UITableViewDelegate> @end
+@interface SJWordsListViewController (UITableViewDataSourceMethods)<UITableViewDataSource> @end
+
+
+
 @interface SJWordsListViewController ()
+
+@property (nonatomic, strong, readonly) SJBaseTableView *tableView;
 
 @end
 
 @implementation SJWordsListViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+@synthesize tableView = _tableView;
+
+// MARK: UI
+
+- (void)setupUI {
+    [super setupUI];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (SJBaseTableView *)tableView {
+    if ( _tableView ) return _tableView;
+    _tableView = [SJBaseTableView new];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.rowHeight = 118 * SJ_Rate;
+    return _tableView;
 }
 
-/*
-#pragma mark - Navigation
+@end
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+
+
+@implementation SJWordsListViewController (UITableViewDelegateMethods)
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
 }
-*/
+
+@end
+
+@implementation SJWordsListViewController (UITableViewDataSourceMethods)
+
+// MARK: Table View Methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#CellID#>];
+    
+    [cell setValue:model forKey:@"model"];
+    
+    return cell;
+}
 
 @end

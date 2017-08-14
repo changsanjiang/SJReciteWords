@@ -6,20 +6,27 @@
 //  Copyright © 2017年 SanJiang. All rights reserved.
 //
 #import "SJDBMap.h"
+
 #import <objc/message.h>
 
-// MARK: C
+#import "SJDatabaseMap+Server.h"
+#import "SJDatabaseMap+GetInfo.h"
+
+#import "SJDBMapUnderstandingModel.h"
+#import "SJDBMapPrimaryKeyModel.h"
+#import "SJDBMapAutoincrementPrimaryKeyModel.h"
+#import "SJDBMapCorrespondingKeyModel.h"
+#import "SJDBMapArrayCorrespondingKeysModel.h"
+
 
 /**
  *  数据文件夹
  */
-static NSString *_sjDatabaseDefaultFolder();
-
-/*!
- *  操作队列。 只使用了一条子线程.
- */
-static NSOperationQueue *_operationQueue;
-
+inline static NSString *_sjDatabaseDefaultFolder() {
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"com.sj.databasesDefaultFolder"];
+    if ( ![[NSFileManager defaultManager] fileExistsAtPath:path] ) [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    return path;
+}
 
 // MARK: Root
 
@@ -30,10 +37,7 @@ static NSOperationQueue *_operationQueue;
  */
 @property (nonatomic, strong, readwrite) NSString   *dbPath;
 
-/*!
- *  操作队列, 子线程操作
- */
-@property (nonatomic, weak, readonly) NSOperationQueue *operationQueue;
+@property (nonatomic, strong, readonly) dispatch_queue_t operationQueue;
 
 @end
 
@@ -41,6 +45,8 @@ static NSOperationQueue *_operationQueue;
 @implementation SJDatabaseMap {
     sqlite3 *_sqDb;
 }
+
+@synthesize operationQueue = _operationQueue;
 
 /*!
  *  使用此方法, 数据库将使用默认路径创建
@@ -64,24 +70,23 @@ static NSOperationQueue *_operationQueue;
     return self;
 }
 
-// MARK: 操作队列
+- (sqlite3 *)sqDB {
+    return _sqDb;
+}
 
-- (NSOperationQueue *)operationQueue {
+- (dispatch_queue_t)operationQueue {
     if ( _operationQueue ) return _operationQueue;
-    _operationQueue = [[NSOperationQueue alloc] init];
-    _operationQueue.maxConcurrentOperationCount = 1;
-    _operationQueue.name = @"com.sjdb.operationQueue";
-    //    _operationQueue.qualityOfService = NSQualityOfServiceUtility;
+    _operationQueue = dispatch_queue_create("com.sjdb.serialOperationQueue", NULL);
     return _operationQueue;
 }
 
-- (void)dealloc {
-    [_operationQueue cancelAllOperations];
-    _operationQueue = nil;
-}
-
-- (sqlite3 *)sqDB {
-    return _sqDb;
+- (void)addOperationWithBlock:(void(^)())block {
+    __weak typeof(self) _self = self;
+    dispatch_async(self.operationQueue, ^{
+        __strong typeof(_self) self = _self;
+        if ( !self ) return;
+        if ( block ) block();
+    });
 }
 
 @end
@@ -96,10 +101,8 @@ static NSOperationQueue *_operationQueue;
  *  根据类创建一个表
  */
 - (void)createTabWithClass:(Class)cls callBlock:(void(^)(BOOL result))block {
-    __weak typeof(self) _self = self;
-    [self.operationQueue addOperationWithBlock:^{
-        __strong typeof(_self) self = _self;
-        if ( !self ) return;
+    if ( nil == cls ) { if ( block ) block(NO); return;}
+    [self addOperationWithBlock:^{
         __block BOOL result = YES;
         [[self sjGetRelevanceClasses:cls] enumerateObjectsUsingBlock:^(Class  _Nonnull relevanceCls, BOOL * _Nonnull stop) {
             BOOL r = [self sjCreateOrAlterTabWithClass:relevanceCls];
@@ -124,16 +127,8 @@ static NSOperationQueue *_operationQueue;
  *  如果没有表, 会自动创建表
  */
 - (void)insertOrUpdateDataWithModel:(id<SJDBMapUseProtocol>)model callBlock:(void(^)(BOOL result))block {
-    __weak typeof(self) _self = self;
-    [self.operationQueue addOperationWithBlock:^{
-        __strong typeof(_self) self = _self;
-        if ( !self ) return;
-        [self sjAutoCreateOrAlterRelevanceTabWithClass:[model class]];
-        BOOL result = [self sjInsertOrUpdateDataWithModel:model];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ( block ) block( result );
-        });
-    }];
+    if ( nil == model ) { if ( block ) block(NO); return;}
+    [self insertOrUpdateDataWithModels:@[model] callBlock:block];
 }
 
 /*!
@@ -141,13 +136,10 @@ static NSOperationQueue *_operationQueue;
  *  如果没有表, 会自动创建表
  */
 - (void)insertOrUpdateDataWithModels:(NSArray<id<SJDBMapUseProtocol>> *)models callBlock:(void (^)(BOOL result))block {
-    __weak typeof(self) _self = self;
-    [self.operationQueue addOperationWithBlock:^{
-        __strong typeof(_self) self = _self;
-        if ( !self ) return;
-        
+    if ( 0 == models.count ) { if ( block ) block(NO); return;}
+    [self addOperationWithBlock:^{
         /*!
-         *  整理模型数组
+         *  归类整理
          */
         NSDictionary<NSString *, NSArray<id> *> *modelsDict = [self sjPutInOrderModels:models];
         
@@ -159,27 +151,40 @@ static NSOperationQueue *_operationQueue;
         }];
         
         /*!
-         *  批量插入或更新数据
+         *  批量插入或更新
          */
         __block BOOL result = YES;
         [modelsDict enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull tabName, NSArray<id> * _Nonnull modelsArr, BOOL * _Nonnull stop) {
-            //            只做了第一层
-            //            SJDBMapUnderstandingModel *uM = [self sjGetUnderstandingWithClass:NSClassFromString(tabName)];
-            //            NSString *prefixSQL  = [self sjGetInsertOrUpdatePrefixSQL:uM];
-            //            NSString *subffixSQLM = [self sjGetBatchInsertOrUpdateSubffixSQL:modelsArr];
-            //            NSString *sql = [NSString stringWithFormat:@"%@ %@;", prefixSQL, subffixSQLM];
-            //            NSLog(@"%@", sql);
-            //            if ( !(SQLITE_OK == sqlite3_exec(self.sqDB, sql.UTF8String, NULL, NULL, NULL)) ) NSLog(@"[%@] 创建或更新失败.", sql), result = NO;
-            /*!
-             *  获取相关的数据模型
-             */
-            [modelsArr enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ( ![self sjInsertOrUpdateDataWithModel:model] ) result = NO;
-            }];
+            result = [self sjInsertOrUpdateDataWithModels:modelsArr enableTransaction:YES];
         }];
         dispatch_async(dispatch_get_main_queue(), ^{
             if ( block ) block(result);
         });
+    }];
+}
+
+/*!
+ *  更新指定的属性
+ *  如果数据库没有这条数据, 将不会保存
+ */
+- (void)updateProperty:(NSArray<NSString *> *)fields target:(id<SJDBMapUseProtocol>)target callBlock:(void (^ __nullable)(BOOL result))block {
+    if ( 0 == fields.count || nil == target ) { if ( block ) block(NO); return;}
+    [self addOperationWithBlock:^{
+        [self queryDataWithClass:[target class] primaryValue:[[self sjGetPrimaryOrAutoPrimaryValue:target] integerValue] completeCallBlock:^(id<SJDBMapUseProtocol>  _Nullable model) {
+            if ( nil == model ) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ( nil == model ) { if ( block ) block(NO);}
+                });
+                return;
+            }
+            else {
+                BOOL result = [self sjUpdateProperty:fields target:target];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ( block ) block(result);
+                });
+
+            }
+        }];
     }];
 }
 
@@ -197,10 +202,8 @@ static NSOperationQueue *_operationQueue;
  *  primaryKey : 主键. 包括自增键.
  */
 - (void)deleteDataWithClass:(Class)cls primaryValue:(NSInteger)primaryValue callBlock:(void(^)(BOOL result))block {
-    __weak typeof(self) _self = self;
-    [self.operationQueue addOperationWithBlock:^{
-        __strong typeof(_self) self = _self;
-        if ( !self ) return;
+    if ( nil == cls ) { if ( block ) block(NO); return;}
+    [self addOperationWithBlock:^{
         SJDBMapUnderstandingModel *uM = [self sjGetUnderstandingWithClass:cls];
         NSAssert(uM.primaryKey || uM.autoincrementPrimaryKey, @"[%@] 该类没有设置主键", cls);
         NSString *sql = [self sjGetDeleteSQL:cls uM:uM deletePrimary:primaryValue];
@@ -220,11 +223,8 @@ static NSOperationQueue *_operationQueue;
  *  primaryValues -> primaryValues
  */
 - (void)deleteDataWithClass:(Class)cls primaryValues:(NSArray<NSNumber *> *)primaryValues callBlock:(void (^)(BOOL))block {
-    __weak typeof(self) _self = self;
-    
-    [self.operationQueue addOperationWithBlock:^{
-        __strong typeof(_self) self = _self;
-        if ( !self ) return;
+    if ( nil == cls || 0 == primaryValues.count ) { if ( block ) block(NO); return;}
+    [self addOperationWithBlock:^{
         __block BOOL r = YES;
         NSString *sql = [self sjGetBatchDeleteSQL:cls primaryValues:primaryValues];
         [self sjExeSQL:sql.UTF8String completeBlock:^(BOOL result) {
@@ -240,10 +240,8 @@ static NSOperationQueue *_operationQueue;
  *  删
  */
 - (void)deleteDataWithModels:(NSArray<id<SJDBMapUseProtocol>> *)models callBlock:(void (^)(BOOL))block {
-    __weak typeof(self) _self = self;
-    [self.operationQueue addOperationWithBlock:^{
-        __strong typeof(_self) self = _self;
-        if ( !self ) return;
+    if ( 0 == models.count ) { if ( block ) block(NO); return;}
+    [self addOperationWithBlock:^{
         __block BOOL r = YES;
         [[self sjPutInOrderModels:models] enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull clsName, NSArray<id<SJDBMapUseProtocol>> * _Nonnull obj, BOOL * _Nonnull stop) {
             NSString *sql = [self sjGetBatchDeleteSQL:NSClassFromString(clsName) primaryValues:[self sjGetPrimaryValues:obj]];
@@ -270,10 +268,8 @@ static NSOperationQueue *_operationQueue;
  *  返回和这个类有关的所有数据
  */
 - (void)queryAllDataWithClass:(Class)cls completeCallBlock:(void(^)(NSArray<id<SJDBMapUseProtocol>> *data))block {
-    __weak typeof(self) _self = self;
-    [self.operationQueue addOperationWithBlock:^{
-        __strong typeof(_self) self = _self;
-        if ( !self ) return;
+    if ( nil == cls ) { if ( block ) block(nil); return;}
+    [self addOperationWithBlock:^{
         NSArray *models = [self sjQueryConversionMolding:cls];
         dispatch_async(dispatch_get_main_queue(), ^{
             if ( block ) block(models);
@@ -285,7 +281,8 @@ static NSOperationQueue *_operationQueue;
  *  查
  */
 - (void)queryDataWithClass:(Class)cls primaryValue:(NSInteger)primaryValue completeCallBlock:(void (^)(id<SJDBMapUseProtocol> model))block {
-    [self.operationQueue addOperationWithBlock:^{
+    if ( nil == cls ) { if ( block ) block(nil); return;}
+    [self addOperationWithBlock:^{
         id model = [self sjQueryConversionMolding:cls primaryValue:primaryValue];
         dispatch_async(dispatch_get_main_queue(), ^{
             if ( block ) block(model);
@@ -299,7 +296,8 @@ static NSOperationQueue *_operationQueue;
  *  queryDict ->  key : property
  */
 - (void)queryDataWithClass:(Class)cls queryDict:(NSDictionary *)dict completeCallBlock:(void (^)(NSArray<id<SJDBMapUseProtocol>> *data))block {
-    [self.operationQueue addOperationWithBlock:^{
+    if ( nil == cls || 0 == dict.allKeys ) { if ( block ) block(nil); return;}
+    [self addOperationWithBlock:^{
         NSArray *models = [self sjQueryConversionMolding:cls dict:dict];
         dispatch_async(dispatch_get_main_queue(), ^{
             if ( block ) block(models);
@@ -311,6 +309,7 @@ static NSOperationQueue *_operationQueue;
  *  模糊查询
  */
 - (void)fuzzyQueryDataWithClass:(Class)cls queryDict:(NSDictionary *)dict completeCallBlock:(void (^ __nullable)(NSArray<id<SJDBMapUseProtocol>> * _Nullable data))block {
+    if ( nil == cls || 0 == dict.allKeys ) { if ( block ) block(nil); return;}
     [self fuzzyQueryDataWithClass:cls queryDict:dict match:SJDatabaseMapFuzzyMatchAll completeCallBlock:block];
 }
 
@@ -318,7 +317,8 @@ static NSOperationQueue *_operationQueue;
  *  模糊查询
  */
 - (void)fuzzyQueryDataWithClass:(Class)cls queryDict:(NSDictionary *)dict match:(SJDatabaseMapFuzzyMatch)match completeCallBlock:(void (^ __nullable)(NSArray<id<SJDBMapUseProtocol>> * _Nullable data))block {
-    [self.operationQueue addOperationWithBlock:^{
+    [self addOperationWithBlock:^{
+        if ( nil == cls || 0 == dict.allKeys ) { if ( block ) block(nil); return;}
         NSArray *models = [self sjFuzzyQueryConversionMolding:cls match:match dict:dict];
         dispatch_async(dispatch_get_main_queue(), ^{
             if ( block ) block(models);
@@ -327,24 +327,3 @@ static NSOperationQueue *_operationQueue;
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// MARK: C_Func
-
-static NSString *_sjDatabaseDefaultFolder() {
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"com.sj.databasesDefaultFolder"];
-    if ( ![[NSFileManager defaultManager] fileExistsAtPath:path] ) [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
-    return path;
-}

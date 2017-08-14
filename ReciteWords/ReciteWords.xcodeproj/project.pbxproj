@@ -14,6 +14,10 @@
 		7755AD231F40A1CA009073D2 /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD221F40A1CA009073D2 /* UIColor+Extension.m */; };
 		7755AD261F40A5B4009073D2 /* SJSettingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD251F40A5B4009073D2 /* SJSettingCollectionViewCell.m */; };
 		7755AD2A1F40ABF9009073D2 /* SJSettingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD291F40ABF9009073D2 /* SJSettingOperation.m */; };
+		7755AD2D1F40B1C6009073D2 /* SJBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD2C1F40B1C6009073D2 /* SJBaseTableView.m */; };
+		7755AD311F40B2EE009073D2 /* SJBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD301F40B2EE009073D2 /* SJBaseTableViewCell.m */; };
+		7755AD341F40B30B009073D2 /* SJListManageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD331F40B30B009073D2 /* SJListManageTableCell.m */; };
+		7755AD371F40B9B1009073D2 /* SJWordList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD361F40B9B1009073D2 /* SJWordList.m */; };
 		778137041F2F558200F3CAA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137031F2F558200F3CAA8 /* main.m */; };
 		778137071F2F558200F3CAA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137061F2F558200F3CAA8 /* AppDelegate.m */; };
 		7781370F1F2F558200F3CAA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7781370E1F2F558200F3CAA8 /* Assets.xcassets */; };
@@ -26,7 +30,6 @@
 		778137421F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137411F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m */; };
 		778137471F2F5EA600F3CAA8 /* SJWordInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137461F2F5EA600F3CAA8 /* SJWordInfo.m */; };
 		7781374C1F2F5FBB00F3CAA8 /* DBNetworkingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781374B1F2F5FBB00F3CAA8 /* DBNetworkingServer.m */; };
-		778137511F2F631400F3CAA8 /* SJBorderlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137501F2F631400F3CAA8 /* SJBorderlineView.m */; };
 		778137551F2F651B00F3CAA8 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137541F2F651B00F3CAA8 /* UIView+Extension.m */; };
 		778137581F2F676A00F3CAA8 /* NSObject+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137571F2F676A00F3CAA8 /* NSObject+Extension.m */; };
 		7781375B1F2F68FE00F3CAA8 /* SJDataServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781375A1F2F68FE00F3CAA8 /* SJDataServer.m */; };
@@ -57,6 +60,14 @@
 		7755AD251F40A5B4009073D2 /* SJSettingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSettingCollectionViewCell.m; sourceTree = "<group>"; };
 		7755AD281F40ABF9009073D2 /* SJSettingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSettingOperation.h; sourceTree = "<group>"; };
 		7755AD291F40ABF9009073D2 /* SJSettingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSettingOperation.m; sourceTree = "<group>"; };
+		7755AD2B1F40B1C6009073D2 /* SJBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJBaseTableView.h; sourceTree = "<group>"; };
+		7755AD2C1F40B1C6009073D2 /* SJBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJBaseTableView.m; sourceTree = "<group>"; };
+		7755AD2F1F40B2EE009073D2 /* SJBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJBaseTableViewCell.h; sourceTree = "<group>"; };
+		7755AD301F40B2EE009073D2 /* SJBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJBaseTableViewCell.m; sourceTree = "<group>"; };
+		7755AD321F40B30B009073D2 /* SJListManageTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJListManageTableCell.h; sourceTree = "<group>"; };
+		7755AD331F40B30B009073D2 /* SJListManageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJListManageTableCell.m; sourceTree = "<group>"; };
+		7755AD351F40B9B1009073D2 /* SJWordList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWordList.h; sourceTree = "<group>"; };
+		7755AD361F40B9B1009073D2 /* SJWordList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordList.m; sourceTree = "<group>"; };
 		778136FF1F2F558200F3CAA8 /* ReciteWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReciteWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		778137031F2F558200F3CAA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		778137051F2F558200F3CAA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -80,8 +91,6 @@
 		778137461F2F5EA600F3CAA8 /* SJWordInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordInfo.m; sourceTree = "<group>"; };
 		7781374A1F2F5FBB00F3CAA8 /* DBNetworkingServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBNetworkingServer.h; sourceTree = "<group>"; };
 		7781374B1F2F5FBB00F3CAA8 /* DBNetworkingServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBNetworkingServer.m; sourceTree = "<group>"; };
-		7781374F1F2F631400F3CAA8 /* SJBorderlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJBorderlineView.h; sourceTree = "<group>"; };
-		778137501F2F631400F3CAA8 /* SJBorderlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJBorderlineView.m; sourceTree = "<group>"; };
 		778137521F2F63A800F3CAA8 /* reciteWords.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = reciteWords.pch; sourceTree = "<group>"; };
 		778137531F2F651B00F3CAA8 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		778137541F2F651B00F3CAA8 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
@@ -210,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				7755AD0E1F409FE8009073D2 /* Controller */,
+				7755AD2E1F40B2C8009073D2 /* View */,
 			);
 			name = "词单管理";
 			path = WordsManager;
@@ -231,6 +241,15 @@
 				7755AD291F40ABF9009073D2 /* SJSettingOperation.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7755AD2E1F40B2C8009073D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7755AD321F40B30B009073D2 /* SJListManageTableCell.h */,
+				7755AD331F40B30B009073D2 /* SJListManageTableCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		778136F61F2F558200F3CAA8 = {
@@ -315,6 +334,10 @@
 			children = (
 				778137241F2F565C00F3CAA8 /* SJBaseView.h */,
 				778137251F2F565C00F3CAA8 /* SJBaseView.m */,
+				7755AD2B1F40B1C6009073D2 /* SJBaseTableView.h */,
+				7755AD2C1F40B1C6009073D2 /* SJBaseTableView.m */,
+				7755AD2F1F40B2EE009073D2 /* SJBaseTableViewCell.h */,
+				7755AD301F40B2EE009073D2 /* SJBaseTableViewCell.m */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -415,6 +438,8 @@
 			children = (
 				778137451F2F5EA600F3CAA8 /* SJWordInfo.h */,
 				778137461F2F5EA600F3CAA8 /* SJWordInfo.m */,
+				7755AD351F40B9B1009073D2 /* SJWordList.h */,
+				7755AD361F40B9B1009073D2 /* SJWordList.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -459,8 +484,6 @@
 		7781374E1F2F62FA00F3CAA8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7781374F1F2F631400F3CAA8 /* SJBorderlineView.h */,
-				778137501F2F631400F3CAA8 /* SJBorderlineView.m */,
 				778137621F2F711A00F3CAA8 /* SJWordInfoView.h */,
 				778137631F2F711A00F3CAA8 /* SJWordInfoView.m */,
 			);
@@ -634,11 +657,13 @@
 				7781376B1F2F833D00F3CAA8 /* YYTimer.m in Sources */,
 				778137341F2F578700F3CAA8 /* SJReciteWordsViewController.m in Sources */,
 				778137581F2F676A00F3CAA8 /* NSObject+Extension.m in Sources */,
+				7755AD311F40B2EE009073D2 /* SJBaseTableViewCell.m in Sources */,
 				778137681F2F831300F3CAA8 /* DBAudioPlayer.m in Sources */,
 				7781375B1F2F68FE00F3CAA8 /* SJDataServer.m in Sources */,
 				778137421F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m in Sources */,
 				7755AD261F40A5B4009073D2 /* SJSettingCollectionViewCell.m in Sources */,
 				7755AD1D1F40A05D009073D2 /* SJWordsListViewController.m in Sources */,
+				7755AD2D1F40B1C6009073D2 /* SJBaseTableView.m in Sources */,
 				778137381F2F581000F3CAA8 /* SJTabBarController.m in Sources */,
 				7755AD111F40A012009073D2 /* SJSettingViewController.m in Sources */,
 				778137231F2F565100F3CAA8 /* SJBaseViewController.m in Sources */,
@@ -648,9 +673,10 @@
 				FA1298001F402B2B00776F56 /* SJReciteWordCollectionViewCell.m in Sources */,
 				7781376E1F2F838900F3CAA8 /* SJAudioPlayerServer.m in Sources */,
 				778137471F2F5EA600F3CAA8 /* SJWordInfo.m in Sources */,
+				7755AD371F40B9B1009073D2 /* SJWordList.m in Sources */,
+				7755AD341F40B30B009073D2 /* SJListManageTableCell.m in Sources */,
 				778137311F2F571200F3CAA8 /* SJBaseNavigationController.m in Sources */,
 				7755AD201F40A082009073D2 /* SJSearchHistoryViewController.m in Sources */,
-				778137511F2F631400F3CAA8 /* SJBorderlineView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
