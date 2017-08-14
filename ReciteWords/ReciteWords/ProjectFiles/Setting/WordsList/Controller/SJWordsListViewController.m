@@ -71,12 +71,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    return nil;
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#CellID#>];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#CellID#>];
+//    [cell setValue:model forKey:@"model"];
     
-    [cell setValue:model forKey:@"model"];
-    
-    return cell;
+//    return cell;
 }
 
 @end
