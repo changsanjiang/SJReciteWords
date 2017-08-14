@@ -1,1 +1,1 @@
-../../../SJDBMap/SJDBMap/SJDBMapClassInfoModel.h
+../../../SJDBMap/SJDBMap/Model/SJDBMapClassInfoModel.h

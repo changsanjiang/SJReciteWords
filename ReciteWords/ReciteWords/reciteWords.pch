@@ -15,11 +15,25 @@
 #import "SJDataServer.h"
 #import <SVProgressHUD.h>
 #import "SJAudioPlayerServer.h"
+#import "UIColor+Extension.h"
 
 typedef NSString * CellID;
+
+//屏幕适配
+#define AutoWith(width)  ((float)width/375.0f*SJ_W)
+#define AutoHeight(height)  ((float)height/667.0f*SJ_H)
 
 // 设备屏幕尺寸
 #define SJ_W  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
 #define SJ_H  MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
+
+#define SJ_Nav_H    (64)
+#define SJ_Tab_H    (49)
+
+// MARK: Color
+
+#define SJ_Theme_C      [UIColor csj_colorWithHexStr:@"F2F2F2"] // 背景颜色。
+#define SJ_Words_D_C    [UIColor csj_colorWithHexStr:@"F9FDFF"] // 单词的下半部分。 上半部分是白色
+#define SJ_Font_C       [UIColor csj_colorWithHexStr:@"1296DB"] // 字体颜色。 蓝色
 
 #endif /* reciteWords_pch */

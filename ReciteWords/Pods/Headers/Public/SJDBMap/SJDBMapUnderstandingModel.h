@@ -1,1 +1,1 @@
-../../../SJDBMap/SJDBMap/SJDBMapUnderstandingModel.h
+../../../SJDBMap/SJDBMap/Model/SJDBMapUnderstandingModel.h

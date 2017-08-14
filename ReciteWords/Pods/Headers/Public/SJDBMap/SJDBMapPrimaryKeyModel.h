@@ -1,1 +1,1 @@
-../../../SJDBMap/SJDBMap/SJDBMapPrimaryKeyModel.h
+../../../SJDBMap/SJDBMap/Model/SJDBMapPrimaryKeyModel.h
