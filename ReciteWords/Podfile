@@ -8,4 +8,5 @@ target 'ReciteWords' do
   pod 'SJBorderLineView'
   pod 'Masonry'  
   pod 'SVProgressHUD'
+
 end

@@ -12,12 +12,15 @@
 		7755AD1D1F40A05D009073D2 /* SJWordsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD1C1F40A05D009073D2 /* SJWordsListViewController.m */; };
 		7755AD201F40A082009073D2 /* SJSearchHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD1F1F40A082009073D2 /* SJSearchHistoryViewController.m */; };
 		7755AD231F40A1CA009073D2 /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD221F40A1CA009073D2 /* UIColor+Extension.m */; };
+<<<<<<< HEAD
 		7755AD261F40A5B4009073D2 /* SJSettingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD251F40A5B4009073D2 /* SJSettingCollectionViewCell.m */; };
 		7755AD2A1F40ABF9009073D2 /* SJSettingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD291F40ABF9009073D2 /* SJSettingOperation.m */; };
 		7755AD2D1F40B1C6009073D2 /* SJBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD2C1F40B1C6009073D2 /* SJBaseTableView.m */; };
 		7755AD311F40B2EE009073D2 /* SJBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD301F40B2EE009073D2 /* SJBaseTableViewCell.m */; };
 		7755AD341F40B30B009073D2 /* SJListManageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD331F40B30B009073D2 /* SJListManageTableCell.m */; };
 		7755AD371F40B9B1009073D2 /* SJWordList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD361F40B9B1009073D2 /* SJWordList.m */; };
+=======
+>>>>>>> pr/3
 		778137041F2F558200F3CAA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137031F2F558200F3CAA8 /* main.m */; };
 		778137071F2F558200F3CAA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137061F2F558200F3CAA8 /* AppDelegate.m */; };
 		7781370F1F2F558200F3CAA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7781370E1F2F558200F3CAA8 /* Assets.xcassets */; };
@@ -56,6 +59,7 @@
 		7755AD1F1F40A082009073D2 /* SJSearchHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSearchHistoryViewController.m; sourceTree = "<group>"; };
 		7755AD211F40A1CA009073D2 /* UIColor+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
 		7755AD221F40A1CA009073D2 /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		7755AD241F40A5B4009073D2 /* SJSettingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSettingCollectionViewCell.h; sourceTree = "<group>"; };
 		7755AD251F40A5B4009073D2 /* SJSettingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSettingCollectionViewCell.m; sourceTree = "<group>"; };
 		7755AD281F40ABF9009073D2 /* SJSettingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSettingOperation.h; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 		7755AD331F40B30B009073D2 /* SJListManageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJListManageTableCell.m; sourceTree = "<group>"; };
 		7755AD351F40B9B1009073D2 /* SJWordList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWordList.h; sourceTree = "<group>"; };
 		7755AD361F40B9B1009073D2 /* SJWordList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordList.m; sourceTree = "<group>"; };
+=======
+>>>>>>> pr/3
 		778136FF1F2F558200F3CAA8 /* ReciteWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReciteWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		778137031F2F558200F3CAA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		778137051F2F558200F3CAA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -152,7 +158,11 @@
 			isa = PBXGroup;
 			children = (
 				7755AD071F409F9A009073D2 /* 设置 */,
+<<<<<<< HEAD
 				7755AD0D1F409FE8009073D2 /* 词单管理 */,
+=======
+				7755AD0D1F409FE8009073D2 /* 列表管理 */,
+>>>>>>> pr/3
 				7755AD0B1F409FE8009073D2 /* 单词列表 */,
 			);
 			name = "设置";
@@ -164,7 +174,10 @@
 			children = (
 				7755AD081F409F9A009073D2 /* Controller */,
 				7755AD091F409F9A009073D2 /* View */,
+<<<<<<< HEAD
 				7755AD271F40ABDF009073D2 /* Model */,
+=======
+>>>>>>> pr/3
 			);
 			name = "设置";
 			path = Setting;
@@ -182,8 +195,11 @@
 		7755AD091F409F9A009073D2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				7755AD241F40A5B4009073D2 /* SJSettingCollectionViewCell.h */,
 				7755AD251F40A5B4009073D2 /* SJSettingCollectionViewCell.m */,
+=======
+>>>>>>> pr/3
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,6 +231,7 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		7755AD0D1F409FE8009073D2 /* 词单管理 */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +239,14 @@
 				7755AD2E1F40B2C8009073D2 /* View */,
 			);
 			name = "词单管理";
+=======
+		7755AD0D1F409FE8009073D2 /* 列表管理 */ = {
+			isa = PBXGroup;
+			children = (
+				7755AD0E1F409FE8009073D2 /* Controller */,
+			);
+			name = "列表管理";
+>>>>>>> pr/3
 			path = WordsManager;
 			sourceTree = "<group>";
 		};
@@ -234,6 +259,7 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		7755AD271F40ABDF009073D2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +278,8 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> pr/3
 		778136F61F2F558200F3CAA8 = {
 			isa = PBXGroup;
 			children = (
@@ -650,7 +678,10 @@
 				778137751F2F948C00F3CAA8 /* SJLocalDataManager.m in Sources */,
 				778137041F2F558200F3CAA8 /* main.m in Sources */,
 				7755AD231F40A1CA009073D2 /* UIColor+Extension.m in Sources */,
+<<<<<<< HEAD
 				7755AD2A1F40ABF9009073D2 /* SJSettingOperation.m in Sources */,
+=======
+>>>>>>> pr/3
 				778137551F2F651B00F3CAA8 /* UIView+Extension.m in Sources */,
 				778137261F2F565C00F3CAA8 /* SJBaseView.m in Sources */,
 				7781375E1F2F6DF500F3CAA8 /* SJSearchWordsBar.m in Sources */,
@@ -661,9 +692,13 @@
 				778137681F2F831300F3CAA8 /* DBAudioPlayer.m in Sources */,
 				7781375B1F2F68FE00F3CAA8 /* SJDataServer.m in Sources */,
 				778137421F2F5ADA00F3CAA8 /* SJSearchWordsViewController.m in Sources */,
+<<<<<<< HEAD
 				7755AD261F40A5B4009073D2 /* SJSettingCollectionViewCell.m in Sources */,
 				7755AD1D1F40A05D009073D2 /* SJWordsListViewController.m in Sources */,
 				7755AD2D1F40B1C6009073D2 /* SJBaseTableView.m in Sources */,
+=======
+				7755AD1D1F40A05D009073D2 /* SJWordsListViewController.m in Sources */,
+>>>>>>> pr/3
 				778137381F2F581000F3CAA8 /* SJTabBarController.m in Sources */,
 				7755AD111F40A012009073D2 /* SJSettingViewController.m in Sources */,
 				778137231F2F565100F3CAA8 /* SJBaseViewController.m in Sources */,
@@ -677,6 +712,10 @@
 				7755AD341F40B30B009073D2 /* SJListManageTableCell.m in Sources */,
 				778137311F2F571200F3CAA8 /* SJBaseNavigationController.m in Sources */,
 				7755AD201F40A082009073D2 /* SJSearchHistoryViewController.m in Sources */,
+<<<<<<< HEAD
+=======
+				778137511F2F631400F3CAA8 /* SJBorderlineView.m in Sources */,
+>>>>>>> pr/3
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,6 +830,7 @@
 			baseConfigurationReference = FA68CC42C134EA75944ACE4C /* Pods-ReciteWords.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sanjiang chang (43553KMQ9B)";
 				DEVELOPMENT_TEAM = DB5B5F2RH5;
 				GCC_PREFIX_HEADER = "$(PROJECT)/reciteWords.pch";
 				INFOPLIST_FILE = ReciteWords/Info.plist;
@@ -808,15 +848,16 @@
 			baseConfigurationReference = A8901B06E98165B83D4DF7C8 /* Pods-ReciteWords.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = DB5B5F2RH5;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 85U46G48ZB;
 				GCC_PREFIX_HEADER = "$(PROJECT)/reciteWords.pch";
 				INFOPLIST_FILE = ReciteWords/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.ReciteWords;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "69b03a16-4788-4a83-b37a-fb5f44a68a15";
-				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
+				PROVISIONING_PROFILE = "dd564f84-91c2-4d7c-a7fb-c466563168c5";
+				PROVISIONING_PROFILE_SPECIFIER = DebugingProfile;
 			};
 			name = Release;
 		};

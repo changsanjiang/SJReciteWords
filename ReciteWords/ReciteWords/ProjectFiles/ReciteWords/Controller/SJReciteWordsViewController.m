@@ -9,7 +9,10 @@
 #import "SJReciteWordsViewController.h"
 #import "SJWordInfo.h"
 #import "SJReciteWordCollectionViewCell.h"
-static CellID const SJReciteWordCollectionViewCellID = @"SJReciteWordCollectionViewCell";
+
+static CellID const ZQReciteWordCollectionViewCellID = @"ZQReciteWordCollectionViewCellID";
+@interface SJReciteWordsViewController (SJReciteWordCollectionViewCellMethods)<SJReciteWordCollectionViewCellDalegate>
+@end
 
 
 @interface SJReciteWordsViewController (UICollectionViewDelegateMethods)<UICollectionViewDelegate>
@@ -55,7 +58,9 @@ static CellID const SJReciteWordCollectionViewCellID = @"SJReciteWordCollectionV
     _collectionView.delegate = self;
     _collectionView.bounces = NO;
     _collectionView.pagingEnabled = YES;
-    [_collectionView registerClass:[SJReciteWordCollectionViewCell class] forCellWithReuseIdentifier:SJReciteWordCollectionViewCellID];
+
+    [_collectionView registerClass:[SJReciteWordCollectionViewCell class] forCellWithReuseIdentifier:ZQReciteWordCollectionViewCellID];
+
     return _collectionView;
 }
 @end
@@ -82,13 +87,21 @@ static CellID const SJReciteWordCollectionViewCellID = @"SJReciteWordCollectionV
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SJReciteWordCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:SJReciteWordCollectionViewCellID forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
-                                           green:1.0 * (arc4random() % 256 / 255.0)
-                                            blue:1.0 * (arc4random() % 256 / 255.0)
-                                           alpha:1];
+
+    SJReciteWordCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:ZQReciteWordCollectionViewCellID forIndexPath:indexPath];
+//    cell.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
+//                                           green:1.0 * (arc4random() % 256 / 255.0)
+//                                            blue:1.0 * (arc4random() % 256 / 255.0)
+//                                           alpha:1];
     return cell;
     
+}
+@end
+
+@implementation SJReciteWordsViewController(SJReciteWordCollectionViewCellMethods)
+
+- (void)reciteWordCollectionViewCell:(SJReciteWordCollectionViewCell *)reciteWordCollectionViewCell clickReciteBtn:(UIButton *)clickRecite {
+    NSLog(@"点击播放");
 }
 
 @end
