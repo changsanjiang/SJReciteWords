@@ -12,7 +12,7 @@
 #import "SJSearchWordsViewController.h"
 #import "UIImage+Extension.h"
 #import "SJSettingViewController.h"
-#import "SJSearchHistoryViewController.h"
+#import "SJWordsListViewController.h"
 
 @interface SJTabBarController ()
 
@@ -32,7 +32,7 @@
                                           className:NSStringFromClass([SJSettingViewController class])];
     viewControllersM[2] = [self controllerWithTitle:@"搜索历史"
                                        imageNameStr:@"sj_item_recite_history_n"
-                                          className:NSStringFromClass([SJSearchHistoryViewController class])];
+                                          className:NSStringFromClass([SJWordsListViewController class])];
     self.viewControllers = viewControllersM.copy;
     
     self.tabBar.tintColor = SJ_Font_C;

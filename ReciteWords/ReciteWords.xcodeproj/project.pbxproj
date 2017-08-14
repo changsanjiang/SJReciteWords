@@ -18,6 +18,7 @@
 		7755AD311F40B2EE009073D2 /* SJBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD301F40B2EE009073D2 /* SJBaseTableViewCell.m */; };
 		7755AD341F40B30B009073D2 /* SJListManageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD331F40B30B009073D2 /* SJListManageTableCell.m */; };
 		7755AD371F40B9B1009073D2 /* SJWordList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD361F40B9B1009073D2 /* SJWordList.m */; };
+		7755AD3E1F4200E4009073D2 /* SJWordsListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD3D1F4200E4009073D2 /* SJWordsListTableCell.m */; };
 		778137041F2F558200F3CAA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137031F2F558200F3CAA8 /* main.m */; };
 		778137071F2F558200F3CAA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137061F2F558200F3CAA8 /* AppDelegate.m */; };
 		7781370F1F2F558200F3CAA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7781370E1F2F558200F3CAA8 /* Assets.xcassets */; };
@@ -68,6 +69,8 @@
 		7755AD331F40B30B009073D2 /* SJListManageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJListManageTableCell.m; sourceTree = "<group>"; };
 		7755AD351F40B9B1009073D2 /* SJWordList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWordList.h; sourceTree = "<group>"; };
 		7755AD361F40B9B1009073D2 /* SJWordList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordList.m; sourceTree = "<group>"; };
+		7755AD3C1F4200E4009073D2 /* SJWordsListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWordsListTableCell.h; sourceTree = "<group>"; };
+		7755AD3D1F4200E4009073D2 /* SJWordsListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordsListTableCell.m; sourceTree = "<group>"; };
 		778136FF1F2F558200F3CAA8 /* ReciteWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReciteWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		778137031F2F558200F3CAA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		778137051F2F558200F3CAA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -201,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				7755AD0C1F409FE8009073D2 /* Controller */,
+				7755AD3B1F4200CA009073D2 /* View */,
 			);
 			name = "单词列表";
 			path = WordsList;
@@ -248,6 +252,15 @@
 			children = (
 				7755AD321F40B30B009073D2 /* SJListManageTableCell.h */,
 				7755AD331F40B30B009073D2 /* SJListManageTableCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7755AD3B1F4200CA009073D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7755AD3C1F4200E4009073D2 /* SJWordsListTableCell.h */,
+				7755AD3D1F4200E4009073D2 /* SJWordsListTableCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -671,6 +684,7 @@
 				778137641F2F711A00F3CAA8 /* SJWordInfoView.m in Sources */,
 				7781374C1F2F5FBB00F3CAA8 /* DBNetworkingServer.m in Sources */,
 				FA1298001F402B2B00776F56 /* SJReciteWordCollectionViewCell.m in Sources */,
+				7755AD3E1F4200E4009073D2 /* SJWordsListTableCell.m in Sources */,
 				7781376E1F2F838900F3CAA8 /* SJAudioPlayerServer.m in Sources */,
 				778137471F2F5EA600F3CAA8 /* SJWordInfo.m in Sources */,
 				7755AD371F40B9B1009073D2 /* SJWordList.m in Sources */,

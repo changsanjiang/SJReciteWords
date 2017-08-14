@@ -132,13 +132,13 @@
 
 - (UIButton *)us_audioBtn {
     if ( _us_audioBtn ) return _us_audioBtn;
-    _us_audioBtn = [UIButton buttonWithImageName:@"sj_word_audio" title:@" 美音" titleColor:[UIColor blackColor] backgroundColor:[UIColor clearColor] tag:0 target:self sel:@selector(clickedBtn:)];
+    _us_audioBtn = [UIButton buttonWithImageName:@"sj_audio" title:@" 美音" titleColor:[UIColor blackColor] backgroundColor:[UIColor clearColor] tag:0 target:self sel:@selector(clickedBtn:)];
     return _us_audioBtn;
 }
 
 - (UIButton *)uk_audioBtn {
     if ( _uk_audioBtn ) return _uk_audioBtn;
-    _uk_audioBtn = [UIButton buttonWithImageName:@"sj_word_audio" title:@" 英音" titleColor:[UIColor blackColor] backgroundColor:[UIColor clearColor] tag:1 target:self sel:@selector(clickedBtn:)];
+    _uk_audioBtn = [UIButton buttonWithImageName:@"sj_audio" title:@" 英音" titleColor:[UIColor blackColor] backgroundColor:[UIColor clearColor] tag:1 target:self sel:@selector(clickedBtn:)];
     return _uk_audioBtn;
 }
 @end

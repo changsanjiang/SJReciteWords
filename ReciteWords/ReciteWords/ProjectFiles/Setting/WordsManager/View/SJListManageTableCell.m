@@ -41,8 +41,8 @@
     [self.borderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.offset(0);
     }];
-    self.borderView.lineWidth = 4;
-    self.borderView.side = SJBorderlineSideTop;
+    self.borderView.lineWidth = 2;
+    self.borderView.side = SJBorderlineSideTop | SJBorderlineSideBottom;
     self.borderView.lineColor = SJ_Theme_C;
     [self.borderView update];
 }

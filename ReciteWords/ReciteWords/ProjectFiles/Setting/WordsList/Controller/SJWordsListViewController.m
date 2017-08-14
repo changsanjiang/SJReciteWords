@@ -11,6 +11,7 @@
 #import "SJBaseTableView.h"
 
 
+static CellID const SJWordsListTableCellID = @"SJWordsListTableCell";
 
 @interface SJWordsListViewController (UITableViewDelegateMethods)<UITableViewDelegate> @end
 @interface SJWordsListViewController (UITableViewDataSourceMethods)<UITableViewDataSource> @end
@@ -32,6 +33,10 @@
 - (void)setupUI {
     [super setupUI];
     
+    [self.view addSubview:self.tableView];
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.offset(0);
+    }];
 }
 
 - (SJBaseTableView *)tableView {
@@ -39,7 +44,8 @@
     _tableView = [SJBaseTableView new];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.rowHeight = 118 * SJ_Rate;
+    _tableView.rowHeight = 150 * SJ_Rate;
+    [_tableView registerClass:NSClassFromString(SJWordsListTableCellID) forCellReuseIdentifier:SJWordsListTableCellID];
     return _tableView;
 }
 
@@ -66,17 +72,30 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return 99;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return nil;
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#CellID#>];
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SJWordsListTableCellID];
     
 //    [cell setValue:model forKey:@"model"];
     
-//    return cell;
+    return cell;
+}
+
+// MARK: Edit
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        NSLog(@"delete");
+    }];
+    if ( action ) return @[action];
+    return nil;
 }
 
 @end
