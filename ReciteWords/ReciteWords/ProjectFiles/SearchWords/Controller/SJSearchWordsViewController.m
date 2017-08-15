@@ -64,6 +64,21 @@
     [self _SJSearchWordsViewControllerRemoveNotifications];
 }
 
+- (void)showAddToListItemBtn {
+    if ( self.navigationItem.rightBarButtonItem != nil ) return;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"sj_word_addToList"] style:UIBarButtonItemStyleDone target:self action:@selector(clickedBarItem:)];
+}
+
+- (void)hiddenAddToListItemBtn {
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
+// MARK: Actions
+
+- (void)clickedBarItem:(UIBarButtonItem *)barItem {
+    NSLog(@"clicked bar item");
+}
+
 // MARK: UI
 
 - (void)_SJSearchWordsViewControllerSetupUI {
@@ -173,7 +188,7 @@
         if ( !self ) return;
         self.wordInfoView.wordInfo = wordInfo;
         [Player playWithURLStr:wordInfo.us_audio];
-
+        [self showAddToListItemBtn];
         [LocalManager searchListAddWord:wordInfo callBlock:nil];
     }];
 }
