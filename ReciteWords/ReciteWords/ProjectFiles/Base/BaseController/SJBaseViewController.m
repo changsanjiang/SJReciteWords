@@ -20,9 +20,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-    [self setupUI];
-    
+ 
+    [self _SJBaseViewControllerSetupUI];
 }
 
 - (void)dealloc {
@@ -39,7 +38,7 @@
 
 // MARK: UI
 
-- (void)setupUI {
+- (void)_SJBaseViewControllerSetupUI {
     
     self.view.backgroundColor = SJ_Theme_C;
     

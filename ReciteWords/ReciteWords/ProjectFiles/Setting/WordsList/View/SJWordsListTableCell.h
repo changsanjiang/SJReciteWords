@@ -8,6 +8,10 @@
 
 #import "SJBaseTableViewCell.h"
 
+@class SJWordInfo;
+
 @interface SJWordsListTableCell : SJBaseTableViewCell
+
+@property (nonatomic, strong) SJWordInfo *model;
 
 @end

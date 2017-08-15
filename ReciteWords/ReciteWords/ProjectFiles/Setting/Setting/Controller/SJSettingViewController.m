@@ -39,10 +39,16 @@ static short const item_h = 158;
 @synthesize collectionView = _collectionView;
 @synthesize operations = _operations;
 
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self _SJSettingViewControllerSetupUI];
+}
+
 // MARK: UI
 
-- (void)setupUI {
-    [super setupUI];
+- (void)_SJSettingViewControllerSetupUI {
     [self.view addSubview:self.collectionView];
     [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);

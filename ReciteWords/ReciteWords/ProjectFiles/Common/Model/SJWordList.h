@@ -8,12 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+#import <SJDBMapUseProtocol.h>
+
 @class SJWordInfo;
 
-@interface SJWordList : NSObject
+@interface SJWordList : NSObject<SJDBMapUseProtocol>
+
+@property (nonatomic, assign) NSInteger listId;
 
 @property (nonatomic, strong) NSString *title;
 
-@property (nonatomic, strong) NSArray<SJWordInfo *> *words;
+@property (nonatomic, strong) NSMutableArray<SJWordInfo *> *words;
+
++ (instancetype)listWithTitle:(NSString *)title;
 
 @end

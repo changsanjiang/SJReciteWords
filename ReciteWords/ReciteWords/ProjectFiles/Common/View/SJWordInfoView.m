@@ -7,7 +7,10 @@
 //
 
 #import "SJWordInfoView.h"
+
 #import "SJWordInfo.h"
+
+#import "SJWordPronunciations.h"
 
 @interface SJWordInfoView ()
 
@@ -15,7 +18,11 @@
 /*!
  *  发音
  */
-@property (nonatomic, strong, readonly) UILabel *pronunciationLabel;
+@property (nonatomic, strong, readonly) UILabel *pUSLabel;
+/*!
+ *  发音
+ */
+@property (nonatomic, strong, readonly) UILabel *pUKLabel;
 /*!
  *  定义
  */
@@ -34,7 +41,8 @@
 @implementation SJWordInfoView
 
 @synthesize contentLabel = _contentLabel;
-@synthesize pronunciationLabel = _pronunciationLabel;
+@synthesize pUSLabel = _pUSLabel;
+@synthesize pUKLabel = _pUKLabel;
 @synthesize definitionLabel = _definitionLabel;
 @synthesize us_audioBtn = _us_audioBtn;
 @synthesize uk_audioBtn = _uk_audioBtn;
@@ -42,7 +50,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if ( !self ) return nil;
-    [self _SJWordInfoViewSetupUI];
+    [self _SJWordInfoViewSetupView];
     return self;
 }
 
@@ -70,37 +78,47 @@
 - (void)setWordInfo:(SJWordInfo *)wordInfo {
     _wordInfo = wordInfo;
     _contentLabel.text = wordInfo.content;
-    _pronunciationLabel.text = [NSString stringWithFormat:@"[ %@ ]", wordInfo.pronunciation];
+    _pUSLabel.text = [NSString stringWithFormat:@"美 [ %@ ]", wordInfo.pronunciations.us];
+    _pUKLabel.text = [NSString stringWithFormat:@"英 [ %@ ]", wordInfo.pronunciations.uk];
     _definitionLabel.text = wordInfo.definition;
 }
 
 // MARK: UI
 
-- (void)_SJWordInfoViewSetupUI {
+- (void)_SJWordInfoViewSetupView {
     [self addSubview:self.contentLabel];
     [self addSubview:self.definitionLabel];
-    [self addSubview:self.pronunciationLabel];
+    [self addSubview:self.pUSLabel];
+    [self addSubview:self.pUKLabel];
     [self addSubview:self.us_audioBtn];
     [self addSubview:self.uk_audioBtn];
     
+    CGFloat margin = ceil(20 * SJ_Rate);
+    
     [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(20);
+        make.top.offset(margin);
         make.leading.trailing.offset(0);
     }];
     
-    [_pronunciationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_pUSLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(_contentLabel);
-        make.top.equalTo(_contentLabel.mas_bottom).offset(20);
+        make.top.equalTo(_contentLabel.mas_bottom).offset(margin);
+        make.leading.trailing.offset(0);
+    }];
+    
+    [_pUKLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_contentLabel);
+        make.top.equalTo(_pUSLabel.mas_bottom).offset(margin);
         make.leading.trailing.offset(0);
     }];
     
     [_definitionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_pronunciationLabel.mas_bottom).offset(20);
+        make.top.equalTo(_pUKLabel.mas_bottom).offset(margin);
         make.leading.trailing.offset(0);
     }];
     
     [_us_audioBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_definitionLabel.mas_bottom).offset(20);
+        make.top.equalTo(_definitionLabel.mas_bottom).offset(margin);
         make.centerX.equalTo(_contentLabel).multipliedBy(0.5);
     }];
     
@@ -117,10 +135,16 @@
     return _contentLabel;
 }
 
-- (UILabel *)pronunciationLabel {
-    if ( _pronunciationLabel ) return _pronunciationLabel;
-    _pronunciationLabel = [UILabel labelWithFontSize:12 textColor:[UIColor blackColor] alignment:NSTextAlignmentCenter];
-    return _pronunciationLabel;
+- (UILabel *)pUSLabel {
+    if ( _pUSLabel ) return _pUSLabel;
+    _pUSLabel = [UILabel labelWithFontSize:12 textColor:[UIColor blackColor] alignment:NSTextAlignmentCenter];
+    return _pUSLabel;
+}
+
+- (UILabel *)pUKLabel {
+    if ( _pUKLabel ) return _pUKLabel;
+    _pUKLabel = [UILabel labelWithFontSize:12 textColor:[UIColor blackColor] alignment:NSTextAlignmentCenter];
+    return _pUKLabel;
 }
 
 - (UILabel *)definitionLabel {

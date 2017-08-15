@@ -37,10 +37,15 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 
 @synthesize lists = _lists;
 
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self _SJListManageViewControllerSetupUI];
+}
+
 // MARK: UI
 
-- (void)setupUI {
-    [super setupUI];
+- (void)_SJListManageViewControllerSetupUI {
     
     [self.view addSubview:self.tableView];
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -33,13 +33,14 @@ static CellID const SJReciteWordCollectionViewCellID = @"SJReciteWordCollectionV
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self _SJReciteWordsViewControllerSetupUI];
+    
     // Do any additional setup after loading the view.
 }
 
 // MARK: UI
 
-- (void)setupUI {
-    [super setupUI];
+- (void)_SJReciteWordsViewControllerSetupUI {
     [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);

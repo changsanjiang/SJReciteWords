@@ -10,12 +10,20 @@
 #define reciteWords_pch
 
 #import "UIView+Extension.h"
+
 #import <Masonry.h>
+
 #import "NSObject+Extension.h"
+
 #import "SJDataServer.h"
+
 #import <SVProgressHUD.h>
+
 #import "SJAudioPlayerServer.h"
+
 #import "UIColor+Extension.h"
+
+#import "SJLocalDataManager.h"
 
 typedef NSString * CellID;
 

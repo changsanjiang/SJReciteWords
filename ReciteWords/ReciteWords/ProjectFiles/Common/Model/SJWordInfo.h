@@ -8,18 +8,28 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SJWordInfo : NSObject
+#import <SJDBMapUseProtocol.h>
+
+@class SJWordPronunciations;
+
+@interface SJWordInfo : NSObject<SJDBMapUseProtocol>
+
+@property (nonatomic, assign) NSInteger object_id;
 
 @property (nonatomic, strong) NSString *definition;
 
 @property (nonatomic, strong) NSString *content;
 
-@property (nonatomic, strong) NSString *pronunciation;
-
 @property (nonatomic, strong) NSString *us_audio;
 
 @property (nonatomic, strong) NSString *uk_audio;
 
+@property (nonatomic, strong) SJWordPronunciations *pronunciations;
+
 + (instancetype)wordInfoWithDictionary:(NSDictionary *)dict;
+
+// MARK: SJAdd
+@property (nonatomic, assign) CGFloat height;
+// MARK: SJEnd
 
 @end

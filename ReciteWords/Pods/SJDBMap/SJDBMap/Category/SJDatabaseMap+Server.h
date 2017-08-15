@@ -85,7 +85,9 @@ extern char *_sjmystrcat(char *dst, const char *src);
 /*!
  *  更新
  */
-- (BOOL)sjUpdateProperty:(NSArray<NSString *> *)fields target:(id<SJDBMapUseProtocol>)model;
+- (BOOL)sjUpdate:(id<SJDBMapUseProtocol>)model property:(NSArray<NSString *> *)fields;
+
+- (BOOL)sjUpdate:(id<SJDBMapUseProtocol>)model insertedOrUpdatedValues:(NSDictionary<NSString *, id> *)insertedOrUpdatedValues;
 
 /*!
  *  获取主键值

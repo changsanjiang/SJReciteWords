@@ -59,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  *  插入数据或更新数据
  *  如果没有表, 会自动创建表
+ *
+ *  如果是模型具有自增主键, 将会随机插入.
  */
 - (void)insertOrUpdateDataWithModel:(id<SJDBMapUseProtocol>)model callBlock:(void(^ __nullable)(BOOL result))block;
 
@@ -66,14 +68,23 @@ NS_ASSUME_NONNULL_BEGIN
  *  批量插入或更新
  *  如果没有表, 会自动创建表
  *  数组中的模型, 可以不同
+ *  如果是模型具有自增主键, 将会随机插入.
  */
 - (void)insertOrUpdateDataWithModels:(NSArray<id<SJDBMapUseProtocol>> *)models callBlock:(void (^ __nullable)(BOOL result))block;
 
 /*!
  *  更新指定的属性
- *  如果数据库没有这条数据, 将不会保存
+ *  如果数据库没有这个模型, 将不会保存
  */
-- (void)updateProperty:(NSArray<NSString *> *)fields target:(id<SJDBMapUseProtocol>)model callBlock:(void (^ __nullable)(BOOL result))block;
+- (void)update:(id<SJDBMapUseProtocol>)model property:(NSArray<NSString *> *)fields callBlock:(void (^ __nullable)(BOOL result))block;
+
+/*!
+ *  提供更详细的信息去更新, 这将提高更新速度
+ *  如果数据库没有这个模型, 将不会保存
+ *
+ *  insertedOrUpdatedValues : key 更新的这个模型对应的属性. value 属性 更新/新增 的模型, 可以是数组, 也可以是单个模型
+ */
+- (void)update:(id<SJDBMapUseProtocol>)model insertedOrUpdatedValues:(NSDictionary<NSString *, id> * __nullable)insertedOrUpdatedValues callBlock:(void (^)(BOOL))block;
 
 @end
 

@@ -7,9 +7,15 @@
 //
 
 #import "SJSearchWordsViewController.h"
+
 #import "SJSearchWordsBar.h"
+
 #import <objc/message.h>
+
 #import "SJWordInfo.h"
+
+#import "SJWordList.h"
+
 #import "SJWordInfoView.h"
 
 // MARK: 通知处理
@@ -30,6 +36,7 @@
 
 @property (nonatomic, strong, readonly) SJSearchWordsBar *searchBar;
 @property (nonatomic, strong, readonly) SJWordInfoView *wordInfoView;
+@property (nonatomic, strong, readwrite) SJWordList *list;
 
 @end
 
@@ -50,6 +57,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self _SJSearchWordsViewControllerSetupUI];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -59,8 +68,8 @@
 
 // MARK: UI
 
-- (void)setupUI {
-    [super setupUI];
+- (void)_SJSearchWordsViewControllerSetupUI {
+    
     self.navigationItem.rightBarButtonItem = nil;
     self.title = @"单词搜索";
     
@@ -167,6 +176,8 @@
         if ( !self ) return;
         self.wordInfoView.wordInfo = wordInfo;
         [Player playWithURLStr:wordInfo.us_audio];
+
+        [LocalManager searchListAddWord:wordInfo callBlock:nil];
     }];
 }
 

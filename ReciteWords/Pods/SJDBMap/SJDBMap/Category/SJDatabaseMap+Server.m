@@ -374,6 +374,7 @@
 - (BOOL)sjInsertOrUpdateDataWithModels:(NSArray<id<SJDBMapUseProtocol>> *)models enableTransaction:(BOOL)enableTransaction {
     __block BOOL result = YES;
     if ( enableTransaction ) [self _sjBeginTransaction];
+    
     __block SJDBMapUnderstandingModel *uM;
     NSMutableSet<id<SJDBMapUseProtocol>> *modelsSetM = [NSMutableSet new];
     [models enumerateObjectsUsingBlock:^(id<SJDBMapUseProtocol>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -386,7 +387,6 @@
     NSMutableSet<id<SJDBMapUseProtocol>> *hasPrimaryKeyModelsSetM = [NSMutableSet new];
     NSMutableSet<id<SJDBMapUseProtocol>> *hasAutoPrimaryKeyModelsSetM = [NSMutableSet new];
     
-    // 模型整理 去除重复数据.
     NSDictionary<NSString *, NSArray<id> *> *putInOrderResult = [self sjPutInOrderModelsSet:modelsSetM];
     [putInOrderResult.allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull clsStr, NSUInteger idx, BOOL * _Nonnull stop) {
         Class cls = NSClassFromString(clsStr);
@@ -396,18 +396,21 @@
         else if ( hasAutoPrimaryKey ) [hasAutoPrimaryKeyModelsSetM addObjectsFromArray:putInOrderResult[clsStr]];
         NSAssert(hasPrimaryKey || hasAutoPrimaryKey , @"%@ - 该类没有实现主键或自增主键.", cls);
     }];
-    
+
     // 优先 插入自增主键类
     [hasAutoPrimaryKeyModelsSetM enumerateObjectsUsingBlock:^(id<SJDBMapUseProtocol>  _Nonnull model, BOOL * _Nonnull stop) {
         if ( [model class] != uM.ownerCls ) uM = [self sjGetUnderstandingWithClass:[model class]];
-        [self sjInsertOrUpdateDataWithModel:model uM:uM];
+        result = [self sjInsertOrUpdateDataWithModel:model uM:uM];
+        if ( !result ) *stop = YES;
     }];
     
-    // 插入 主键类
-    [hasPrimaryKeyModelsSetM enumerateObjectsUsingBlock:^(id<SJDBMapUseProtocol>  _Nonnull model, BOOL * _Nonnull stop) {
-        if ( [model class] != uM.ownerCls ) uM = [self sjGetUnderstandingWithClass:[model class]];
-        [self sjInsertOrUpdateDataWithModel:model uM:uM];
-    }];
+    if ( result ) {
+        // 插入 主键类
+        [hasPrimaryKeyModelsSetM enumerateObjectsUsingBlock:^(id<SJDBMapUseProtocol>  _Nonnull model, BOOL * _Nonnull stop) {
+            if ( [model class] != uM.ownerCls ) uM = [self sjGetUnderstandingWithClass:[model class]];
+            [self sjInsertOrUpdateDataWithModel:model uM:uM];
+        }];
+    }
     
     if ( enableTransaction ) [self _sjCommitTransaction];
     return result;
@@ -446,11 +449,70 @@
 /*!
  *  更新
  */
-- (BOOL)sjUpdateProperty:(NSArray<NSString *> *)fields target:(id<SJDBMapUseProtocol>)model {
+- (BOOL)sjUpdate:(id<SJDBMapUseProtocol>)model property:(NSArray<NSString *> *)fields {
     __block BOOL result = YES;
     
     [self _sjBeginTransaction];
     
+    // 查看是否有特殊字段
+    NSDictionary<NSString *, NSArray<NSString *> *> *putInOrderResult = [self _sjPutInOrderModel:model fields:fields];
+    
+    // 存放普通字段
+    NSArray<NSString *> *commonFields = putInOrderResult[@"commonFields"];
+    
+    // 存放独特字段
+    NSArray<NSString *> *uniqueFields = putInOrderResult[@"uniqueFields"];
+   
+    // 先处理普通字段, 再处理特殊字段
+    if ( 0 != commonFields.count ) {
+        result = [self _sjUpdate:model commonFields:commonFields];
+    }
+    
+    if ( result && 0 != uniqueFields.count ) {
+        result = [self _sjUpdate:model uniqueFields:uniqueFields];
+    }
+    [self _sjCommitTransaction];
+    return result;
+}
+
+- (BOOL)_sjUpdate:(id<SJDBMapUseProtocol>)model commonFields:(NSArray<NSString *> *)fiedls {
+    NSString *sql = [self sjGetCommonUpdateSQLWithFields:fiedls model:model];
+    __block BOOL result = YES;
+    [self sjExeSQL:sql.UTF8String completeBlock:^(BOOL r) {
+        if ( !r ) result = NO, NSLog(@"[%@]- %@ 插入或更新失败", model, sql);
+    }];
+    return result;
+}
+
+- (BOOL)_sjUpdate:(id<SJDBMapUseProtocol>)model uniqueFields:(NSArray<NSString *> *)uniqueFields {
+    __block BOOL result = YES;
+    // Update model
+    result = [self sjInsertOrUpdateDataWithModel:model uM:[self sjGetUnderstandingWithClass:[model class]]];
+    
+    if ( !result ) return NO;
+    
+    // insert values
+    [uniqueFields enumerateObjectsUsingBlock:^(NSString * _Nonnull fields, NSUInteger idx, BOOL * _Nonnull stop) {
+        id uniqueValue = [(id)model valueForKey:fields];
+        // is Arr
+        if ( [uniqueValue isKindOfClass:[NSArray class]] ) {
+            // insert arr values
+            result = [self sjInsertOrUpdateDataWithModels:uniqueValue enableTransaction:NO];
+            return;
+        }
+        // is cor
+        if ( result ) result = [self sjInsertOrUpdateDataWithModel:uniqueValue uM:[self sjGetUnderstandingWithClass:[uniqueValue class]]];
+    }];
+    
+    return result;
+}
+
+/*!
+ *  Possible keys ..
+ *  1. commonFields
+ *  2. uniqueFields
+ */
+- (NSDictionary<NSString *, NSArray<NSString *> *> *)_sjPutInOrderModel:(id<SJDBMapUseProtocol>)model fields:(NSArray<NSString *> *)fields {
     // 查看是否有特殊字段
     
     // 存放普通字段
@@ -465,9 +527,9 @@
      *  2. 数组相应键
      */
     NSArray<NSString *> *corOriginFields = [self sjGetCorrespondingOriginFields:[model class]];
-
+    
     NSArray<NSString *> *arrCorOriginFields = [self sjGetArrCorrespondingOriginFields:[model class]];
-
+    
     // 搜索特殊字段
     [fields enumerateObjectsUsingBlock:^(NSString * _Nonnull outObj, NSUInteger idx, BOOL * _Nonnull stop) {
         __block BOOL addedBol = NO;
@@ -480,45 +542,56 @@
         if ( !addedBol ) [commonFields addObject:outObj];
     }];
     
+    NSMutableDictionary<NSString *, NSArray<NSString *> *> *dictM = [NSMutableDictionary new];
+    if ( 0 != commonFields.count ) [dictM setObject:commonFields forKey:@"commonFields"];
+    if ( 0 != uniqueFields.count ) [dictM setObject:uniqueFields forKey:@"uniqueFields"];
+    return dictM;
+}
+
+- (BOOL)sjUpdate:(id<SJDBMapUseProtocol>)model insertedOrUpdatedValues:(NSDictionary<NSString *, id> *)insertedOrUpdatedValues {
+    if ( 0 == insertedOrUpdatedValues.allValues ) return YES;
+    
+    [self _sjBeginTransaction];
+    
+    __block BOOL result = YES;
+    // 查看是否有特殊字段
+    NSDictionary<NSString *, NSArray<NSString *> *> *putInOrderResult = [self _sjPutInOrderModel:model fields:insertedOrUpdatedValues.allKeys];
+    
+    // 存放普通字段
+    NSArray<NSString *> *commonFields = putInOrderResult[@"commonFields"];
+    
+    // 存放独特字段
+    NSArray<NSString *> *uniqueFields = putInOrderResult[@"uniqueFields"];
+    
     // 先处理普通字段, 再处理特殊字段
+    
     if ( 0 != commonFields.count ) {
-        NSString *sql = [self sjGetCommonUpdateSQLWithFields:commonFields model:model];
-        [self sjExeSQL:sql.UTF8String completeBlock:^(BOOL r) {
-            if ( !r ) result = NO, NSLog(@"[%@]- %@ 插入或更新失败", model, sql);
-        }];
+        result = [self _sjUpdate:model commonFields:commonFields];
     }
     
     if ( result && 0 != uniqueFields.count ) {
-        
-        NSMutableString *arrSqlM = [NSMutableString stringWithFormat:@"UPDATE %@ SET ", NSStringFromClass([model class])];
-        NSMutableArray *corModelArrM = [NSMutableArray new];
-        [uniqueFields enumerateObjectsUsingBlock:^(NSString * _Nonnull fields, NSUInteger idx, BOOL * _Nonnull stop) {
-            id uniqueValue = [(id)model valueForKey:fields];
+        // 特殊字段
+        [uniqueFields enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            id uniqueValue = [(id)model valueForKey:obj];
             // is Arr
             if ( [uniqueValue isKindOfClass:[NSArray class]] ) {
-                [arrSqlM appendFormat:@"%@ = ", fields];
-                [arrSqlM appendFormat:@"'%@',", [self sjGetArrModelPrimaryValues:uniqueValue]];
-                [corModelArrM addObjectsFromArray:uniqueValue];
+                result = [self sjInsertOrUpdateDataWithModels:uniqueValue enableTransaction:NO];
+                if ( !result ) { *stop = YES;}
                 return;
             }
-            [corModelArrM addObject:uniqueValue];
+            // is cor
+            SJDBMapUnderstandingModel *uM = [self sjGetUnderstandingWithClass:[uniqueValue class]];
+            result = [self sjInsertOrUpdateDataWithModel:uniqueValue uM:uM];
+            if ( !result ) { *stop = YES;}
         }];
-        
-        if ( [arrSqlM hasSuffix:@","] ) {
-            [arrSqlM deleteCharactersInRange:NSMakeRange(arrSqlM.length - 1, 1)];
-            [arrSqlM appendFormat:@" where %@ = %@;", [self sjGetPrimaryOrAutoPrimaryFields:[model class]], [self sjGetPrimaryOrAutoPrimaryValue:model]];
-            [self sjExeSQL:arrSqlM.UTF8String completeBlock:^(BOOL r) {
-                if ( !r ) result = NO, NSLog(@"[%@]- %@ 插入或更新失败", model, arrSqlM);
-            }];
-            
-            if ( result ) result = [self sjInsertOrUpdateDataWithModels:corModelArrM enableTransaction:NO];
-        }
     }
+    // update
+    result = [self sjInsertOrUpdateDataWithModel:model uM:[self sjGetUnderstandingWithClass:[model class]]];
+    
     [self _sjCommitTransaction];
+    
     return result;
 }
-
-
 
 /*!
  *  获取主键值
@@ -547,7 +620,7 @@
     
     SJDBMapUnderstandingModel *model = [self sjGetUnderstandingWithClass:cls];
     
-    NSAssert(model.primaryKey || model.autoincrementPrimaryKey, @"[%@] 只能有一个主键.", cls);
+    NSAssert(model.primaryKey || model.autoincrementPrimaryKey, @"[%@] 需要一个主键.", cls);
     
     // 获取表名称
     const char *tabName = [self sjGetTabName:cls];
@@ -581,10 +654,17 @@
         // 如果字段类型未知, 目前跳过该字段
         if ( 0 == strlen(fieldType) ) continue;
         
-        _sjmystrcat(sql, " ");
-        _sjmystrcat(sql, field);
-        _sjmystrcat(sql, " ");
-        _sjmystrcat(sql, fieldType);
+        char *fieldSql = malloc(256);
+        
+        _sjmystrcat(fieldSql, " ");
+        _sjmystrcat(fieldSql, field);
+        _sjmystrcat(fieldSql, " ");
+        _sjmystrcat(fieldSql, fieldType);
+        
+        if ( NULL != strstr(sql, fieldSql) ) {free(fieldSql); continue;}
+        
+        _sjmystrcat(sql, fieldSql);
+        free(fieldSql);
         
         // 如果是自增主键
         if      ( NULL != model.autoincrementPrimaryKey &&
@@ -844,7 +924,7 @@ typedef void(^SJIvarValueBlock)(id value);
 /*!
  *  获取类中相关的私有变量
  */
-static NSMutableSet<NSString *> *_sjGetIvarNames(Class cls) {
+inline static NSMutableSet<NSString *> *_sjGetIvarNames(Class cls) {
     NSMutableSet<NSString *> *ivarListSetM = [NSMutableSet new];
     unsigned int outCount = 0;
     Ivar *ivarList = class_copyIvarList(cls, &outCount);
@@ -857,7 +937,6 @@ static NSMutableSet<NSString *> *_sjGetIvarNames(Class cls) {
     free(ivarList);
     return ivarListSetM;
 }
-
 
 @end
 

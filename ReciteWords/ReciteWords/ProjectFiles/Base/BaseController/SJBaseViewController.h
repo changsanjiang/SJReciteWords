@@ -10,6 +10,4 @@
 
 @interface SJBaseViewController : UIViewController
 
-- (void)setupUI;
-
 @end

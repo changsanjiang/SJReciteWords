@@ -18,6 +18,9 @@
 		7755AD341F40B30B009073D2 /* SJListManageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD331F40B30B009073D2 /* SJListManageTableCell.m */; };
 		7755AD371F40B9B1009073D2 /* SJWordList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD361F40B9B1009073D2 /* SJWordList.m */; };
 		7755AD3E1F4200E4009073D2 /* SJWordsListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD3D1F4200E4009073D2 /* SJWordsListTableCell.m */; };
+		7755AD451F42B8F6009073D2 /* SJSearchHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD441F42B8F6009073D2 /* SJSearchHistoryViewController.m */; };
+		7755AD481F42DBDF009073D2 /* SJWordPronunciations.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD471F42DBDF009073D2 /* SJWordPronunciations.m */; };
+		7755AD4B1F42E98B009073D2 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD4A1F42E98B009073D2 /* NSString+Extension.m */; };
 		778137041F2F558200F3CAA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137031F2F558200F3CAA8 /* main.m */; };
 		778137071F2F558200F3CAA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137061F2F558200F3CAA8 /* AppDelegate.m */; };
 		7781370F1F2F558200F3CAA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7781370E1F2F558200F3CAA8 /* Assets.xcassets */; };
@@ -68,6 +71,12 @@
 		7755AD361F40B9B1009073D2 /* SJWordList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordList.m; sourceTree = "<group>"; };
 		7755AD3C1F4200E4009073D2 /* SJWordsListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWordsListTableCell.h; sourceTree = "<group>"; };
 		7755AD3D1F4200E4009073D2 /* SJWordsListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordsListTableCell.m; sourceTree = "<group>"; };
+		7755AD431F42B8F6009073D2 /* SJSearchHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSearchHistoryViewController.h; sourceTree = "<group>"; };
+		7755AD441F42B8F6009073D2 /* SJSearchHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSearchHistoryViewController.m; sourceTree = "<group>"; };
+		7755AD461F42DBDF009073D2 /* SJWordPronunciations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWordPronunciations.h; sourceTree = "<group>"; };
+		7755AD471F42DBDF009073D2 /* SJWordPronunciations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordPronunciations.m; sourceTree = "<group>"; };
+		7755AD491F42E98B009073D2 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
+		7755AD4A1F42E98B009073D2 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
 		778136FF1F2F558200F3CAA8 /* ReciteWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReciteWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		778137031F2F558200F3CAA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		778137051F2F558200F3CAA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -244,6 +253,24 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		7755AD411F42B8F6009073D2 /* 搜索历史 */ = {
+			isa = PBXGroup;
+			children = (
+				7755AD421F42B8F6009073D2 /* Controller */,
+			);
+			name = "搜索历史";
+			path = History;
+			sourceTree = "<group>";
+		};
+		7755AD421F42B8F6009073D2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7755AD431F42B8F6009073D2 /* SJSearchHistoryViewController.h */,
+				7755AD441F42B8F6009073D2 /* SJSearchHistoryViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		778136F61F2F558200F3CAA8 = {
 			isa = PBXGroup;
 			children = (
@@ -288,14 +315,15 @@
 		778137191F2F55B900F3CAA8 /* ProjectFiles */ = {
 			isa = PBXGroup;
 			children = (
-				778137481F2F5F7900F3CAA8 /* Services */,
 				7781371A1F2F55E100F3CAA8 /* Base */,
 				778137431F2F5E8B00F3CAA8 /* 常用 */,
 				778137391F2F598200F3CAA8 /* SmallView */,
+				778137481F2F5F7900F3CAA8 /* Services */,
 				778137351F2F581000F3CAA8 /* TabBarController */,
 				778137271F2F56C900F3CAA8 /* 背单词 */,
 				7781373D1F2F5ABE00F3CAA8 /* 搜索单词 */,
 				7755AD061F409EA3009073D2 /* 设置 */,
+				7755AD411F42B8F6009073D2 /* 搜索历史 */,
 			);
 			path = ProjectFiles;
 			sourceTree = "<group>";
@@ -431,6 +459,8 @@
 				778137461F2F5EA600F3CAA8 /* SJWordInfo.m */,
 				7755AD351F40B9B1009073D2 /* SJWordList.h */,
 				7755AD361F40B9B1009073D2 /* SJWordList.m */,
+				7755AD461F42DBDF009073D2 /* SJWordPronunciations.h */,
+				7755AD471F42DBDF009073D2 /* SJWordPronunciations.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -468,6 +498,8 @@
 				778252EB1F404B6A006F5156 /* UIImage+Extension.m */,
 				7755AD211F40A1CA009073D2 /* UIColor+Extension.h */,
 				7755AD221F40A1CA009073D2 /* UIColor+Extension.m */,
+				7755AD491F42E98B009073D2 /* NSString+Extension.h */,
+				7755AD4A1F42E98B009073D2 /* NSString+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -648,6 +680,7 @@
 				7781376B1F2F833D00F3CAA8 /* YYTimer.m in Sources */,
 				778137341F2F578700F3CAA8 /* SJReciteWordsViewController.m in Sources */,
 				778137581F2F676A00F3CAA8 /* NSObject+Extension.m in Sources */,
+				7755AD481F42DBDF009073D2 /* SJWordPronunciations.m in Sources */,
 				7755AD311F40B2EE009073D2 /* SJBaseTableViewCell.m in Sources */,
 				778137681F2F831300F3CAA8 /* DBAudioPlayer.m in Sources */,
 				7781375B1F2F68FE00F3CAA8 /* SJDataServer.m in Sources */,
@@ -655,10 +688,12 @@
 				7755AD261F40A5B4009073D2 /* SJSettingCollectionViewCell.m in Sources */,
 				7755AD1D1F40A05D009073D2 /* SJWordsListViewController.m in Sources */,
 				7755AD2D1F40B1C6009073D2 /* SJBaseTableView.m in Sources */,
+				7755AD4B1F42E98B009073D2 /* NSString+Extension.m in Sources */,
 				778137381F2F581000F3CAA8 /* SJTabBarController.m in Sources */,
 				7755AD111F40A012009073D2 /* SJSettingViewController.m in Sources */,
 				778137231F2F565100F3CAA8 /* SJBaseViewController.m in Sources */,
 				778252EC1F404B6A006F5156 /* UIImage+Extension.m in Sources */,
+				7755AD451F42B8F6009073D2 /* SJSearchHistoryViewController.m in Sources */,
 				778137641F2F711A00F3CAA8 /* SJWordInfoView.m in Sources */,
 				7781374C1F2F5FBB00F3CAA8 /* DBNetworkingServer.m in Sources */,
 				FA1298001F402B2B00776F56 /* SJReciteWordCollectionViewCell.m in Sources */,
