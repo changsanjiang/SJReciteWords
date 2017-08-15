@@ -28,8 +28,6 @@
 
 @end
 
-@interface SJSearchWordsViewController (SJWordInfoViewDelegateMethods)<SJWordInfoViewDelegate> @end
-
 @interface SJSearchWordsViewController (SJSearchWordsBarDelegateMethods)<SJSearchWordsBarDelegate> @end
 
 @interface SJSearchWordsViewController ()
@@ -101,7 +99,6 @@
 - (SJWordInfoView *)wordInfoView {
     if ( _wordInfoView ) return _wordInfoView;
     _wordInfoView = [SJWordInfoView new];
-    _wordInfoView.delegate = self;
     return _wordInfoView;
 }
 @end
@@ -181,16 +178,4 @@
     }];
 }
 
-@end
-
-
-@implementation SJSearchWordsViewController (SJWordInfoViewDelegateMethods)
-
-- (void)clickedUSPlayBtnOnWordInfoView:(SJWordInfoView *)view {
-    [Player playWithURLStr:view.wordInfo.us_audio];
-}
-
-- (void)clickedUKPlayBtnOnWordInfoView:(SJWordInfoView *)view {
-    [Player playWithURLStr:view.wordInfo.uk_audio];
-}
 @end

@@ -31,6 +31,7 @@
     _list = list;
     self.textLabel.text = list.title;
     self.textLabel.textAlignment = NSTextAlignmentCenter;
+    self.textLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
 }
 
 

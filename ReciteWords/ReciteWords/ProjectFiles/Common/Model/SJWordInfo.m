@@ -47,8 +47,7 @@
     _height += margin;
     
     // content
-    _height += [_content csj_textSizeWithMaxWidth:SJ_W fontSize:16].height;
-    
+    _height += [_content csj_textSizeWithMaxWidth:SJ_W fontSize:30].height;
     
     _height += margin * 2; // us and  uk
     

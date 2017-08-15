@@ -33,6 +33,14 @@ static inline void sjExeObjBlock(void(^ targetBlock)(id obj), id obj) {
 
 @interface SJLocalDataManager ()
 
+/*!
+ *  if this value is Null, you should call getSearchList: method get it.
+ *  warning: You can't create it.
+ */
+@property (nonatomic, strong, nullable) SJWordList *searchWordList;
+
+@property (nonatomic, strong, readwrite) NSMutableArray<SJWordList *> *locLists;
+
 @end
 
 @implementation SJLocalDataManager
@@ -98,6 +106,7 @@ static inline void sjExeObjBlock(void(^ targetBlock)(id obj), id obj) {
 - (void)createListWithTitle:(NSString *)Title callBlock:(void(^)(SJWordList *list))block {
     SJWordList *list = [SJWordList listWithTitle:Title];
     [[SJDatabaseMap sharedServer] insertOrUpdateDataWithModel:list callBlock:^(BOOL result) {
+        if ( result && self.locLists ) [self.locLists addObject:list];
         sjExeObjBlock(block, result ? list : nil);
     }];
 }
@@ -138,8 +147,16 @@ static inline void sjExeObjBlock(void(^ targetBlock)(id obj), id obj) {
 /*!
  *  从词单删除单词
  */
-- (void)removeWordsFromList:(SJWordList *)list words:(NSArray<SJWordInfo *> *)words callBlock:(void(^)(BOOL result))block {
-    [[SJDatabaseMap sharedServer] deleteDataWithModels:@[list] callBlock:^(BOOL result) {
+- (void)removeWordsFromList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void (^)(BOOL))block {
+    NSInteger index = [list.words indexOfObject:word];
+    [[SJDatabaseMap sharedServer] update:list property:<#(nonnull NSArray<NSString *> *)#> callBlock:<#^(BOOL result)block#>]
+}
+
+/*!
+ *  删除一个词单
+ */
+- (void)removeList:(SJWordList *)list callBlock:(void(^ __nullable)(BOOL result))block {
+    [[SJDatabaseMap sharedServer] deleteDataWithClass:[list class] primaryValue:list.listId callBlock:^(BOOL result) {
         sjExeBoolBlock(block, result);
     }];
 }
@@ -154,7 +171,11 @@ static inline void sjExeObjBlock(void(^ targetBlock)(id obj), id obj) {
  *  获取所有词单
  */
 - (void)queryLocalLists:(void(^)(NSArray<SJWordList *> *lists))block {
-    
+    if ( self.locLists ) { sjExeObjBlock(block, self.locLists); return; }
+    [[SJDatabaseMap sharedServer] queryAllDataWithClass:[SJWordList class] completeCallBlock:^(NSArray<id<SJDBMapUseProtocol>> * _Nullable data) {
+        self.locLists = data.mutableCopy;
+        sjExeObjBlock(block, data);
+    }];
 }
 
 @end
@@ -209,11 +230,4 @@ static inline void sjExeObjBlock(void(^ targetBlock)(id obj), id obj) {
     }];
 }
 
-- (void)setSearchWordList:(SJWordList *)searchWordList {
-    objc_setAssociatedObject(self, @selector(searchWordList), searchWordList, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (SJWordList *)searchWordList {
-    return objc_getAssociatedObject(self, _cmd);
-}
 @end

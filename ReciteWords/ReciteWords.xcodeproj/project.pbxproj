@@ -21,6 +21,7 @@
 		7755AD451F42B8F6009073D2 /* SJSearchHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD441F42B8F6009073D2 /* SJSearchHistoryViewController.m */; };
 		7755AD481F42DBDF009073D2 /* SJWordPronunciations.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD471F42DBDF009073D2 /* SJWordPronunciations.m */; };
 		7755AD4B1F42E98B009073D2 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD4A1F42E98B009073D2 /* NSString+Extension.m */; };
+		7755AD4E1F42F9B6009073D2 /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD4D1F42F9B6009073D2 /* UIViewController+Extension.m */; };
 		778137041F2F558200F3CAA8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137031F2F558200F3CAA8 /* main.m */; };
 		778137071F2F558200F3CAA8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137061F2F558200F3CAA8 /* AppDelegate.m */; };
 		7781370F1F2F558200F3CAA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7781370E1F2F558200F3CAA8 /* Assets.xcassets */; };
@@ -77,6 +78,8 @@
 		7755AD471F42DBDF009073D2 /* SJWordPronunciations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordPronunciations.m; sourceTree = "<group>"; };
 		7755AD491F42E98B009073D2 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
 		7755AD4A1F42E98B009073D2 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
+		7755AD4C1F42F9B6009073D2 /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
+		7755AD4D1F42F9B6009073D2 /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
 		778136FF1F2F558200F3CAA8 /* ReciteWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReciteWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		778137031F2F558200F3CAA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		778137051F2F558200F3CAA8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -316,8 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				7781371A1F2F55E100F3CAA8 /* Base */,
-				778137431F2F5E8B00F3CAA8 /* 常用 */,
-				778137391F2F598200F3CAA8 /* SmallView */,
+				778137431F2F5E8B00F3CAA8 /* Common */,
 				778137481F2F5F7900F3CAA8 /* Services */,
 				778137351F2F581000F3CAA8 /* TabBarController */,
 				778137271F2F56C900F3CAA8 /* 背单词 */,
@@ -406,13 +408,6 @@
 			path = TabBarController;
 			sourceTree = "<group>";
 		};
-		778137391F2F598200F3CAA8 /* SmallView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SmallView;
-			sourceTree = "<group>";
-		};
 		7781373D1F2F5ABE00F3CAA8 /* 搜索单词 */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,14 +436,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		778137431F2F5E8B00F3CAA8 /* 常用 */ = {
+		778137431F2F5E8B00F3CAA8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				7781374D1F2F62FA00F3CAA8 /* Category */,
 				7781374E1F2F62FA00F3CAA8 /* View */,
 				778137441F2F5E8B00F3CAA8 /* Model */,
 			);
-			name = "常用";
 			path = Common;
 			sourceTree = "<group>";
 		};
@@ -490,6 +484,8 @@
 		7781374D1F2F62FA00F3CAA8 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				7755AD4C1F42F9B6009073D2 /* UIViewController+Extension.h */,
+				7755AD4D1F42F9B6009073D2 /* UIViewController+Extension.m */,
 				778137531F2F651B00F3CAA8 /* UIView+Extension.h */,
 				778137541F2F651B00F3CAA8 /* UIView+Extension.m */,
 				778137561F2F676A00F3CAA8 /* NSObject+Extension.h */,
@@ -680,6 +676,7 @@
 				7781376B1F2F833D00F3CAA8 /* YYTimer.m in Sources */,
 				778137341F2F578700F3CAA8 /* SJReciteWordsViewController.m in Sources */,
 				778137581F2F676A00F3CAA8 /* NSObject+Extension.m in Sources */,
+				7755AD4E1F42F9B6009073D2 /* UIViewController+Extension.m in Sources */,
 				7755AD481F42DBDF009073D2 /* SJWordPronunciations.m in Sources */,
 				7755AD311F40B2EE009073D2 /* SJBaseTableViewCell.m in Sources */,
 				778137681F2F831300F3CAA8 /* DBAudioPlayer.m in Sources */,

@@ -74,7 +74,6 @@ static short const item_h = 158;
     __weak typeof(self) _self = self;
     _operations =
     @[
-      [[SJSettingOperation alloc] initWithTitle:@"新建词单" operation:nil],
       [[SJSettingOperation alloc] initWithTitle:@"词单管理" operation:^ {
           __strong typeof(_self) self = _self;
           if ( !self ) return;

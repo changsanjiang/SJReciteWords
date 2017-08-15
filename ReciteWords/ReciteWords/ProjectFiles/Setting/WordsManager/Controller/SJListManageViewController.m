@@ -16,6 +16,8 @@
 
 #import "SJWordsListViewController.h"
 
+#import "UIViewController+Extension.h"
+
 static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 
 
@@ -27,20 +29,60 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 @interface SJListManageViewController ()
 
 @property (nonatomic, strong, readonly) SJBaseTableView *tableView;
-@property (nonatomic, strong, readonly) NSArray<SJWordList *> *lists;
+@property (nonatomic, strong, readwrite) NSMutableArray<SJWordList *> *listsM;
+@property (nonatomic, strong, readonly) UIButton *createListBtn;
 
 @end
 
 @implementation SJListManageViewController
 
 @synthesize tableView = _tableView;
-
-@synthesize lists = _lists;
+@synthesize createListBtn = _createListBtn;
+@synthesize listsM = _listsM;
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self _SJListManageViewControllerSetupUI];
+    [self _SJListManageViewControllerGetLocalAllList];
+}
+
+- (void)_SJListManageViewControllerGetLocalAllList {
+    __weak typeof(self) _self = self;
+    [LocalManager queryLocalLists:^(NSArray<SJWordList *> * _Nullable lists) {
+        __strong typeof(_self) self = _self;
+        if ( !self ) return;
+        self.listsM = lists.mutableCopy;
+        [self.tableView reloadData];
+    }];
+}
+
+// MARK: Actions
+
+- (void)clickedBtn:(UIButton *)btn {
+    NSLog(@"clicked Btn");
+    [self alertWithTitle:@"创建一个词单" textFieldPlaceholder:@"请输入新的词单名.." action:^(NSString * _Nonnull inputText) {
+        NSLog(@"text = %@", inputText);
+        
+        __block BOOL insertBol = YES;
+        [self.listsM enumerateObjectsUsingBlock:^(SJWordList * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ( ![obj.title isEqualToString:inputText] ) return ;
+            insertBol = NO;
+            *stop = YES;
+        }];
+        
+        if ( !insertBol ) { [SVProgressHUD showErrorWithStatus:@"词单已存在, 请勿重复创建."]; return ;}
+        
+        __weak typeof(self) _self = self;
+        [LocalManager createListWithTitle:inputText callBlock:^(SJWordList * _Nullable list) {
+            __strong typeof(_self) self = _self;
+            if ( !self ) return;
+            if ( nil == list ) { [SVProgressHUD showErrorWithStatus:@"创建失败.."]; return; }
+            [SVProgressHUD showSuccessWithStatus:@"创建成功.."];
+            [self.listsM addObject:list];
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.listsM.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        }];
+    }];
 }
 
 // MARK: UI
@@ -48,8 +90,15 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 - (void)_SJListManageViewControllerSetupUI {
     
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.createListBtn];
+    
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.offset(0);
+    }];
+ 
+    [_createListBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.offset(20);
+        make.bottom.offset(-20);
     }];
 }
 
@@ -63,22 +112,10 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
     return _tableView;
 }
 
-// MARK: Lazy
-
-- (NSArray<SJWordList *> *)lists {
-    if ( _lists ) return _lists;
-    NSMutableArray *listsM = [NSMutableArray new];
-    for ( int i = 0 ; i < 99 ; i ++ ) {
-        [listsM addObject:[self getTestRandomList]];
-    }
-    _lists = listsM.copy;
-    return _lists;
-}
-
-- (SJWordList *)getTestRandomList {
-    SJWordList *list = [SJWordList new];
-    list.title = [NSString stringWithFormat:@"测试 %zd", arc4random() % 100];
-    return list;
+- (UIButton *)createListBtn {
+    if ( _createListBtn ) return _createListBtn;
+    _createListBtn = [UIButton buttonWithImageName:@"sj_create_list" tag:0 target:self sel:@selector(clickedBtn:)];
+    return _createListBtn;
 }
 
 @end
@@ -90,7 +127,7 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    SJWordsListViewController *vc = [SJWordsListViewController new];
+    SJWordsListViewController *vc = [[SJWordsListViewController alloc] initWithList:[cell valueForKey:@"list"]];
     vc.title = [(SJWordList *)[cell valueForKey:@"list"] title];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -106,12 +143,12 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.lists.count;
+    return self.listsM.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SJListManageTableCellID];
-    [cell setValue:self.lists[indexPath.row] forKey:@"list"];
+    [cell setValue:self.listsM[indexPath.row] forKey:@"list"];
     return cell;
 }
 
@@ -123,11 +160,50 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        NSLog(@"delete");
+    NSMutableArray<UITableViewRowAction *> *actionsM = [NSMutableArray new];
+    UITableViewRowAction *editA = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"更名" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        NSLog(@"edit");
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        SJWordList *list = [cell valueForKey:@"list"];
+        [self alertWithTitle:@"更名" textFieldText:list.title textFieldPlaceholder:@"请输入新的词单名" action:^(NSString * _Nonnull inputText) {
+            if ( [list.title isEqualToString:inputText] ) return;
+            NSString *oldTitle = list.title;
+            list.title = inputText;
+            [LocalManager updateList:list property:@[@"title"] callBlock:^(BOOL result) {
+                if ( !result ) {
+                    [SVProgressHUD showErrorWithStatus:@"更改失败"];
+                    list.title = oldTitle;
+                    return;
+                }
+                [SVProgressHUD showSuccessWithStatus:@"更改成功"];
+                [self.tableView setEditing:NO animated:YES];
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }];
+        } cancelAction:^{
+            [self.tableView setEditing:NO animated:YES];
+        }];
     }];
-    if ( action ) return @[action];
-    return nil;
+    editA.backgroundColor = SJ_Font_C;
+    
+    UITableViewRowAction *deleteA = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        SJWordList *list = [cell valueForKey:@"list"];
+        [self alertWithType:AlertType_DeleteAndCancel title:@"删除" msg:@"确定删除?" action:^{
+            [LocalManager removeList:list callBlock:^(BOOL result) {
+                if ( !result )
+                    [SVProgressHUD showErrorWithStatus:@"删除失败"];
+                else {
+                    [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+                    [self.listsM removeObject:list];
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+            }];
+        }];
+    }];
+    if ( deleteA )  [actionsM addObject:deleteA];
+    if ( editA )    [actionsM addObject:editA];
+    
+    return actionsM;
 }
 
 @end

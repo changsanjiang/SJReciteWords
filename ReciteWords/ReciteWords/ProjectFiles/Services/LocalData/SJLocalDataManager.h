@@ -55,7 +55,12 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  *  从词单删除单词
  */
-- (void)removeWordsFromList:(SJWordList *)list words:(NSArray<SJWordInfo *> *)words callBlock:(void(^ __nullable)(BOOL result))block;
+- (void)removeWordsFromList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void (^)(BOOL))block;
+
+/*!
+ *  删除一个词单
+ */
+- (void)removeList:(SJWordList *)list callBlock:(void(^ __nullable)(BOOL result))block;
 
 @end
 
@@ -73,12 +78,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface SJLocalDataManager (SearchList)
-
-/*!
- *  if this value is Null, you should call getSearchList: method get it.
- *  warning: You can't create it.
- */
-@property (nonatomic, strong, nullable) SJWordList *searchWordList;
 
 - (void)getSearchHistory:(void(^)(SJWordList *searchList))block;
 

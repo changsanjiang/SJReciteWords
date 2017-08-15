@@ -60,13 +60,15 @@
     NSLog(@"clicked btn");
     switch (btn.tag) {
         case 0: {
-            if ( ![self.delegate respondsToSelector:@selector(clickedUSPlayBtnOnWordInfoView:)] ) return;
-            [self.delegate clickedUSPlayBtnOnWordInfoView:self];
+//            if ( ![self.delegate respondsToSelector:@selector(clickedUSPlayBtnOnWordInfoView:)] ) return;
+//            [self.delegate clickedUSPlayBtnOnWordInfoView:self];
+            [Player playWithURLStr:_wordInfo.us_audio];
         }
             break;
         case 1: {
-            if ( ![self.delegate respondsToSelector:@selector(clickedUKPlayBtnOnWordInfoView:)] ) return;
-            [self.delegate clickedUKPlayBtnOnWordInfoView:self];
+//            if ( ![self.delegate respondsToSelector:@selector(clickedUKPlayBtnOnWordInfoView:)] ) return;
+//            [self.delegate clickedUKPlayBtnOnWordInfoView:self];
+            [Player playWithURLStr:_wordInfo.uk_audio];
         }
             break;
     }
@@ -119,19 +121,23 @@
     
     [_us_audioBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_definitionLabel.mas_bottom).offset(margin);
-        make.centerX.equalTo(_contentLabel).multipliedBy(0.5);
+        make.trailing.equalTo(_contentLabel.mas_centerX);
+        make.leading.offset(0);
+        make.bottom.offset(-20);
     }];
     
     [_uk_audioBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_us_audioBtn);
-        make.centerX.equalTo(_contentLabel).multipliedBy(1.5);
+        make.leading.equalTo(_contentLabel.mas_centerX);
+        make.trailing.offset(0);
+        make.bottom.offset(-20);
     }];
 }
 
 - (UILabel *)contentLabel {
     if ( _contentLabel ) return _contentLabel;
-    _contentLabel = [UILabel labelWithFontSize:16 textColor:[UIColor blackColor] alignment:NSTextAlignmentCenter];
-    _contentLabel.font = [UIFont boldSystemFontOfSize:16];
+    _contentLabel = [UILabel labelWithFontSize:30 textColor:[UIColor blackColor] alignment:NSTextAlignmentCenter];
+    _contentLabel.font = [UIFont boldSystemFontOfSize:30];
     return _contentLabel;
 }
 

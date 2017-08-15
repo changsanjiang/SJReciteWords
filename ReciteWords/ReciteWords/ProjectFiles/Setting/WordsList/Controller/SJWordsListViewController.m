@@ -14,6 +14,8 @@
 
 #import "SJWordInfo.h"
 
+#import "UIViewController+Extension.h"
+
 static CellID const SJWordsListTableCellID = @"SJWordsListTableCell";
 
 @interface SJWordsListViewController (UITableViewDelegateMethods)<UITableViewDelegate> @end
@@ -116,6 +118,13 @@ static CellID const SJWordsListTableCellID = @"SJWordsListTableCell";
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         NSLog(@"delete");
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        SJWordInfo *word = [cell valueForKey:@"model"];
+        [self alertWithType:AlertType_DeleteAndCancel title:word.content msg:@"确定删除?" action:^{
+            [LocalManager removeWordsFromList:self.list words:@[word] callBlock:^(BOOL result) {
+                
+            }];
+        }];
     }];
     if ( action ) return @[action];
     return nil;
