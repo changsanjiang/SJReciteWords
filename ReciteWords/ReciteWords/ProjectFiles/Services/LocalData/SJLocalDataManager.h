@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  *  更新词单
  */
-- (void)updateList:(SJWordList *)list property:(NSArray<NSString *> *)property callBlock:(void(^ __nullable)(BOOL result))block;
+- (void)updatedList:(SJWordList *)list property:(NSArray<NSString *> *)property callBlock:(void(^ __nullable)(BOOL result))block;
 
 @end
 
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  *  从词单删除单词
  */
-- (void)removeWordsFromList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void (^)(BOOL))block;
+- (void)removedWordFromList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void (^)(BOOL))block;
 
 /*!
  *  删除一个词单

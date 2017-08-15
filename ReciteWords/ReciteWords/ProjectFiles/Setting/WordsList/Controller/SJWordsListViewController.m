@@ -121,8 +121,13 @@ static CellID const SJWordsListTableCellID = @"SJWordsListTableCell";
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         SJWordInfo *word = [cell valueForKey:@"model"];
         [self alertWithType:AlertType_DeleteAndCancel title:word.content msg:@"确定删除?" action:^{
-            [LocalManager removeWordsFromList:self.list words:@[word] callBlock:^(BOOL result) {
-                
+            NSInteger index = [self.list.words indexOfObject:word];
+            [self.list.words removeObjectAtIndex:index];
+            [LocalManager removedWordFromList:self.list word:word callBlock:^(BOOL r) {
+                if ( !r )
+                    [self.list.words insertObject:word atIndex:index];
+                else
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }];
         }];
     }];

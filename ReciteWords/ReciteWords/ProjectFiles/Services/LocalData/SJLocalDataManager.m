@@ -132,7 +132,7 @@ static inline void sjExeObjBlock(void(^ targetBlock)(id obj), id obj) {
 /*!
  *  更新词单
  */
-- (void)updateList:(SJWordList *)list property:(NSArray<NSString *> *)property callBlock:(void(^)(BOOL result))block {
+- (void)updatedList:(SJWordList *)list property:(NSArray<NSString *> *)property callBlock:(void(^)(BOOL result))block {
     [[SJDatabaseMap sharedServer] update:list property:property callBlock:^(BOOL result) {
         sjExeBoolBlock(block, result);
     }];
@@ -147,9 +147,10 @@ static inline void sjExeObjBlock(void(^ targetBlock)(id obj), id obj) {
 /*!
  *  从词单删除单词
  */
-- (void)removeWordsFromList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void (^)(BOOL))block {
-    NSInteger index = [list.words indexOfObject:word];
-    [[SJDatabaseMap sharedServer] update:list property:<#(nonnull NSArray<NSString *> *)#> callBlock:<#^(BOOL result)block#>]
+- (void)removedWordFromList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void (^)(BOOL))block {
+    [[SJDatabaseMap sharedServer] updateTheDeletedValuesInTheModel:list callBlock:^(BOOL r) {
+        sjExeBoolBlock(block, r);
+    }];
 }
 
 /*!

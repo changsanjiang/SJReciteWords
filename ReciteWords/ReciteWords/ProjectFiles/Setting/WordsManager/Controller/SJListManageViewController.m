@@ -169,7 +169,7 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
             if ( [list.title isEqualToString:inputText] ) return;
             NSString *oldTitle = list.title;
             list.title = inputText;
-            [LocalManager updateList:list property:@[@"title"] callBlock:^(BOOL result) {
+            [LocalManager updatedList:list property:@[@"title"] callBlock:^(BOOL result) {
                 if ( !result ) {
                     [SVProgressHUD showErrorWithStatus:@"更改失败"];
                     list.title = oldTitle;
