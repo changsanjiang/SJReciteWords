@@ -10,7 +10,6 @@
 		7755AD111F40A012009073D2 /* SJSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD101F40A012009073D2 /* SJSettingViewController.m */; };
 		7755AD1A1F40A052009073D2 /* SJListManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD191F40A052009073D2 /* SJListManageViewController.m */; };
 		7755AD1D1F40A05D009073D2 /* SJWordsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD1C1F40A05D009073D2 /* SJWordsListViewController.m */; };
-		7755AD201F40A082009073D2 /* SJSearchHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD1F1F40A082009073D2 /* SJSearchHistoryViewController.m */; };
 		7755AD231F40A1CA009073D2 /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD221F40A1CA009073D2 /* UIColor+Extension.m */; };
 		7755AD261F40A5B4009073D2 /* SJSettingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD251F40A5B4009073D2 /* SJSettingCollectionViewCell.m */; };
 		7755AD2A1F40ABF9009073D2 /* SJSettingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7755AD291F40ABF9009073D2 /* SJSettingOperation.m */; };
@@ -53,8 +52,6 @@
 		7755AD191F40A052009073D2 /* SJListManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJListManageViewController.m; sourceTree = "<group>"; };
 		7755AD1B1F40A05D009073D2 /* SJWordsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJWordsListViewController.h; sourceTree = "<group>"; };
 		7755AD1C1F40A05D009073D2 /* SJWordsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJWordsListViewController.m; sourceTree = "<group>"; };
-		7755AD1E1F40A082009073D2 /* SJSearchHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSearchHistoryViewController.h; sourceTree = "<group>"; };
-		7755AD1F1F40A082009073D2 /* SJSearchHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSearchHistoryViewController.m; sourceTree = "<group>"; };
 		7755AD211F40A1CA009073D2 /* UIColor+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
 		7755AD221F40A1CA009073D2 /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
 		7755AD241F40A5B4009073D2 /* SJSettingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSettingCollectionViewCell.h; sourceTree = "<group>"; };
@@ -142,15 +139,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		7755AD051F409EA3009073D2 /* 搜索历史 */ = {
-			isa = PBXGroup;
-			children = (
-				7755AD0A1F409FB0009073D2 /* Controller */,
-			);
-			name = "搜索历史";
-			path = History;
-			sourceTree = "<group>";
-		};
 		7755AD061F409EA3009073D2 /* 设置 */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,15 +177,6 @@
 				7755AD251F40A5B4009073D2 /* SJSettingCollectionViewCell.m */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		7755AD0A1F409FB0009073D2 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				7755AD1E1F40A082009073D2 /* SJSearchHistoryViewController.h */,
-				7755AD1F1F40A082009073D2 /* SJSearchHistoryViewController.m */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		7755AD0B1F409FE8009073D2 /* 单词列表 */ = {
@@ -317,7 +296,6 @@
 				778137271F2F56C900F3CAA8 /* 背单词 */,
 				7781373D1F2F5ABE00F3CAA8 /* 搜索单词 */,
 				7755AD061F409EA3009073D2 /* 设置 */,
-				7755AD051F409EA3009073D2 /* 搜索历史 */,
 			);
 			path = ProjectFiles;
 			sourceTree = "<group>";
@@ -690,7 +668,6 @@
 				7755AD371F40B9B1009073D2 /* SJWordList.m in Sources */,
 				7755AD341F40B30B009073D2 /* SJListManageTableCell.m in Sources */,
 				778137311F2F571200F3CAA8 /* SJBaseNavigationController.m in Sources */,
-				7755AD201F40A082009073D2 /* SJSearchHistoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
