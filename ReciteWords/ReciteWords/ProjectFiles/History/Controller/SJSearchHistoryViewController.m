@@ -35,6 +35,11 @@
     [self _SJSearchHistoryViewControllerGetSearchHistory];
 }
 
+- (void)setList:(SJWordList *)list {
+    [super setList:list];
+    self.title = @"搜索历史";
+}
+
 - (void)_SJSearchHistoryViewControllerGetSearchHistory {
     [LocalManager getSearchHistory:^(SJWordList * _Nonnull searchList) {
         self.list = searchList;

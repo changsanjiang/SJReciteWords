@@ -16,6 +16,8 @@
 
 #import "SJSettingOperation.h"
 
+#import "SJAllWordsViewController.h"
+
 static NSString * const SJSettingCollectionViewCellID = @"SJSettingCollectionViewCell";
 
 static short const item_h = 158;
@@ -81,7 +83,10 @@ static short const item_h = 158;
           vc.title = @"词单管理";
           [self.navigationController pushViewController:vc animated:YES];
       }],
-      [[SJSettingOperation alloc] initWithTitle:@"全部单词" operation:nil],
+      [[SJSettingOperation alloc] initWithTitle:@"全部单词" operation:^ {
+          SJAllWordsViewController *vc = [SJAllWordsViewController new];
+          [self.navigationController pushViewController:vc animated:YES];
+      }],
       [[SJSettingOperation alloc] initWithTitle:@"最近添加的单词" operation:nil],
       [[SJSettingOperation alloc] initWithTitle:@"最近添加的词单" operation:nil],
      ];

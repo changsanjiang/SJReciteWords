@@ -47,6 +47,22 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [UIView animateWithDuration:0.25 animations:^{
+        _createListBtn.csj_y = _createListBtn.csj_y - _createListBtn.csj_h;
+        _tableView.alpha = 1;
+    }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [UIView animateWithDuration:0.25 animations:^{
+        _tableView.alpha = 0.001;
+        _tableView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+        _createListBtn.csj_y = SJ_H;
+    }];
+}
 
 - (void)_SJAddWordToListViewControllerGetLocalLists {
     __weak typeof(self) _self = self;
@@ -117,11 +133,7 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
         make.center.offset(0);
         make.height.offset(SJ_H * 0.48);
     }];
-    
-    [_createListBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.bottom.trailing.offset(0);
-        make.height.offset(44);
-    }];
+    _createListBtn.frame = CGRectMake(0, SJ_H, SJ_W, 44);
 }
 
 - (UIButton *)createListBtn {
@@ -171,8 +183,6 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     SJListManageTableCell *cell = [tableView dequeueReusableCellWithIdentifier:SJListManageTableCellID];
-    cell.borderView.lineWidth = 0.4;
-    [cell.borderView setStartMargin:8 endMargin:8];
     cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.textLabel.textColor = SJ_Font_C;
     cell.list = _listsM[indexPath.row];

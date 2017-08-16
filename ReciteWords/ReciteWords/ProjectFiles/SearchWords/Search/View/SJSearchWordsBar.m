@@ -32,6 +32,28 @@
     return self;
 }
 
+// MARK: Public
+
+- (void)becomeFirstResponder {
+    if ( !_inputView.isFirstResponder ) [_inputView becomeFirstResponder];
+}
+
+- (void)resignFirstResponder {
+    if ( _inputView.isFirstResponder ) [_inputView resignFirstResponder];
+}
+
+- (void)clearInputtedText {
+    _inputView.text = nil;
+}
+
+// MARK: Setter
+
+- (void)setEnableSearchBtn:(BOOL)enableSearchBtn {
+    _enableSearchBtn = enableSearchBtn;
+    _searchBtn.enabled = enableSearchBtn;
+}
+
+
 // MARK: Actions
 
 - (void)clickedBtn:(UIButton *)btn {
@@ -82,7 +104,7 @@
 
 - (SJBorderlineView *)borderView {
     if ( _borderView ) return _borderView;
-    _borderView = [SJBorderlineView borderlineViewWithSide:SJBorderlineSideTop startMargin:0 endMargin:0 lineColor:[UIColor lightGrayColor] backgroundColor:[UIColor colorWithWhite:0.95 alpha:1]];
+    _borderView = [SJBorderlineView borderlineViewWithSide:SJBorderlineSideTop startMargin:0 endMargin:0 lineColor:[UIColor colorWithWhite:0.9 alpha:1] backgroundColor:SJ_Theme_C];
     return _borderView;
 }
 

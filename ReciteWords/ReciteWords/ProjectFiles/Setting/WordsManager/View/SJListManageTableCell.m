@@ -51,6 +51,7 @@
     }];
     self.borderView.lineWidth = 0.4;
     self.borderView.side = SJBorderlineSideTop | SJBorderlineSideBottom;
+    [self.borderView setStartMargin:8 endMargin:8];
     self.borderView.lineColor = SJ_Theme_C;
     [self.borderView update];
     

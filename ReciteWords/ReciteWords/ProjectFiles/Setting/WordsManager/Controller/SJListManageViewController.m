@@ -31,7 +31,7 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 @property (nonatomic, strong, readonly) SJBaseTableView *tableView;
 @property (nonatomic, strong, readwrite) NSMutableArray<SJWordList *> *listsM;
 @property (nonatomic, strong, readonly) UIButton *createListBtn;
-
+ 
 @end
 
 @implementation SJListManageViewController
@@ -41,9 +41,20 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 @synthesize listsM = _listsM;
 
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if ( !self ) return nil;
+    return self;
+}
+
+- (void)dealloc {
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self _SJListManageViewControllerSetupUI];
+    
     [self _SJListManageViewControllerGetLocalAllList];
 }
 
@@ -53,7 +64,42 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
         __strong typeof(_self) self = _self;
         if ( !self ) return;
         self.listsM = lists.mutableCopy;
+        if ( 0 == self.listsM.count ) {
+            [self _SJListManageViewController_MoveTheCreateListBtnToCenter];
+            return;
+        }
         [self.tableView reloadData];
+    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.createListBtn shakeAnimation];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.tableView.alpha = 1;
+        self.createListBtn.alpha = 1;
+    }];
+}
+
+- (void)_SJListManageViewController_MoveTheCreateListBtnToCenter {
+    [self.createListBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.center.offset(0);
+    }];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)_SJListManageViewController_MoveTheCreateListBtnToBottom {
+    [self.createListBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.leading.offset(20);
+        make.bottom.offset(-20);
+    }];
+
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view layoutIfNeeded];
     }];
 }
 
@@ -66,9 +112,14 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
         __strong typeof(_self) self = _self;
         if ( !self ) return;
         if ( nil == list ) { [SVProgressHUD showErrorWithStatus:errorStr]; return; }
-        [SVProgressHUD showSuccessWithStatus:@"创建成功.."];
+        [SVProgressHUD showSuccessWithStatus:@"创建成功"];
         [self.listsM addObject:list];
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.listsM.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        
+        // is created first List.
+        if ( 1 == self.listsM.count ) {
+            [self _SJListManageViewController_MoveTheCreateListBtnToBottom];
+        }
     }];
 }
 
@@ -82,11 +133,14 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.offset(0);
     }];
- 
+    
     [_createListBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.offset(20);
         make.bottom.offset(-20);
     }];
+    
+    self.tableView.alpha = 0.001;
+    self.createListBtn.alpha = 0.001;
 }
 
 - (SJBaseTableView *)tableView {
@@ -115,7 +169,6 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     SJWordsListViewController *vc = [[SJWordsListViewController alloc] initWithList:[cell valueForKey:@"list"]];
-    vc.title = [(SJWordList *)[cell valueForKey:@"list"] title];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -183,6 +236,10 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
                     [SVProgressHUD showSuccessWithStatus:@"删除成功"];
                     [self.listsM removeObject:list];
                     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    
+                    if ( 0 == self.listsM.count ) {
+                        [self _SJListManageViewController_MoveTheCreateListBtnToCenter];
+                    }
                 }
             }];
         }];

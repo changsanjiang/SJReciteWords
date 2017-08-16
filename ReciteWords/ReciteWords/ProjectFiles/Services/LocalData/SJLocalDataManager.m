@@ -108,11 +108,6 @@ static inline void sjExeObjsBlock(void(^ targetBlock)(id obj1, id obj2), id obj1
 
 
 
-
-
-
-
-
 @implementation SJLocalDataManager (InsertOrUpdate)
 
 /*!
@@ -121,7 +116,9 @@ static inline void sjExeObjsBlock(void(^ targetBlock)(id obj1, id obj2), id obj1
 - (void)createListWithTitle:(NSString *)Title callBlock:(void(^)(SJWordList *list))block {
     SJWordList *list = [SJWordList listWithTitle:Title];
     [[SJDatabaseMap sharedServer] insertOrUpdateDataWithModel:list callBlock:^(BOOL result) {
-        if ( result && self.locLists ) [self.locLists addObject:list];
+        if ( result && self.locLists ) {
+            [self.locLists addObject:list];
+        }
         sjExeObjBlock(block, result ? list : nil);
     }];
 }
@@ -173,7 +170,9 @@ static inline void sjExeObjsBlock(void(^ targetBlock)(id obj1, id obj2), id obj1
  */
 - (void)removeList:(SJWordList *)list callBlock:(void(^ __nullable)(BOOL result))block {
     [[SJDatabaseMap sharedServer] deleteDataWithClass:[list class] primaryValue:list.listId callBlock:^(BOOL result) {
-        if ( self.locLists ) [self.locLists removeObject:list];
+        if ( self.locLists ) {
+            [self.locLists removeObject:list];
+        }
         sjExeBoolBlock(block, result);
     }];
 }
@@ -191,6 +190,16 @@ static inline void sjExeObjsBlock(void(^ targetBlock)(id obj1, id obj2), id obj1
     if ( self.locLists ) { sjExeObjBlock(block, self.locLists); return; }
     [[SJDatabaseMap sharedServer] queryAllDataWithClass:[SJWordList class] completeCallBlock:^(NSArray<id<SJDBMapUseProtocol>> * _Nullable data) {
         self.locLists = data.mutableCopy;
+        [self.locLists removeObjectAtIndex:0];
+        sjExeObjBlock(block, self.locLists);
+    }];
+}
+
+/*!
+ *  获取所有单词
+ */
+- (void)queryAllWords:(void(^)(NSArray<SJWordInfo *> * __nullable words))block {
+    [[SJDatabaseMap sharedServer] queryAllDataWithClass:[SJWordInfo class] completeCallBlock:^(NSArray<id<SJDBMapUseProtocol>> * _Nullable data) {
         sjExeObjBlock(block, data);
     }];
 }

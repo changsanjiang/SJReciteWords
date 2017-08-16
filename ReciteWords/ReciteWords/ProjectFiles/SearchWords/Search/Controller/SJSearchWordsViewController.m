@@ -170,7 +170,7 @@
     }];
     
     [_wordInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(20);
+        make.centerY.equalTo(_wordInfoView.superview).multipliedBy(0.68);
         make.leading.trailing.offset(0);
     }];
     
@@ -273,12 +273,14 @@
 @implementation SJSearchWordsViewController (SJSearchWordsBarDelegateMethods)
 
 - (void)finishedInputWithSearchWordsBar:(SJSearchWordsBar *)bar content:(NSString *)content {
-//    [SVProgressHUD showWithStatus:@"请求中..."];
+    bar.enableSearchBtn = NO;
+    [bar resignFirstResponder];
     __weak typeof(self) _self = self;
     [DataServices searchWordWithContent:content callBlock:^(SJWordInfo *wordInfo) {
-//        [SVProgressHUD dismiss];
+        bar.enableSearchBtn = YES;
         __strong typeof(_self) self = _self;
         if ( !self ) return;
+        if ( 0 == wordInfo.content.length ) return;
         self.wordInfoView.wordInfo = wordInfo;
         self.wordInfoView.hidden = NO;
         [self.wordInfoView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -290,6 +292,7 @@
         [Player playWithURLStr:wordInfo.us_audio];
         [self showRightItem];
         [LocalManager searchListAddWord:wordInfo callBlock:nil];
+        [bar clearInputtedText];
     }];
 }
 

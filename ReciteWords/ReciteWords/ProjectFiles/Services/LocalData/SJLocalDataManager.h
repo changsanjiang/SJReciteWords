@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+
+
+
+
 @interface SJLocalDataManager (Factotum)
 
 - (void)createListAtController:(UIViewController *)vc callBlock:(void(^)(SJWordList * __nullable list, NSString *errorStr))block;
@@ -31,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)existsAtList:(SJWordList *)list word:(SJWordInfo *)word;
 
 @end
+
 
 
 @interface SJLocalDataManager (InsertOrUpdate)
@@ -81,6 +86,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  获取所有词单
  */
 - (void)queryLocalLists:(void(^)(NSArray<SJWordList *> * __nullable lists))block;
+
+/*!
+ *  获取所有单词
+ */
+- (void)queryAllWords:(void(^)(NSArray<SJWordInfo *> * __nullable words))block;
 
 @end
 

@@ -52,6 +52,7 @@ static CellID const SJWordsListTableCellID = @"SJWordsListTableCell";
 - (void)setList:(SJWordList *)list {
     _list = list;
     if ( _tableView ) [_tableView reloadData];
+    self.title = list.title;
 }
 
 

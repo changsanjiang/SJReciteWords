@@ -14,6 +14,14 @@
 
 @property (nonatomic, weak) id <SJSearchWordsBarDelegate> delegate;
 
+@property (nonatomic, assign, readwrite) BOOL enableSearchBtn;
+
+- (void)becomeFirstResponder;
+
+- (void)resignFirstResponder;
+
+- (void)clearInputtedText;
+
 @end
 
 @protocol SJSearchWordsBarDelegate <NSObject>
