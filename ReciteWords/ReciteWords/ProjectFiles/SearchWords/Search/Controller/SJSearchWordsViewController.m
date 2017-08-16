@@ -22,6 +22,10 @@
 
 #import "SJAddWordToListViewController.h"
 
+
+#define SJWordInfoTop   (SJ_H * 0.1)
+
+
 // MARK: 通知处理
 
 @interface SJSearchWordsViewController (DBNotifications)
@@ -39,8 +43,9 @@
 @property (nonatomic, strong, readonly) SJSearchWordsBar *searchBar;
 @property (nonatomic, strong, readonly) SJWordInfoView *wordInfoView;
 @property (nonatomic, strong, readwrite) SJWordList *list;
+@property (nonatomic, strong, readonly) UIScrollView *scrollView;
+
 @property (nonatomic, strong, readonly) UIButton *navRightItem;
-@property (nonatomic, strong, readonly) UIView *editingMaskView;
 @property (nonatomic, strong, readonly) SJTransitionAnimator *animator;
 
 @end
@@ -50,8 +55,8 @@
 @synthesize searchBar = _searchBar;
 @synthesize wordInfoView = _wordInfoView;
 @synthesize navRightItem = _navRightItem;
-@synthesize editingMaskView = _editingMaskView;
 @synthesize animator = _animator;
+@synthesize scrollView = _scrollView;
 
 // MARK: 生命周期
 
@@ -73,6 +78,15 @@
 - (void)dealloc {
     [self _SJSearchWordsViewControllerRemoveNotifications];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [UIView animateWithDuration:0.25 animations:^{
+        _searchBar.alpha = 1;
+    }];
+}
+
+// MARK: Show Right Item
 
 - (void)showRightItem {
     if ( self.navigationItem.rightBarButtonItem == nil ) self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navRightItem];
@@ -142,6 +156,8 @@
                 });
                 return ;
             }
+            
+            // failed operation
             [list.words removeLastObject];
             [SVProgressHUD showErrorWithStatus:@"添加失败"];
         }];
@@ -159,7 +175,8 @@
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    [self.view addSubview:self.wordInfoView];
+    [self.view addSubview:self.scrollView];
+    [self.scrollView addSubview:self.wordInfoView];
     [self.view addSubview:self.searchBar];
     
     _searchBar.delegate = self;
@@ -169,17 +186,31 @@
         make.height.offset(44);
     }];
     
-    [_wordInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_wordInfoView.superview).multipliedBy(0.68);
-        make.leading.trailing.offset(0);
+    [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.leading.trailing.offset(0);
+        make.bottom.equalTo(_searchBar.mas_top).offset(-8);
     }];
     
+    _wordInfoView.frame = CGRectMake(8, SJWordInfoTop, SJ_W - 16, SJ_H);
+    
+    // hidden this view because it not has data.
     _wordInfoView.hidden = YES;
+    
+    // use keybord.
+    [_searchBar becomeFirstResponder];
+    _searchBar.alpha = 0.001;
+}
+
+- (void)resetWordInfoViewLocation {
+    [UIView animateWithDuration:0.25 animations:^{
+       _wordInfoView.csj_y = SJWordInfoTop;
+    }];
 }
 
 - (SJSearchWordsBar *)searchBar {
     if ( _searchBar ) return _searchBar;
     _searchBar = [SJSearchWordsBar new];
+    _searchBar.keyboardType = UIKeyboardTypeASCIICapable;
     return _searchBar;
 }
 
@@ -190,6 +221,13 @@
     return _wordInfoView;
 }
 
+- (UIScrollView *)scrollView {
+    if ( _scrollView ) return _scrollView;
+    _scrollView = [UIScrollView new];
+    _scrollView.backgroundColor = SJ_Theme_C;
+    return _scrollView;
+}
+
 - (UIButton *)navRightItem {
     if ( _navRightItem ) return _navRightItem;
     _navRightItem = [UIButton buttonWithImageName:@"sj_word_addToList" tag:0 target:self sel:@selector(clickedBarItem:)];
@@ -197,18 +235,7 @@
     return _navRightItem;
 }
 
-- (UIView *)editingMaskView {
-    if ( _editingMaskView ) return _editingMaskView;
-    _editingMaskView = [UIView new];
-    _editingMaskView.backgroundColor = [UIColor clearColor];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGR:)];
-    [_editingMaskView addGestureRecognizer:tap];
-    return _editingMaskView;
-}
-
-- (void)handleTapGR:(UITapGestureRecognizer *)tap {
-    [self.view endEditing:YES];
-}
+// MARK: Lazy
 
 - (SJTransitionAnimator *)animator {
     if ( _animator ) return _animator;
@@ -228,8 +255,6 @@
 
 - (void)_SJSearchWordsViewControllerInstallNotifications {
     NotificationCenterAddObserver(self, UIKeyboardWillChangeFrameNotification, @selector(keyboardWillChangeFrameNotification:));
-    NotificationCenterAddObserver(self, UITextFieldTextDidBeginEditingNotification, @selector(textFieldTextDidBeginEditingNotification));
-    NotificationCenterAddObserver(self, UITextFieldTextDidEndEditingNotification, @selector(textFieldTextDidEndEditingNotification));
 }
 
 - (void)_SJSearchWordsViewControllerRemoveNotifications {
@@ -254,18 +279,6 @@
     }];
 }
 
-- (void)textFieldTextDidBeginEditingNotification {
-    [self.view addSubview:self.editingMaskView];
-    [self.editingMaskView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.leading.trailing.offset(0);
-        make.bottom.equalTo(_searchBar.mas_top).offset(-8);
-    }];
-}
-
-- (void)textFieldTextDidEndEditingNotification {
-    [self.editingMaskView removeFromSuperview];
-}
-
 @end
 
 
@@ -274,7 +287,6 @@
 
 - (void)finishedInputWithSearchWordsBar:(SJSearchWordsBar *)bar content:(NSString *)content {
     bar.enableSearchBtn = NO;
-    [bar resignFirstResponder];
     __weak typeof(self) _self = self;
     [DataServices searchWordWithContent:content callBlock:^(SJWordInfo *wordInfo) {
         bar.enableSearchBtn = YES;
@@ -283,16 +295,14 @@
         if ( 0 == wordInfo.content.length ) return;
         self.wordInfoView.wordInfo = wordInfo;
         self.wordInfoView.hidden = NO;
-        [self.wordInfoView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.offset(wordInfo.height).priority(MASLayoutPriorityDefaultHigh);
-        }];
+        [self resetWordInfoViewLocation];
         [UIView animateWithDuration:0.25 animations:^{
-            [self.wordInfoView layoutIfNeeded];
+            self.wordInfoView.csj_h = wordInfo.height;
         }];
+        self.scrollView.contentSize = CGSizeMake(SJ_W, wordInfo.height + SJWordInfoTop);
         [Player playWithURLStr:wordInfo.us_audio];
         [self showRightItem];
         [LocalManager searchListAddWord:wordInfo callBlock:nil];
-        [bar clearInputtedText];
     }];
 }
 

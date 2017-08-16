@@ -10,7 +10,8 @@
 
 #import "SJTabBarController.h"
 
-#warning Next... 两种单词展示样式
+
+#warning Next... 单词展示样式 简约 + 横向 + 纵向 ( 4种样式 )
 
 
 @interface AppDelegate ()

@@ -36,7 +36,7 @@
     [NetworkingServer requestWithType:type urlString:[NSString stringWithFormat:@"%@%@", BaseURL, pathStr] parameters:parameters complete:^(id  _Nullable response, NSError * _Nullable error) {
         if ( error ) {
             NSLog(@"%zd - %s networkingError: %@", __LINE__, __func__, error);
-            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", error.userInfo]];
+//            [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@", error.userInfo]];
             if ( block ) block(nil);
             return;
         }

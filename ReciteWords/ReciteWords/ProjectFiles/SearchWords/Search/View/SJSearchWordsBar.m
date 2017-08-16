@@ -53,6 +53,10 @@
     _searchBtn.enabled = enableSearchBtn;
 }
 
+- (void)setKeyboardType:(UIKeyboardType)keyboardType {
+    _keyboardType = keyboardType;
+    self.inputView.keyboardType = keyboardType;
+}
 
 // MARK: Actions
 

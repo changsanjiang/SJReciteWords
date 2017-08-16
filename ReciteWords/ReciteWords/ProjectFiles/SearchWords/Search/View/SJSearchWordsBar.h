@@ -22,6 +22,12 @@
 
 - (void)clearInputtedText;
 
+/*!
+ *  default is UIKeyboardTypeDefault.
+ */
+@property (nonatomic, assign, readwrite) UIKeyboardType keyboardType;
+
+
 @end
 
 @protocol SJSearchWordsBarDelegate <NSObject>

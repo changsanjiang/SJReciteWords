@@ -87,8 +87,8 @@ static short const item_h = 158;
           SJAllWordsViewController *vc = [SJAllWordsViewController new];
           [self.navigationController pushViewController:vc animated:YES];
       }],
-      [[SJSettingOperation alloc] initWithTitle:@"最近添加的单词" operation:nil],
-      [[SJSettingOperation alloc] initWithTitle:@"最近添加的词单" operation:nil],
+//      [[SJSettingOperation alloc] initWithTitle:@"最近添加的单词" operation:nil],
+//      [[SJSettingOperation alloc] initWithTitle:@"最近添加的词单" operation:nil],
      ];
     
     return _operations;
