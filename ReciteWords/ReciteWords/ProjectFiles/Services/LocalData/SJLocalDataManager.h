@@ -24,12 +24,21 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+@interface SJLocalDataManager (Factotum)
+
+- (void)createListAtController:(UIViewController *)vc callBlock:(void(^)(SJWordList * __nullable list, NSString *errorStr))block;
+
+- (BOOL)existsAtList:(SJWordList *)list word:(SJWordInfo *)word;
+
+@end
+
+
 @interface SJLocalDataManager (InsertOrUpdate)
 
 /*!
  *  创建一个词单
  */
-- (void)createListWithTitle:(NSString *)Title callBlock:(void(^)(SJWordList * __nullable list))block;
+- (void)createListWithTitle:(NSString *)Title callBlock:(void(^ __nullable)(SJWordList * __nullable list))block;
 
 /*!
  *  添加单词到词单
@@ -55,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  *  从词单删除单词
  */
-- (void)removedWordFromList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void (^)(BOOL))block;
+- (void)removedWordFromList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void (^ __nullable)(BOOL))block;
 
 /*!
  *  删除一个词单

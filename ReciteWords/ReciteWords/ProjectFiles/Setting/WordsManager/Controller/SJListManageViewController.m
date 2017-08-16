@@ -61,27 +61,14 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 
 - (void)clickedBtn:(UIButton *)btn {
     NSLog(@"clicked Btn");
-    [self alertWithTitle:@"创建一个词单" textFieldPlaceholder:@"请输入新的词单名.." action:^(NSString * _Nonnull inputText) {
-        NSLog(@"text = %@", inputText);
-        
-        __block BOOL insertBol = YES;
-        [self.listsM enumerateObjectsUsingBlock:^(SJWordList * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ( ![obj.title isEqualToString:inputText] ) return ;
-            insertBol = NO;
-            *stop = YES;
-        }];
-        
-        if ( !insertBol ) { [SVProgressHUD showErrorWithStatus:@"词单已存在, 请勿重复创建."]; return ;}
-        
-        __weak typeof(self) _self = self;
-        [LocalManager createListWithTitle:inputText callBlock:^(SJWordList * _Nullable list) {
-            __strong typeof(_self) self = _self;
-            if ( !self ) return;
-            if ( nil == list ) { [SVProgressHUD showErrorWithStatus:@"创建失败.."]; return; }
-            [SVProgressHUD showSuccessWithStatus:@"创建成功.."];
-            [self.listsM addObject:list];
-            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.listsM.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-        }];
+    __weak typeof(self) _self = self;
+    [LocalManager createListAtController:self callBlock:^(SJWordList * _Nullable list, NSString * _Nonnull errorStr) {
+        __strong typeof(_self) self = _self;
+        if ( !self ) return;
+        if ( nil == list ) { [SVProgressHUD showErrorWithStatus:errorStr]; return; }
+        [SVProgressHUD showSuccessWithStatus:@"创建成功.."];
+        [self.listsM addObject:list];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.listsM.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     }];
 }
 

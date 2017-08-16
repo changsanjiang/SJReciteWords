@@ -234,6 +234,41 @@
 
 // MARK: Animations
 
+- (void)shakeAnimation {
+    CAKeyframeAnimation *boundsOvershootAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    
+    CATransform3D startingScale      = CATransform3DScale (self.layer.transform, 1.0, 1.0, 1.0);
+    CATransform3D overshootScale1    = CATransform3DScale (self.layer.transform, 1.2, 1.2, 1.0);
+    CATransform3D overshootScale2    = CATransform3DScale (self.layer.transform, 1.0, 1.0, 1.0);
+    CATransform3D overshootScale3    = CATransform3DScale (self.layer.transform, 1.2, 1.2, 1.0);
+    CATransform3D undershootScale1   = CATransform3DScale (self.layer.transform, 1.0, 1.0, 1.0);
+    CATransform3D undershootScale2   = CATransform3DScale (self.layer.transform, 1.0, 1.0, 1.0);
+    CATransform3D undershootScale3   = CATransform3DScale (self.layer.transform, 1.0, 1.0, 1.0);
+    CATransform3D undershootScale4   = CATransform3DScale (self.layer.transform, 1.0, 1.0, 1.0);
+    
+    CATransform3D endingScale = self.layer.transform;
+    
+    NSArray *boundsValues = [NSArray arrayWithObjects:
+                             [NSValue valueWithCATransform3D:startingScale],
+                             [NSValue valueWithCATransform3D:overshootScale1],
+                             [NSValue valueWithCATransform3D:overshootScale2],
+                             [NSValue valueWithCATransform3D:overshootScale3],
+                             [NSValue valueWithCATransform3D:undershootScale1],
+                             [NSValue valueWithCATransform3D:undershootScale2],
+                             [NSValue valueWithCATransform3D:undershootScale3],
+                             [NSValue valueWithCATransform3D:undershootScale4],
+                             [NSValue valueWithCATransform3D:endingScale], nil];
+    [boundsOvershootAnimation setValues:boundsValues];
+    
+    boundsOvershootAnimation.repeatCount = 1;
+    boundsOvershootAnimation.duration = 2.0;
+    
+    boundsOvershootAnimation.fillMode = kCAFillModeForwards;
+    boundsOvershootAnimation.removedOnCompletion = NO;
+    
+    [self.layer addAnimation:boundsOvershootAnimation forKey:@"shake"];
+}
+
 - (void)rippleEffectAnimation {
     CATransition *anima = [CATransition animation];
     anima.type = @"rippleEffect"; // @"suckEffect"
@@ -253,7 +288,7 @@
 - (void)scaleAnimation {
     CAKeyframeAnimation *anima = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
     NSValue *value1 = [NSNumber numberWithFloat:1.2];
-    NSValue *value2 = [NSNumber numberWithFloat:1.1];
+    NSValue *value2 = [NSNumber numberWithFloat:1.2];
     NSValue *value3 = [NSNumber numberWithFloat:1.0];
     anima.values = @[value1, value2, value3];
     anima.repeatCount = 1;

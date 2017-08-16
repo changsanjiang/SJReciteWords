@@ -7,7 +7,11 @@
 //
 
 #import "AppDelegate.h"
+
 #import "SJTabBarController.h"
+
+#warning Next... 两种单词展示样式
+
 
 @interface AppDelegate ()
 

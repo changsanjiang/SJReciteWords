@@ -29,7 +29,9 @@ static inline void sjExeObjBlock(void(^ targetBlock)(id obj), id obj) {
     if ( targetBlock ) targetBlock(obj);
 }
 
-
+static inline void sjExeObjsBlock(void(^ targetBlock)(id obj1, id obj2), id obj1, id obj2) {
+    if ( targetBlock ) targetBlock(obj1, obj2);
+}
 
 @interface SJLocalDataManager ()
 
@@ -64,20 +66,33 @@ static inline void sjExeObjBlock(void(^ targetBlock)(id obj), id obj) {
 
 
 
-
-
-
-@interface SJLocalDataManager (Factotum)
-
-
-- (BOOL)havaAWordWithList:(SJWordList *)list word:(SJWordInfo *)word;
-
-@end
+#import "UIViewController+Extension.h"
 
 
 @implementation SJLocalDataManager (Factotum)
 
-- (BOOL)havaAWordWithList:(SJWordList *)list word:(SJWordInfo *)word {
+- (void)createListAtController:(UIViewController *)vc callBlock:(void (^)(SJWordList * _Nullable, NSString *errorStr))block {
+    [vc alertWithTitle:@"创建一个词单" textFieldPlaceholder:@"请输入新的词单名.." action:^(NSString * _Nonnull inputText) {
+        
+        __block BOOL insertBol = YES;
+        [self.locLists enumerateObjectsUsingBlock:^(SJWordList * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ( ![obj.title isEqualToString:inputText] ) return ;
+            insertBol = NO;
+            *stop = YES;
+        }];
+        
+        if ( !insertBol ) { sjExeObjsBlock(block, nil, @"词单已存在, 请勿重复创建."); return ;}
+        
+        [LocalManager createListWithTitle:inputText callBlock:^(SJWordList * _Nullable list) {
+            if ( list )
+                sjExeObjsBlock(block, list, nil);
+            else
+                sjExeObjsBlock(block, list, @"创建歌单失败");
+        }];
+    }];
+}
+
+- (BOOL)existsAtList:(SJWordList *)list word:(SJWordInfo *)word {
     __block BOOL exists = NO;
     [list.words enumerateObjectsUsingBlock:^(SJWordInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ( obj.object_id != word.object_id ) return;
@@ -158,6 +173,7 @@ static inline void sjExeObjBlock(void(^ targetBlock)(id obj), id obj) {
  */
 - (void)removeList:(SJWordList *)list callBlock:(void(^ __nullable)(BOOL result))block {
     [[SJDatabaseMap sharedServer] deleteDataWithClass:[list class] primaryValue:list.listId callBlock:^(BOOL result) {
+        if ( self.locLists ) [self.locLists removeObject:list];
         sjExeBoolBlock(block, result);
     }];
 }

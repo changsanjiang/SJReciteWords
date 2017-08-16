@@ -52,6 +52,8 @@
 
 // MARK: Animations
 
+- (void)shakeAnimation;
+
 - (void)rippleEffectAnimation;
 
 - (void)fadeAnimation;

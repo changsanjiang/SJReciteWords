@@ -46,4 +46,5 @@ typedef NSString * CellID;
 #define SJ_Words_D_C    [UIColor csj_colorWithHexStr:@"F9FDFF"] // 单词的下半部分。 上半部分是白色
 #define SJ_Font_C       [UIColor csj_colorWithHexStr:@"1296DB"] // 字体颜色。 蓝色
 
+
 #endif /* reciteWords_pch */
