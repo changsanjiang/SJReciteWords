@@ -16,12 +16,19 @@
 
 #import "SJListManageTableCell.h"
 
+#import "SJReciteWordsCollectionCell.h"
+
 
 static CellID const SJListManageTableCellID = @"SJListManageTableCell";
-
+static CellID const SJReciteWordsCollectionCellID = @"SJReciteWordsCollectionCell";
 
 @interface SJReciteWordsViewController (UITableViewDelegateMethods)<UITableViewDelegate> @end
 @interface SJReciteWordsViewController (UITableViewDataSourceMethods)<UITableViewDataSource> @end
+
+@interface SJReciteWordsViewController (UICollectionViewDelegateMethods)<UICollectionViewDelegate> @end
+
+@interface SJReciteWordsViewController (UICollectionViewDataSourceMethods)<UICollectionViewDataSource> @end
+
 
 
 @interface SJReciteWordsViewController ()
@@ -92,6 +99,12 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 // MARK: UI
 
 - (void)_SJReciteWordsViewControllerSetupUI {
+    
+    [self.view addSubview:self.collectionView];
+    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.offset(0);
+    }];
+    
     self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     [self.view addSubview:self.tableView];
     
@@ -122,6 +135,9 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 - (UICollectionView *)collectionView {
     if ( _collectionView ) return _collectionView;
     _collectionView = [UICollectionView collectionViewWithItemSize:CGSizeMake(SJ_W, SJ_H - SJ_Nav_H - SJ_Tab_H) backgroundColor:SJ_Theme_C scrollDirection:UICollectionViewScrollDirectionHorizontal];
+    _collectionView.dataSource = self;
+    [_collectionView registerClass:NSClassFromString(SJReciteWordsCollectionCellID) forCellWithReuseIdentifier:SJReciteWordsCollectionCellID];
+    _collectionView.pagingEnabled = YES;
     return _collectionView;
 }
 
@@ -145,6 +161,8 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
             self.view.backgroundColor = SJ_Theme_C;
         } completion:^(BOOL finished) {
             [tableView removeFromSuperview];
+            self.selectedList = cell.list;
+            [self.collectionView reloadData];
         }];
     });
 }
@@ -176,6 +194,35 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
     headerLabel.text = @"选择一个词单";
     headerLabel.backgroundColor = SJ_Theme_C;
     return headerLabel;
+}
+
+@end
+
+
+@implementation SJReciteWordsViewController (UICollectionViewDelegateMethods)
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+@end
+
+@implementation SJReciteWordsViewController (UICollectionViewDataSourceMethods)
+
+// MARK: UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.selectedList.words.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SJReciteWordsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SJReciteWordsCollectionCellID forIndexPath:indexPath];
+    cell.wordInfo = self.selectedList.words[indexPath.row];
+    return cell;
 }
 
 @end

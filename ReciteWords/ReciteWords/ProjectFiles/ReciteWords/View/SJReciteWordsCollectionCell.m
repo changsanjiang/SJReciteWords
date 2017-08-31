@@ -31,10 +31,20 @@
     return self;
 }
 
+// MARK: Setter
+
+- (void)setWordInfo:(SJWordInfo *)wordInfo {
+    _wordInfo = wordInfo;
+    _wordInfoView.wordInfo = wordInfo;
+}
+
 // MARK: UI
 
 - (void)_SJReciteWordsCollectionCellSetupUI {
-    
+    [self addSubview:self.wordInfoView];
+    [_wordInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.offset(0);
+    }];
 }
 
 - (SJWordInfoView *)wordInfoView {

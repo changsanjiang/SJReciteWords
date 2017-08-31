@@ -8,6 +8,10 @@
 
 #import "SJBaseCollectionViewCell.h"
 
+@class SJWordInfo;
+
 @interface SJReciteWordsCollectionCell : SJBaseCollectionViewCell
+
+@property (nonatomic, strong, readwrite) SJWordInfo *wordInfo;
 
 @end
