@@ -24,13 +24,20 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+/*!
+ *  需要通知用户的错误
+ */
+extern NSErrorDomain const SJNotifyUserErrorDomain;
 
-
+/*!
+ *  报错, 可以通知给用户.
+ */
+extern NSErrorDomain const SJWaringErrorDomain;
 
 
 @interface SJLocalDataManager (Factotum)
 
-- (void)createListAtController:(UIViewController *)vc callBlock:(void(^)(SJWordList * __nullable list, NSString *errorStr))block;
+- (void)createListAtController:(UIViewController *)vc callBlock:(void(^)(SJWordList * __nullable list, NSError * __nullable error))block;
 
 - (BOOL)existsAtList:(SJWordList *)list word:(SJWordInfo *)word;
 
@@ -43,22 +50,22 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  *  创建一个词单
  */
-- (void)createListWithTitle:(NSString *)Title callBlock:(void(^ __nullable)(SJWordList * __nullable list))block;
+- (void)createListWithTitle:(NSString *)Title callBlock:(void(^ __nullable)(SJWordList * __nullable list, NSError * __nullable error))block;
 
 /*!
  *  添加单词到词单
  */
-- (void)addedWordsToList:(SJWordList *)list words:(NSArray<SJWordInfo *> *)words callBlock:(void(^ __nullable)(BOOL result))block;
+- (void)addWordsToList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void(^ __nullable)(BOOL result, NSError * __nullable error))block;
 
 /*!
  *  更新单词
  */
-- (void)updatedWord:(SJWordInfo *)word property:(NSArray<NSString *> *)property callBlock:(void(^ __nullable)(BOOL result))block;
+- (void)updatedWord:(SJWordInfo *)word property:(NSArray<NSString *> *)property callBlock:(void(^ __nullable)(BOOL result, NSError * __nullable error))block;
 
 /*!
  *  更新词单
  */
-- (void)updatedList:(SJWordList *)list property:(NSArray<NSString *> *)property callBlock:(void(^ __nullable)(BOOL result))block;
+- (void)updatedList:(SJWordList *)list property:(NSArray<NSString *> *)property callBlock:(void(^ __nullable)(BOOL result, NSError * __nullable error))block;
 
 @end
 
@@ -69,12 +76,12 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  *  从词单删除单词
  */
-- (void)removedWordFromList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void (^ __nullable)(BOOL))block;
+- (void)removedWordFromList:(SJWordList *)list word:(SJWordInfo *)word callBlock:(void (^ __nullable)(BOOL result, NSError * __nullable error))block;
 
 /*!
  *  删除一个词单
  */
-- (void)removeList:(SJWordList *)list callBlock:(void(^ __nullable)(BOOL result))block;
+- (void)removeList:(SJWordList *)list callBlock:(void(^ __nullable)(BOOL result, NSError * __nullable error))block;
 
 @end
 
@@ -100,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getSearchHistory:(void(^)(SJWordList *searchList))block;
 
-- (void)searchListAddWord:(SJWordInfo *)word callBlock:(void(^ __nullable)(BOOL result))block;
+- (void)searchListAddWord:(SJWordInfo *)word callBlock:(void(^ __nullable)(BOOL result, NSError * __nullable error))block;
 
 @end
 

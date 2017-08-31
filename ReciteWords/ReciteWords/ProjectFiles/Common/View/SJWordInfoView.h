@@ -10,21 +10,19 @@
 
 @class SJWordInfo;
 
-//@protocol SJWordInfoViewDelegate;
-
 @interface SJWordInfoView : SJBaseView
 
 @property (nonatomic, strong, readwrite) SJWordInfo *wordInfo;
 
-//@property (nonatomic, weak) id <SJWordInfoViewDelegate> delegate;
-
 @end
 
 
-//@protocol SJWordInfoViewDelegate <NSObject>
-//
-//- (void)clickedUKPlayBtnOnWordInfoView:(SJWordInfoView *)view;
-//
-//- (void)clickedUSPlayBtnOnWordInfoView:(SJWordInfoView *)view;
-//
-//@end
+
+@interface SJWordInfoView (Tips)
+
+/*!
+ *  default is NO.
+ */
+@property (nonatomic, assign) BOOL enableTipsView;
+
+@end

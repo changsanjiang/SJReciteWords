@@ -61,6 +61,8 @@
     [self.wordInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.offset(0);
     }];
+    
+    self.wordInfoView.enableTipsView = YES;
 }
 
 - (SJWordInfoView *)wordInfoView {

@@ -16,7 +16,10 @@
 
 #import "UIViewController+Extension.h"
 
+
 static CellID const SJWordsListTableCellID = @"SJWordsListTableCell";
+
+
 
 @interface SJWordsListViewController (UITableViewDelegateMethods)<UITableViewDelegate> @end
 @interface SJWordsListViewController (UITableViewDataSourceMethods)<UITableViewDataSource> @end
@@ -107,7 +110,8 @@ static CellID const SJWordsListTableCellID = @"SJWordsListTableCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return _list.words[indexPath.row].height;
+    SJWordInfo *word = _list.words[indexPath.row];
+    return word.height + word.tipsHeight;
 }
 
 // MARK: Edit
@@ -118,15 +122,16 @@ static CellID const SJWordsListTableCellID = @"SJWordsListTableCell";
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        NSLog(@"delete");
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         SJWordInfo *word = [cell valueForKey:@"model"];
         [self alertWithType:AlertType_DeleteAndCancel title:word.content msg:@"确定删除?" action:^{
             NSInteger index = [self.list.words indexOfObject:word];
             [self.list.words removeObjectAtIndex:index];
-            [LocalManager removedWordFromList:self.list word:word callBlock:^(BOOL r) {
-                if ( !r )
+            [LocalManager removedWordFromList:self.list word:word callBlock:^(BOOL result, NSError * _Nullable error) {
+                if ( !result ) {
                     [self.list.words insertObject:word atIndex:index];
+                    [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]];
+                }
                 else
                     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }];

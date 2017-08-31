@@ -7,97 +7,175 @@
 //
 
 #import "SJReciteWordsViewController.h"
+
 #import "SJWordInfo.h"
-#import "SJReciteWordCollectionViewCell.h"
-static CellID const ZQReciteWordCollectionViewCellID = @"ZQReciteWordCollectionViewCellID";
-@interface SJReciteWordsViewController (SJReciteWordCollectionViewCellMethods)<SJReciteWordCollectionViewCellDalegate>
-@end
 
-@interface SJReciteWordsViewController (UICollectionViewDelegateMethods)<UICollectionViewDelegate>
-@end
+#import "SJWordList.h"
 
-@interface SJReciteWordsViewController (UICollectionViewDataSourceMethods)<UICollectionViewDataSource>
-@end
+#import "SJBaseTableView.h"
+
+#import "SJListManageTableCell.h"
+
+
+static CellID const SJListManageTableCellID = @"SJListManageTableCell";
+
+
+@interface SJReciteWordsViewController (UITableViewDelegateMethods)<UITableViewDelegate> @end
+@interface SJReciteWordsViewController (UITableViewDataSourceMethods)<UITableViewDataSource> @end
 
 
 @interface SJReciteWordsViewController ()
 
+// use it to display lists.
+@property (nonatomic, strong, readonly) SJBaseTableView *tableView;
+@property (nonatomic, strong, readwrite) NSArray<SJWordList *> *lists;
+
+
+// use it to display words.
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
-@property (nonatomic, strong, readonly) NSMutableArray<SJWordInfo *> *words;
+@property (nonatomic, strong, readwrite) SJWordList *selectedList;
 
 @end
 
 @implementation SJReciteWordsViewController
 
+@synthesize tableView = _tableView;
 @synthesize collectionView = _collectionView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self _SJReciteWordsViewControllerSetupUI];
+    
+    [self _SJAddWordToListViewControllerGetLocalLists];
+    
     // Do any additional setup after loading the view.
-    [self setupUI];
 }
+
+// MARK: Parameters
+
+- (void)_SJAddWordToListViewControllerGetLocalLists {
+    __weak typeof(self) _self = self;
+    [LocalManager queryLocalLists:^(NSArray<SJWordList *> * _Nullable lists) {
+        __strong typeof(_self) self = _self;
+        if ( !self ) return;
+        self.lists = lists;
+        
+        [self updateTableViewHeight];
+        
+        [self.tableView reloadData];
+    }];
+}
+
+- (void)updateTableViewHeight {
+    CGFloat height = self.lists.count * 44 * SJ_Rate;
+    height += 44 * SJ_Rate;
+    CGFloat maxH = floor(SJ_H * 0.48);
+    if ( self.tableView.csj_h == maxH ) return;
+    if ( height < maxH ) {
+        [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(height);
+        }];
+    }
+    else if ( self.tableView.csj_h != maxH ) {
+        [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(maxH);
+        }];
+    }
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
 
 // MARK: UI
 
-- (void)setupUI {
-   
-    [self.view addSubview:self.collectionView];
-    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
+- (void)_SJReciteWordsViewControllerSetupUI {
+    self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    [self.view addSubview:self.tableView];
     
+    CGFloat margin = ceil(60 * SJ_Rate);
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.offset(margin);
+        make.trailing.offset(-margin);
+        make.center.offset(0);
+        make.height.offset(SJ_H * 0.48);
+    }];
+}
+
+- (SJBaseTableView *)tableView {
+    if ( _tableView ) return _tableView;
+    _tableView = [SJBaseTableView new];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.rowHeight = 44 * SJ_Rate;
+    [_tableView registerClass:NSClassFromString(SJListManageTableCellID) forCellReuseIdentifier:SJListManageTableCellID];
+    _tableView.sectionHeaderHeight = 44 * SJ_Rate;
+    _tableView.scrollIndicatorInsets = UIEdgeInsetsMake(44 * SJ_Rate, 0, 0, 0);
+    _tableView.layer.cornerRadius = 4;
+    _tableView.clipsToBounds = YES;
+    _tableView.backgroundColor = SJ_Theme_C;
+    return _tableView;
 }
 
 - (UICollectionView *)collectionView {
     if ( _collectionView ) return _collectionView;
-    
-    _collectionView = [UICollectionView collectionViewWithItemSize:CGSizeMake(SJ_W, SJ_H - SJ_Nav_H - SJ_Tab_H) backgroundColor:[UIColor whiteColor] scrollDirection:UICollectionViewScrollDirectionHorizontal];
-    _collectionView.dataSource = self;
-    _collectionView.delegate = self;
-    _collectionView.bounces = NO;
-    _collectionView.pagingEnabled = YES;
-    [_collectionView registerClass:[SJReciteWordCollectionViewCell class] forCellWithReuseIdentifier:ZQReciteWordCollectionViewCellID];
+    _collectionView = [UICollectionView collectionViewWithItemSize:CGSizeMake(SJ_W, SJ_H - SJ_Nav_H - SJ_Tab_H) backgroundColor:SJ_Theme_C scrollDirection:UICollectionViewScrollDirectionHorizontal];
     return _collectionView;
 }
+
 @end
 
 
-@implementation SJReciteWordsViewController (UICollectionViewDelegateMethods)
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"clicked item");
+@implementation SJReciteWordsViewController (UITableViewDelegateMethods)
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SJListManageTableCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ( 0 == cell.list.words.count ) {
+        [SVProgressHUD showErrorWithStatus:@"词单没有单词"];
+        return;
+    }
+    [cell scaleAnimation];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0.5 animations:^{
+            tableView.alpha = 0.001;
+            tableView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            self.view.backgroundColor = SJ_Theme_C;
+        } completion:^(BOOL finished) {
+            [tableView removeFromSuperview];
+        }];
+    });
 }
 
 @end
 
-@implementation SJReciteWordsViewController (UICollectionViewDataSourceMethods)
+@implementation SJReciteWordsViewController (UITableViewDataSourceMethods)
 
-// MARK: UICollectionViewDataSource
+// MARK: Table View Methods
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 3;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _lists.count;
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SJReciteWordCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:ZQReciteWordCollectionViewCellID forIndexPath:indexPath];
-    //    cell.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
-    //                                           green:1.0 * (arc4random() % 256 / 255.0)
-    //                                            blue:1.0 * (arc4random() % 256 / 255.0)
-    //                                           alpha:1];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SJListManageTableCell *cell = [tableView dequeueReusableCellWithIdentifier:SJListManageTableCellID];
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
+    cell.textLabel.textColor = SJ_Font_C;
+    cell.list = _lists[indexPath.row];
     return cell;
-    
 }
-@end
 
-@implementation SJReciteWordsViewController(SJReciteWordCollectionViewCellMethods)
-
-- (void)reciteWordCollectionViewCell:(SJReciteWordCollectionViewCell *)reciteWordCollectionViewCell clickReciteBtn:(UIButton *)clickRecite {
-    NSLog(@"点击播放");
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UILabel *headerLabel = [UILabel labelWithFontSize:16 textColor:[UIColor blackColor] alignment:NSTextAlignmentCenter];
+    headerLabel.text = @"选择一个词单";
+    headerLabel.backgroundColor = SJ_Theme_C;
+    return headerLabel;
 }
 
 @end

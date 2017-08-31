@@ -12,6 +12,8 @@
 
 #import "NSString+Extension.h"
 
+#import "NSObject+Extension.h"
+
 @implementation SJWordInfo
 
 + (NSString *)primaryKey {
@@ -67,6 +69,31 @@
     _height += margin;
     
     return _height;
+}
+
+- (NSString *)tips {
+    if ( _tips ) return _tips;
+    return @"未编辑";
+}
+
+- (CGFloat)tipsHeight {
+    if ( 0 == _tips.length ) return 1;
+    if ( 0 != _tipsHeight ) return _tipsHeight;
+    
+    CGFloat margin = ceil(20 * SJ_Rate);
+    _tipsHeight += margin;
+
+    // headerLabel
+    _tipsHeight += sjFontH(14);
+    
+    // margin
+    _tipsHeight += 8;
+    
+    // textView
+    _tipsHeight += [_tips csj_textSizeWithMaxWidth:SJ_W * 0.5 fontSize:12].height;
+    
+    _tipsHeight += margin;
+    return _tipsHeight;
 }
 
 @end

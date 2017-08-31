@@ -30,12 +30,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self _SJSearchHistoryViewControllerSetupUI];
-    
     [self _SJSearchHistoryViewControllerGetSearchHistory];
 }
 
 - (void)setList:(SJWordList *)list {
+    [list.words enumerateObjectsUsingBlock:^(SJWordInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.tips = @"It shows how to prepare a CV, and gives tips on applying for jobs.它说明了如何准备简历，并就如何申请职位提了些建议。";
+    }];
     [super setList:list];
     self.title = @"搜索历史";
 }
@@ -49,12 +50,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-}
-
-// MARK: UI
-
-- (void)_SJSearchHistoryViewControllerSetupUI {
-    
 }
 
 @end

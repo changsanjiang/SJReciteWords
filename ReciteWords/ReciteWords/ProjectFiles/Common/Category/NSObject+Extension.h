@@ -49,6 +49,9 @@ extern NSString *           BundleName();
 extern NSString *           NSStringFromInteger(NSInteger integer);
 extern UIImage  *           Image(NSString *imageName);
 
+ // MARK: - 字体
+extern CGFloat sjFontH(NSInteger size);
+
  // MARK: -  nib相关
 extern __kindof UIView *    nibView(NSString *nibName, id self);
 extern UINib *              nib(NSString *nibName);

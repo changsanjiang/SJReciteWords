@@ -20,7 +20,7 @@
 
 static NSString * const SJSettingCollectionViewCellID = @"SJSettingCollectionViewCell";
 
-static short const item_h = 158;
+static short const item_h = 90;
 
 @interface SJSettingViewController (UICollectionViewDelegateMethods)<UICollectionViewDelegate>
 @end
@@ -76,15 +76,15 @@ static short const item_h = 158;
     __weak typeof(self) _self = self;
     _operations =
     @[
-      [[SJSettingOperation alloc] initWithTitle:@"词单管理" operation:^ {
+      [[SJSettingOperation alloc] initWithTitle:@"全部单词" imageName:@"sj_word_list" operation:^ {
+          SJAllWordsViewController *vc = [SJAllWordsViewController new];
+          [self.navigationController pushViewController:vc animated:YES];
+      }],
+      [[SJSettingOperation alloc] initWithTitle:@"词单" imageName:@"sj_list_list" operation:^ {
           __strong typeof(_self) self = _self;
           if ( !self ) return;
           SJListManageViewController *vc = [SJListManageViewController new];
-          vc.title = @"词单管理";
-          [self.navigationController pushViewController:vc animated:YES];
-      }],
-      [[SJSettingOperation alloc] initWithTitle:@"全部单词" operation:^ {
-          SJAllWordsViewController *vc = [SJAllWordsViewController new];
+          vc.title = @"词单";
           [self.navigationController pushViewController:vc animated:YES];
       }],
 //      [[SJSettingOperation alloc] initWithTitle:@"最近添加的单词" operation:nil],

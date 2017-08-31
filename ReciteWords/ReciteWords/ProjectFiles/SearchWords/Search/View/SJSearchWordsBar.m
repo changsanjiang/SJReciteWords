@@ -129,7 +129,6 @@
 @implementation SJSearchWordsBar (UITextFieldDelegateMethods)
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
     if ( 0 == _inputView.text.length ) return YES;
     if ( ![self.delegate respondsToSelector:@selector(finishedInputWithSearchWordsBar:content:)] ) return YES;
     [self.delegate finishedInputWithSearchWordsBar:self content:textField.text];

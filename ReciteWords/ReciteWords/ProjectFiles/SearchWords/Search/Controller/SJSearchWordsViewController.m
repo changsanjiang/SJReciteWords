@@ -23,7 +23,7 @@
 #import "SJAddWordToListViewController.h"
 
 
-#define SJWordInfoTop   (SJ_H * 0.1)
+#define SJWordInfoTop   (SJ_H * 0.06)
 
 
 // MARK: 通知处理
@@ -145,9 +145,8 @@
         __strong typeof(_self) self = _self;
         if ( !self ) return;
         if ( nil == self.wordInfoView.wordInfo ) return;
-        [list.words insertObject:self.wordInfoView.wordInfo atIndex:list.words.count];
         [SVProgressHUD show];
-        [LocalManager addedWordsToList:list words:@[self.wordInfoView.wordInfo] callBlock:^(BOOL result) {
+        [LocalManager addWordsToList:list word:self.wordInfoView.wordInfo callBlock:^(BOOL result, NSError * _Nullable error) {
             if ( result ) {
                 // Proper dela
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -156,10 +155,7 @@
                 });
                 return ;
             }
-            
-            // failed operation
-            [list.words removeLastObject];
-            [SVProgressHUD showErrorWithStatus:@"添加失败"];
+            [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]];
         }];
     };
     
@@ -268,8 +264,13 @@
     NSValue *userInfoFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrame = userInfoFrameValue.CGRectValue;
     
+    CGFloat subs = SJ_H;
+    if ( [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight ||
+        [UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ) {
+        subs = SJ_W;
+    }
     [self.searchBar mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(keyboardFrame.origin.y - SJ_H);
+        make.bottom.equalTo(self.view).offset(keyboardFrame.origin.y - subs);
     }];
     
     NSNumber *userInfoDurationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
@@ -289,6 +290,7 @@
     bar.enableSearchBtn = NO;
     __weak typeof(self) _self = self;
     [DataServices searchWordWithContent:content callBlock:^(SJWordInfo *wordInfo) {
+        [bar clearInputtedText];
         bar.enableSearchBtn = YES;
         __strong typeof(_self) self = _self;
         if ( !self ) return;

@@ -12,6 +12,8 @@
 
 #import "SJSettingOperation.h"
 
+#import "NSAttributedString+ZFBAdditon.h"
+
 @interface SJSettingCollectionViewCell ()
 
 @property (nonatomic, strong, readonly) UILabel *settingLabel;
@@ -32,28 +34,29 @@
 - (void)setOperation:(SJSettingOperation *)operation {
     _operation = operation;
     _settingLabel.text = operation.title;
+    _settingLabel.attributedText = [NSAttributedString mh_imageTextWithImage:[UIImage imageNamed:operation.imageName] imageW:20 imageH:20 title:operation.title fontSize:12 titleColor:SJ_Font_C spacing:8];
 }
 
 // MARK: UI
 
 - (void)_SJSettingCollectionViewCellSetupUI {
-    
-    // 调试---------------------⬇️
-    self.settingLabel.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
-                                                        green:1.0 * (arc4random() % 256 / 255.0)
-                                                         blue:1.0 * (arc4random() % 256 / 255.0)
-                                                        alpha:1];
-    // 调试---------------------⬆️
 
     [self.contentView addSubview:self.settingLabel];
     [_settingLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_offset(UIEdgeInsetsMake(4, 4, 4, 4));
     }];
+    
+    self.settingLabel.layer.cornerRadius = 6;
+    self.settingLabel.clipsToBounds = YES;
+//    self.settingLabel.layer.shadowOffset = CGSizeMake(2, 2);
+    self.settingLabel.layer.shadowColor = SJ_Words_D_C.CGColor;
 }
 
 - (UILabel *)settingLabel {
     if ( _settingLabel ) return _settingLabel;
-    _settingLabel = [UILabel labelWithFontSize:17 textColor:[UIColor whiteColor] alignment:NSTextAlignmentCenter];
+    _settingLabel = [UILabel labelWithFontSize:12 textColor:SJ_Font_C alignment:NSTextAlignmentCenter];
+    _settingLabel.backgroundColor = [UIColor whiteColor];
+    _settingLabel.numberOfLines = 0;
     return _settingLabel;
 }
 

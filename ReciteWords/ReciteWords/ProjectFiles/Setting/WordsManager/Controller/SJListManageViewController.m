@@ -108,10 +108,10 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 - (void)clickedBtn:(UIButton *)btn {
     NSLog(@"clicked Btn");
     __weak typeof(self) _self = self;
-    [LocalManager createListAtController:self callBlock:^(SJWordList * _Nullable list, NSString * _Nonnull errorStr) {
+    [LocalManager createListAtController:self callBlock:^(SJWordList * _Nullable list, NSError * _Nullable error) {
         __strong typeof(_self) self = _self;
         if ( !self ) return;
-        if ( nil == list ) { [SVProgressHUD showErrorWithStatus:errorStr]; return; }
+        if ( nil == list ) { [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]]; return; }
         [SVProgressHUD showSuccessWithStatus:@"创建成功"];
         [self.listsM addObject:list];
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.listsM.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
@@ -209,13 +209,13 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
             if ( [list.title isEqualToString:inputText] ) return;
             NSString *oldTitle = list.title;
             list.title = inputText;
-            [LocalManager updatedList:list property:@[@"title"] callBlock:^(BOOL result) {
+            [LocalManager updatedList:list property:@[@"title"] callBlock:^(BOOL result, NSError * _Nullable error) {
                 if ( !result ) {
-                    [SVProgressHUD showErrorWithStatus:@"更改失败"];
+                    [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]];
                     list.title = oldTitle;
                     return;
                 }
-                [SVProgressHUD showSuccessWithStatus:@"更改成功"];
+                [SVProgressHUD showSuccessWithStatus:@"更新成功"];
                 [self.tableView setEditing:NO animated:YES];
                 [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }];
@@ -229,9 +229,9 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         SJWordList *list = [cell valueForKey:@"list"];
         [self alertWithType:AlertType_DeleteAndCancel title:@"删除" msg:@"确定删除?" action:^{
-            [LocalManager removeList:list callBlock:^(BOOL result) {
+            [LocalManager removeList:list callBlock:^(BOOL result, NSError * _Nullable error) {
                 if ( !result )
-                    [SVProgressHUD showErrorWithStatus:@"删除失败"];
+                    [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]];
                 else {
                     [SVProgressHUD showSuccessWithStatus:@"删除成功"];
                     [self.listsM removeObject:list];

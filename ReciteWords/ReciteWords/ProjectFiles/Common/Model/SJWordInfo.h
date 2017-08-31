@@ -32,4 +32,8 @@
 @property (nonatomic, assign) CGFloat height;
 // MARK: SJEnd
 
+@property (nonatomic, strong) NSString *tips;
+@property (nonatomic, assign) CGFloat tipsHeight;
+
+
 @end

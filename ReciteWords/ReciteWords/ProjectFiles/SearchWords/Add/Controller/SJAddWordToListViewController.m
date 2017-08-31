@@ -95,10 +95,10 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 - (void)clickedBtn:(UIButton *)btn {
     NSLog(@"clicked Btn");
     __weak typeof(self) _self = self;
-    [LocalManager createListAtController:self callBlock:^(SJWordList * _Nullable list, NSString * _Nonnull errorStr) {
+    [LocalManager createListAtController:self callBlock:^(SJWordList * _Nullable list, NSError * _Nullable error) {
         __strong typeof(_self) self = _self;
         if ( !self ) return;
-        if ( nil == list ) { [SVProgressHUD showErrorWithStatus:errorStr]; return; }
+        if ( nil == list ) { [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]]; return; }
         [SVProgressHUD showSuccessWithStatus:@"创建成功.."];
         [self.listsM addObject:list];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.listsM.count - 1 inSection:0];
@@ -181,7 +181,6 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     SJListManageTableCell *cell = [tableView dequeueReusableCellWithIdentifier:SJListManageTableCellID];
     cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.textLabel.textColor = SJ_Font_C;

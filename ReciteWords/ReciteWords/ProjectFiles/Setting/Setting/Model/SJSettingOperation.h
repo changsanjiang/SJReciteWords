@@ -11,8 +11,9 @@
 @interface SJSettingOperation : NSObject
 
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *imageName;
 @property (nonatomic, copy)  void(^operation)();
 
-- (instancetype)initWithTitle:(NSString *)title operation:(void(^)())block;
+- (instancetype)initWithTitle:(NSString *)title imageName:(NSString *)imageName operation:(void(^)())block;
 
 @end
