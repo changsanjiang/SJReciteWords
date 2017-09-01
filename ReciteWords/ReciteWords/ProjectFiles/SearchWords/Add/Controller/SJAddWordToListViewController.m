@@ -98,8 +98,8 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
     [LocalManager createListAtController:self callBlock:^(SJWordList * _Nullable list, NSError * _Nullable error) {
         __strong typeof(_self) self = _self;
         if ( !self ) return;
-        if ( nil == list ) { [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]]; return; }
-        [SVProgressHUD showSuccessWithStatus:@"创建成功.."];
+        if ( nil == list ) { [SJPrompt showErrorTitle:error.userInfo[@"error"]]; return; }
+        [SJPrompt showSuccessTitle:@"创建成功"];
         [self.listsM addObject:list];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.listsM.count - 1 inSection:0];
         [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

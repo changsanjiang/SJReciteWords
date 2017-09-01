@@ -111,8 +111,8 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
     [LocalManager createListAtController:self callBlock:^(SJWordList * _Nullable list, NSError * _Nullable error) {
         __strong typeof(_self) self = _self;
         if ( !self ) return;
-        if ( nil == list ) { [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]]; return; }
-        [SVProgressHUD showSuccessWithStatus:@"创建成功"];
+        if ( nil == list ) { [SJPrompt showErrorTitle:error.userInfo[@"error"]]; return; }
+        [SJPrompt showSuccessTitle:@"创建成功"];
         [self.listsM addObject:list];
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.listsM.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
         
@@ -168,7 +168,12 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    SJWordsListViewController *vc = [[SJWordsListViewController alloc] initWithList:[cell valueForKey:@"list"]];
+    SJWordList *list = [cell valueForKey:@"list"];
+    if ( 0 == list.words.count ) {
+        
+        return;
+    }
+    SJWordsListViewController *vc = [[SJWordsListViewController alloc] initWithList:list];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -211,11 +216,11 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
             list.title = inputText;
             [LocalManager updatedList:list property:@[@"title"] callBlock:^(BOOL result, NSError * _Nullable error) {
                 if ( !result ) {
-                    [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]];
+                    [SJPrompt showErrorTitle:error.userInfo[@"error"]];
                     list.title = oldTitle;
                     return;
                 }
-                [SVProgressHUD showSuccessWithStatus:@"更新成功"];
+                [SJPrompt showSuccessTitle:@"更新成功"];
                 [self.tableView setEditing:NO animated:YES];
                 [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }];
@@ -231,9 +236,9 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
         [self alertWithType:AlertType_DeleteAndCancel title:@"删除" msg:@"确定删除?" action:^{
             [LocalManager removeList:list callBlock:^(BOOL result, NSError * _Nullable error) {
                 if ( !result )
-                    [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]];
+                    [SJPrompt showErrorTitle:error.userInfo[@"error"]];
                 else {
-                    [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+                    [SJPrompt showSuccessTitle:@"删除成功"];
                     [self.listsM removeObject:list];
                     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     

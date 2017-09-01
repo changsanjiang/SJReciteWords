@@ -50,6 +50,7 @@
 		7781376E1F2F838900F3CAA8 /* SJAudioPlayerServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7781376D1F2F838900F3CAA8 /* SJAudioPlayerServer.m */; };
 		778137751F2F948C00F3CAA8 /* SJLocalDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 778137741F2F948C00F3CAA8 /* SJLocalDataManager.m */; };
 		778252EC1F404B6A006F5156 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 778252EB1F404B6A006F5156 /* UIImage+Extension.m */; };
+		7798A4371F584F04004CB9BA /* SJPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 7798A4361F584F04004CB9BA /* SJPrompt.m */; };
 		FCF1E8DF579BEC560FA480AB /* libPods-ReciteWords.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 703C99FE84BDA0DBF58CB7CB /* libPods-ReciteWords.a */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +142,8 @@
 		778137741F2F948C00F3CAA8 /* SJLocalDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLocalDataManager.m; sourceTree = "<group>"; };
 		778252EA1F404B6A006F5156 /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		778252EB1F404B6A006F5156 /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
+		7798A4351F584F04004CB9BA /* SJPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPrompt.h; sourceTree = "<group>"; };
+		7798A4361F584F04004CB9BA /* SJPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPrompt.m; sourceTree = "<group>"; };
 		A8901B06E98165B83D4DF7C8 /* Pods-ReciteWords.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReciteWords.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReciteWords/Pods-ReciteWords.release.xcconfig"; sourceTree = "<group>"; };
 		FA68CC42C134EA75944ACE4C /* Pods-ReciteWords.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReciteWords.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ReciteWords/Pods-ReciteWords.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -528,6 +531,7 @@
 		778137481F2F5F7900F3CAA8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7798A4341F584EF1004CB9BA /* Prompt */,
 				778137651F2F801700F3CAA8 /* 发音 */,
 				778137491F2F5F8E00F3CAA8 /* 网络请求 */,
 				778137721F2F946700F3CAA8 /* 本地数据库 */,
@@ -599,6 +603,15 @@
 			);
 			name = "本地数据库";
 			path = LocalData;
+			sourceTree = "<group>";
+		};
+		7798A4341F584EF1004CB9BA /* Prompt */ = {
+			isa = PBXGroup;
+			children = (
+				7798A4351F584F04004CB9BA /* SJPrompt.h */,
+				7798A4361F584F04004CB9BA /* SJPrompt.m */,
+			);
+			path = Prompt;
 			sourceTree = "<group>";
 		};
 		CF5E551914C6072B36A2F600 /* Frameworks */ = {
@@ -758,6 +771,7 @@
 				7755AD111F40A012009073D2 /* SJSettingViewController.m in Sources */,
 				772D45FC1F4574D30047A7BF /* SJReciteWordsCollectionCell.m in Sources */,
 				778137231F2F565100F3CAA8 /* SJBaseViewController.m in Sources */,
+				7798A4371F584F04004CB9BA /* SJPrompt.m in Sources */,
 				778252EC1F404B6A006F5156 /* UIImage+Extension.m in Sources */,
 				772D45EE1F4436F00047A7BF /* SJTransitionAnimator.m in Sources */,
 				772D456D1F434AD30047A7BF /* SJSearchWordsBar.m in Sources */,

@@ -25,7 +25,7 @@
 }
 
 - (void)dealloc {
-    [SVProgressHUD dismiss];
+    [SJPrompt dismiss];
 }
 
 // MARK: Actions

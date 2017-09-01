@@ -29,10 +29,10 @@
 }
 
 - (void)_SJAllWordsViewControllerGetAllWords {
-    [SVProgressHUD show];
+    [SJPrompt show];
     __weak typeof(self) _self = self;
     [LocalManager queryAllWords:^(NSArray<SJWordInfo *> * _Nullable words) {
-        [SVProgressHUD dismiss];
+        [SJPrompt dismiss];
         __strong typeof(_self) self = _self;
         if ( !self ) return;
         SJWordList *list = [SJWordList listWithTitle:@"全部单词"];

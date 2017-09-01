@@ -130,7 +130,7 @@ static CellID const SJWordsListTableCellID = @"SJWordsListTableCell";
             [LocalManager removedWordFromList:self.list word:word callBlock:^(BOOL result, NSError * _Nullable error) {
                 if ( !result ) {
                     [self.list.words insertObject:word atIndex:index];
-                    [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]];
+                    [SJPrompt showErrorTitle:error.userInfo[@"error"]];
                 }
                 else
                     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

@@ -150,7 +150,7 @@ static CellID const SJReciteWordsCollectionCellID = @"SJReciteWordsCollectionCel
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SJListManageTableCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if ( 0 == cell.list.words.count ) {
-        [SVProgressHUD showErrorWithStatus:@"词单没有单词"];
+        [SJPrompt showErrorTitle:@"词单没有单词"];
         return;
     }
     [cell scaleAnimation];

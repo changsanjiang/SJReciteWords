@@ -17,13 +17,13 @@
 
 #import "SJDataServer.h"
 
-#import <SVProgressHUD.h>
-
 #import "SJAudioPlayerServer.h"
 
 #import "UIColor+Extension.h"
 
 #import "SJLocalDataManager.h"
+
+#import "SJPrompt.h"
 
 typedef NSString * CellID;
 

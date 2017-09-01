@@ -145,17 +145,17 @@
         __strong typeof(_self) self = _self;
         if ( !self ) return;
         if ( nil == self.wordInfoView.wordInfo ) return;
-        [SVProgressHUD show];
+        [SJPrompt show];
         [LocalManager addWordsToList:list word:self.wordInfoView.wordInfo callBlock:^(BOOL result, NSError * _Nullable error) {
             if ( result ) {
                 // Proper dela
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [SVProgressHUD showSuccessWithStatus:@"添加成功"];
+                    [SJPrompt showSuccessTitle:@"添加成功"];
                     [weakVC dismissViewControllerAnimated:YES completion:nil];
                 });
                 return ;
             }
-            [SVProgressHUD showErrorWithStatus:error.userInfo[@"error"]];
+            [SJPrompt showErrorTitle:error.userInfo[@"error"]];
         }];
     };
     
