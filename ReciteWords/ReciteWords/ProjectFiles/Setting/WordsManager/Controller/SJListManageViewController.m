@@ -170,7 +170,7 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     SJWordList *list = [cell valueForKey:@"list"];
     if ( 0 == list.words.count ) {
-        
+        [SJPrompt showErrorTitle:@"词单没有单词"];
         return;
     }
     SJWordsListViewController *vc = [[SJWordsListViewController alloc] initWithList:list];
