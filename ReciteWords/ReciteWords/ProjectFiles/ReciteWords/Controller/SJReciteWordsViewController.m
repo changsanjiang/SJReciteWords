@@ -18,6 +18,7 @@
 
 #import "SJReciteWordsCollectionCell.h"
 
+#import "SJReciteWordsToolView.h"
 
 static CellID const SJListManageTableCellID = @"SJListManageTableCell";
 static CellID const SJReciteWordsCollectionCellID = @"SJReciteWordsCollectionCell";
@@ -42,12 +43,15 @@ static CellID const SJReciteWordsCollectionCellID = @"SJReciteWordsCollectionCel
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
 @property (nonatomic, strong, readwrite) SJWordList *selectedList;
 
+@property (nonatomic, strong, readonly) SJReciteWordsToolView *toolView;
+
 @end
 
 @implementation SJReciteWordsViewController
 
 @synthesize tableView = _tableView;
 @synthesize collectionView = _collectionView;
+@synthesize toolView = _toolView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -115,6 +119,16 @@ static CellID const SJReciteWordsCollectionCellID = @"SJReciteWordsCollectionCel
         make.center.offset(0);
         make.height.offset(SJ_H * 0.48);
     }];
+    
+    
+    [self.view addSubview:self.toolView];
+    [_toolView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.offset(0);
+        make.bottom.offset(-20);
+        make.height.offset(44);
+    }];
+    
+    _toolView.alpha = 0.001;
 }
 
 - (SJBaseTableView *)tableView {
@@ -141,6 +155,11 @@ static CellID const SJReciteWordsCollectionCellID = @"SJReciteWordsCollectionCel
     return _collectionView;
 }
 
+- (SJReciteWordsToolView *)toolView {
+    if ( _toolView ) return _toolView;
+    _toolView = [SJReciteWordsToolView new];
+    return _toolView;
+}
 @end
 
 
@@ -159,6 +178,7 @@ static CellID const SJReciteWordsCollectionCellID = @"SJReciteWordsCollectionCel
             tableView.alpha = 0.001;
             tableView.transform = CGAffineTransformMakeScale(1.2, 1.2);
             self.view.backgroundColor = SJ_Theme_C;
+            self.toolView.alpha = 1;
         } completion:^(BOOL finished) {
             [tableView removeFromSuperview];
             self.selectedList = cell.list;
