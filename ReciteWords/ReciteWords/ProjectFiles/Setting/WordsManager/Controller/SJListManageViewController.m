@@ -63,8 +63,8 @@ static CellID const SJListManageTableCellID = @"SJListManageTableCell";
     [LocalManager queryLocalLists:^(NSArray<SJWordList *> * _Nullable lists) {
         __strong typeof(_self) self = _self;
         if ( !self ) return;
-        self.listsM = lists.mutableCopy;
-        if ( 0 == self.listsM.count ) {
+        self.listsM = lists ? lists.mutableCopy : [NSMutableArray new];
+        if ( 0 == lists.count ) {
             [self _SJListManageViewController_MoveTheCreateListBtnToCenter];
             return;
         }

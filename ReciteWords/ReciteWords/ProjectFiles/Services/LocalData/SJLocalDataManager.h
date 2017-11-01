@@ -99,6 +99,8 @@ extern NSErrorDomain const SJWaringErrorDomain;
  */
 - (void)queryAllWords:(void(^)(NSArray<SJWordInfo *> * __nullable words))block;
 
+- (void)queryListWithListId:(NSInteger)listId completionBlock:(void(^)(SJWordList *list))block;
+
 @end
 
 

@@ -14,10 +14,18 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - Masonry (1.0.2)
+  - Masonry (1.1.0)
   - SJBorderLineView (0.0.3)
-  - SJDBMap (1.0.21)
-  - SVProgressHUD (2.1.2)
+  - SJDBMap (1.1.7):
+    - SJDBMap/DatabaseMapping (= 1.1.7)
+    - SJDBMap/Model (= 1.1.7)
+    - SJDBMap/Protocol (= 1.1.7)
+  - SJDBMap/DatabaseMapping (1.1.7):
+    - SJDBMap/Model
+  - SJDBMap/Model (1.1.7):
+    - SJDBMap/Protocol
+  - SJDBMap/Protocol (1.1.7)
+  - SVProgressHUD (2.2.2)
 
 DEPENDENCIES:
   - AFNetworking
@@ -28,11 +36,11 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SJBorderLineView: 791d0ba12a8dd7be28b898e0c60b9e07b7f5c62f
-  SJDBMap: 0470b007c3e31a32e935f6bc3bdacb67d4a7b16f
-  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  SJDBMap: 198789a38908a87a1f22fa9ce0c37dda5aa64ef0
+  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
 
 PODFILE CHECKSUM: 9c72f90a7779959f1cce7e59e59e51cdbce75162
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.3.1

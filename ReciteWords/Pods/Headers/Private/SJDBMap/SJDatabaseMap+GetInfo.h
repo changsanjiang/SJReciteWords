@@ -1,1 +1,1 @@
-../../../SJDBMap/SJDBMap/Category/SJDatabaseMap+GetInfo.h
+../../../SJDBMap/SJDBMap/DatabaseMapping/SJDatabaseMap+GetInfo.h

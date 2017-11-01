@@ -7,18 +7,7 @@
 //
 
 #import "SJDBMapArrayCorrespondingKeysModel.h"
-#import "SJDBMap.h"
-//#import <YYKit.h>
 
 @implementation SJDBMapArrayCorrespondingKeysModel
 
-+ (NSString *)autoincrementPrimaryKey {
-    return @"aCKMID";
-}
-
-//// MARK: YYKit
-//
-//- (NSString *)description {
-//    return [self modelDescription];
-//}
 @end

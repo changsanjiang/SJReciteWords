@@ -78,6 +78,19 @@ static CellID const SJReciteWordsCollectionCellID = @"SJReciteWordsCollectionCel
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ( _selectedList ) {
+        __weak typeof(self) _self = self;
+        [LocalManager queryListWithListId:_selectedList.listId completionBlock:^(SJWordList * _Nonnull list) {
+            __strong typeof(_self) self = _self;
+            if ( !self ) return ;
+            self.selectedList = list;
+            [self.collectionView reloadData];
+        }];
+    }
+}
+
 - (void)updateTableViewHeight {
     CGFloat height = self.lists.count * 44 * SJ_Rate;
     height += 44 * SJ_Rate;

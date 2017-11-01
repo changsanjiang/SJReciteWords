@@ -237,6 +237,12 @@ static inline void sjExeSingleObjBlock(void(^ targetBlock)(id obj), id obj) {
     }];
 }
 
+- (void)queryListWithListId:(NSInteger)listId completionBlock:(void(^)(SJWordList *list))block {
+    [[SJDatabaseMap sharedServer] queryDataWithClass:[SJWordList class] primaryValue:listId completeCallBlock:^(id<SJDBMapUseProtocol>  _Nullable model) {
+        if ( block ) block(model);
+    }];
+}
+
 @end
 
 

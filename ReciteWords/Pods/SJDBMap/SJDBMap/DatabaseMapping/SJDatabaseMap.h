@@ -56,6 +56,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SJDatabaseMap (InsertOrUpdate)
 
+
+// MARK: ---------------------------------------------------------
+/*!
+ *  数据库依据模型来存储. 所以在存储之前, 请将模型更新到最新状态, 再进行存储.
+ */
+// MARK: ---------------------------------------------------------
+
+
 /*!
  *  插入数据或更新数据
  *  如果没有表, 会自动创建表
@@ -68,13 +76,16 @@ NS_ASSUME_NONNULL_BEGIN
  *  批量插入或更新
  *  如果没有表, 会自动创建表
  *  数组中的模型, 可以不同
- *  如果是模型具有自增主键, 将会随机插入.
+ *
+ *  如果模型具有自增主键, 将会随机插入.
  */
 - (void)insertOrUpdateDataWithModels:(NSArray<id<SJDBMapUseProtocol>> *)models callBlock:(void (^ __nullable)(BOOL result))block;
 
 /*!
  *  更新指定的属性
  *  如果数据库没有这个模型, 将不会保存
+ 
+ *  property:@[@"name", @"age"]
  */
 - (void)update:(id<SJDBMapUseProtocol>)model property:(NSArray<NSString *> *)fields callBlock:(void (^ __nullable)(BOOL result))block;
 
@@ -83,16 +94,17 @@ NS_ASSUME_NONNULL_BEGIN
  *  如果数据库没有这个模型, 将不会保存
  *
  *  insertedOrUpdatedValues : key 更新的这个模型对应的属性. value 属性 更新/新增 的模型, 可以是数组, 也可以是单个模型
+ *  更新之前, 请将模型赋值为最新状态.
+ *  @{@"tags":@[newTag1, newTag2], @"age":@(newAge)}
  */
-- (void)update:(id<SJDBMapUseProtocol>)model insertedOrUpdatedValues:(NSDictionary<NSString *, id> * __nullable)insertedOrUpdatedValues callBlock:(void (^)(BOOL))block;
+- (void)update:(id<SJDBMapUseProtocol>)model insertedOrUpdatedValues:(NSDictionary<NSString *, id> * __nullable)insertedOrUpdatedValues callBlock:(void (^ __nullable)(BOOL result))block;
 
 /*!
  *  此接口针对数组字段使用.
  *  如果数据库没有这个模型, 将不会保存
  *
- *  deletedValues : key 更新的这个模型对应的属性(字段为数组). value 数组中删除掉的模型.
  */
-- (void)updateTheDeletedValuesInTheModel:(id<SJDBMapUseProtocol>)model callBlock:(void (^)(BOOL))block;
+- (void)updateTheDeletedValuesInTheModel:(id<SJDBMapUseProtocol>)model callBlock:(void (^)(BOOL result))block;
 
 @end
 
@@ -101,6 +113,13 @@ NS_ASSUME_NONNULL_BEGIN
 // MARK: Delete
 
 @interface SJDatabaseMap (Delete)
+
+// MARK: ---------------------------------------------------------
+/*!
+ *  只会删除这个类(表)的数据, 相关联的类(表)的数据不会删除.
+ */
+// MARK: ---------------------------------------------------------
+
 
 /*!
  *  删
@@ -119,6 +138,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  删
  */
 - (void)deleteDataWithModels:(NSArray<id<SJDBMapUseProtocol>> *)models callBlock:(void (^ __nullable)(BOOL result))block;
+
+/*!
+ *  删除表
+ */
+- (void)deleteDataWithClass:(Class)cls callBlock:(void (^ __nullable)(BOOL r))block;
 
 @end
 
@@ -141,11 +165,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)queryDataWithClass:(Class)cls primaryValue:(NSInteger)primaryValue completeCallBlock:(void (^ __nullable)(id<SJDBMapUseProtocol> _Nullable model))block;
 
 /*!
+ *  查, 实时获取
+ */
+- (id<SJDBMapUseProtocol>)queryDataWithClass:(Class)cls primaryValue:(NSInteger)primaryValue;
+
+/*!
  *  查
  *  queryDict ->  key : property
  */
 - (void)queryDataWithClass:(Class)cls queryDict:(NSDictionary *)dict completeCallBlock:(void (^ __nullable)(NSArray<id<SJDBMapUseProtocol>> * _Nullable data))block;
 
+/*!
+ *  查询指定区间数据
+ */
+- (void)queryDataWithClass:(Class)cls range:(NSRange)range completeCallBlock:(void(^ __nullable)(NSArray<id<SJDBMapUseProtocol>> * _Nullable data))block;
 
 /*!
  *  模糊查询

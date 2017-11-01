@@ -1,1 +1,1 @@
-../../../SJDBMap/SJDBMap/SJDBMapUseProtocol.h
+../../../SJDBMap/SJDBMap/Protocol/SJDBMapUseProtocol.h

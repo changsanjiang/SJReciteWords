@@ -1,1 +1,1 @@
-../../../SJDBMap/SJDBMap/SJDatabaseMap.h
+../../../SJDBMap/SJDBMap/DatabaseMapping/SJDatabaseMap.h

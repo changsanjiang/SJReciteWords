@@ -7,16 +7,15 @@
 //
 
 #import "SJDatabaseMap+GetInfo.h"
-
+#import "SJDBMapUseProtocol.h"
 #import <objc/message.h>
 
-#import "SJDatabaseMap+Server.h"
+#import "SJDatabaseMap+RealTime.h"
 #import "SJDBMapUnderstandingModel.h"
 #import "SJDBMapPrimaryKeyModel.h"
 #import "SJDBMapAutoincrementPrimaryKeyModel.h"
 #import "SJDBMapCorrespondingKeyModel.h"
 #import "SJDBMapArrayCorrespondingKeysModel.h"
-
 
 
 @implementation SJDatabaseMap (GetInfo)
@@ -207,10 +206,9 @@
         if ( !appendValue ) {
             [sqlM appendFormat:@"%@,", appendValue];
         }
-        else if ( [appendValue isKindOfClass:[NSString class]] && [(NSString *)appendValue containsString:@"'"] )
-            [sqlM appendFormat:@"\"%@\",", appendValue];
-        else
-            [sqlM appendFormat:@"'%@',", appendValue];
+        else {
+            [sqlM appendFormat:@"'%@',", [self filterValue:appendValue]];
+        }
     }];
     
     [sqlM deleteCharactersInRange:NSMakeRange(sqlM.length - 1, 1)];
@@ -238,9 +236,7 @@
     NSMutableString *sqlM = [NSMutableString stringWithFormat:@"UPDATE %@ SET ", [model class]];
     [fields enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         id value = [(id)model valueForKey:obj];
-        if ( [value isKindOfClass:[NSString class]] && [(NSString *)value containsString:@"'"] )
-             [sqlM appendFormat:@"%@ = \"%@\",", obj, value];
-        else [sqlM appendFormat:@"%@ = '%@',", obj, value];
+        [sqlM appendFormat:@"%@ = '%@',", obj, [self filterValue:value]];
     }];
     [sqlM deleteCharactersInRange:NSMakeRange(sqlM.length - 1, 1)];
     
@@ -461,45 +457,28 @@
 }
 
 /*!
- *  获取自增键最后一个ID. 根据ID排序, 获取最后一条数据的ID
- */
-- (NSNumber *)sjGetLastDataIDWithClass:(Class)cls autoincrementPrimaryKeyModel:(SJDBMapAutoincrementPrimaryKeyModel *)aPKM {
-    NSString *sql = [NSString stringWithFormat:@"SELECT %@ FROM %s ORDER by %@ desc limit 1;", aPKM.ownerFields, [self sjGetTabName:cls], aPKM.ownerFields];
-    NSDictionary *dict = [self sjQueryWithSQLStr:sql].firstObject;
-    if ( !dict && !dict.count ) return nil;
-    NSString *fields = [self sjGetAutoPrimaryFields:cls];
-    if ( 0 == fields.length ) return nil;
-    return dict[fields];
-}
-
-/*!
  *  {"PersonTag":[0,1,2]}
  *  {"Goods":[13,14]}
  */
 - (NSString *)sjGetArrModelPrimaryValues:(NSArray<id<SJDBMapUseProtocol>> *)cValues {
     if ( 0 == cValues.count ) return nil;
     NSMutableArray *primaryKeyValuesM = [NSMutableArray new];
-    SJDBMapPrimaryKeyModel *pM = [self sjGetPrimaryKey:[cValues[0] class]];
-    SJDBMapAutoincrementPrimaryKeyModel *aPM = [self sjGetAutoincrementPrimaryKey:[cValues[0] class]];
-    NSAssert((pM || aPM), @"[%@] 该类没有设置主键或自增主键.", [cValues[0] class]);
+    SJDBMapPrimaryKeyModel *pk = [self sjGetPrimaryKey:[cValues[0] class]];
+    SJDBMapAutoincrementPrimaryKeyModel *apk = [self sjGetAutoincrementPrimaryKey:[cValues[0] class]];
+    NSAssert((pk || apk), @"[%@] 该类没有设置主键或自增主键.", [cValues[0] class]);
     [cValues enumerateObjectsUsingBlock:^(id  _Nonnull value, NSUInteger idx, BOOL * _Nonnull stop) {
         /*!
          *  如果是主键
          */
-        if ( pM ) [primaryKeyValuesM addObject:[value valueForKey:pM.ownerFields]];
+        if ( pk ) [primaryKeyValuesM addObject:[value valueForKey:pk.ownerFields]];
         /*!
          *  如果是自增主键
-         *  主键有值就更新, 没值就插入
          */
-        if ( !aPM ) return ;
-        __block id aPKV = [value valueForKey:aPM.ownerFields];
-        if ( 0 != [aPKV integerValue] )
-            [primaryKeyValuesM addObject:[value valueForKey:aPM.ownerFields]];
-        else {
-            SJDBMapUnderstandingModel *uM = [self sjGetUnderstandingWithClass:[value class]];
-            [self sjInsertOrUpdateDataWithModel:value uM:uM];
-            [primaryKeyValuesM addObject:[value valueForKey:aPM.ownerFields]];
-        }
+        if ( !apk ) return ;
+        NSInteger apkValue = [[value valueForKey:apk.ownerFields] integerValue];
+        // 自增主键, 数据库从 1 开始, 如果为 0, 可能此模型摸未存储到数据库.
+        NSAssert(apkValue, @"[%@] 自增主键为0, 可能该对象未存储到数据库. 无法继续操作", value);
+        [primaryKeyValuesM addObject:@(apkValue)];
     }];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:@{NSStringFromClass([cValues[0] class]) : primaryKeyValuesM} options:0 error:nil];
